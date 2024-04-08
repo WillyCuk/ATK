@@ -1,14 +1,43 @@
 import 'package:atk/pages/dashboard.dart';
 import 'package:atk/pages/fpassword.dart';
 import 'package:atk/pages/register.dart';
+import 'package:atk/providers/user.dart';
 import 'package:atk/utils/MyButton.dart';
 import 'package:atk/utils/logo.dart';
 import 'package:atk/utils/mytextfield.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 
-class LoginPage extends StatelessWidget {
+class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
+
+  @override
+  State<LoginPage> createState() => _LoginPageState();
+}
+
+class _LoginPageState extends State<LoginPage> {
+  void onLogin(BuildContext context) {
+    final user = context.read<User>();
+    final userControllerText = userController.text;
+    final passControllerText = passController.text;
+    user.login(user: userControllerText, pwd: passControllerText);
+    if (user.isLogin) {
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => DashboardPage()));
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Invalid username or password'),
+          duration: Duration(seconds: 1),
+        ),
+      );
+      return; // Return to avoid further execution
+    }
+  }
+
+  TextEditingController userController = TextEditingController();
+  TextEditingController passController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -16,19 +45,10 @@ class LoginPage extends StatelessWidget {
       resizeToAvoidBottomInset: false,
       body: Center(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.start,
           children: [
+            SizedBox(height: MediaQuery.of(context).size.width * .25),
             const MyLogo(),
-            Text(
-              "Aplikasi Pendataan",
-              style: GoogleFonts.poppins(
-                  fontWeight: FontWeight.bold, fontSize: 26),
-            ),
-            Text(
-              "Alat Tulis Kantor",
-              style: GoogleFonts.poppins(
-                  fontWeight: FontWeight.bold, fontSize: 26),
-            ),
             const Padding(
               padding: EdgeInsets.symmetric(horizontal: 70.0, vertical: 15.0),
               child: Divider(
@@ -48,11 +68,13 @@ class LoginPage extends StatelessWidget {
                 color: Color.fromARGB(255, 5, 44, 96),
               ),
             ),
-            const MyTextField(text: "Email"),
+            MyTextField(
+                text: "Email", controller: userController, obscure: false),
             const SizedBox(height: 20),
-            const MyTextField(text: "Password"),
+            MyTextField(
+                text: "Password", controller: passController, obscure: true),
             const SizedBox(height: 20),
-            MyButton(text: "LOGIN", route: DashboardPage()),
+            MyButton(text: "LOGIN", onLogin: () => onLogin(context)),
             Padding(
               padding: EdgeInsets.symmetric(
                   horizontal: MediaQuery.of(context).size.width * 0.12,
@@ -70,10 +92,10 @@ class LoginPage extends StatelessWidget {
                   ),
                   InkWell(
                     onTap: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const RegisterPage()));
+                      // Navigator.push(
+                      //     context,
+                      //     MaterialPageRoute(
+                      //         builder: (context) => const RegisterPage()));
                     },
                     child: Text(
                       "Register",
@@ -89,10 +111,10 @@ class LoginPage extends StatelessWidget {
             ),
             InkWell(
               onTap: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const ForgotPage()));
+                // Navigator.push(
+                //     context,
+                //     MaterialPageRoute(
+                //         builder: (context) => const ForgotPage()));
               },
               child: Text(
                 "Forgot Password ?",

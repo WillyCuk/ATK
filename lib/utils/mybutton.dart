@@ -3,19 +3,14 @@ import 'package:google_fonts/google_fonts.dart';
 
 class MyButton extends StatelessWidget {
   final String text;
-  final Widget route;
+  final void Function()? onLogin;
 
-  const MyButton({super.key, required this.text, required this.route});
+  const MyButton({super.key, required this.text, required this.onLogin});
 
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
-      onPressed: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => route),
-        );
-      },
+      onPressed: onLogin,
       style: ElevatedButton.styleFrom(
           backgroundColor: const Color.fromARGB(255, 5, 44, 96),
           elevation: 0,

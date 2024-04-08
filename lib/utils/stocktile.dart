@@ -2,11 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class StockTile extends StatelessWidget {
-  final String name;
-  final String merk;
+  final String itemName;
+  final String itemCode;
   final String qty;
   const StockTile(
-      {super.key, required this.name, required this.merk, required this.qty});
+      {super.key,
+      required this.itemName,
+      required this.itemCode,
+      required this.qty});
 
   @override
   Widget build(BuildContext context) {
@@ -24,12 +27,12 @@ class StockTile extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                name,
+                itemName,
                 style: GoogleFonts.poppins(),
               ),
               const SizedBox(height: 8),
               Text(
-                merk,
+                itemCode,
                 style: GoogleFonts.poppins(color: Colors.grey),
               )
             ],

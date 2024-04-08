@@ -7,7 +7,6 @@ import 'package:atk/pages/menu/retrieve.dart';
 import 'package:atk/pages/menu/stockitem.dart';
 import 'package:atk/utils/logo.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
@@ -17,11 +16,11 @@ class DashboardPage extends StatelessWidget {
   final List menu = [
     ["Stock Item", "assets/receive.png", StockItem()],
     ["Add Item", "assets/plus.png", AddItem()],
-    ["Approved Item", "assets/check.png", ApprovedItem()],
-    ["Retrieve Item", "assets/download.png", RetrieveItem()],
-    ["Item Details", "assets/file.png", ItemDetails()],
-    ["Item Reports", "assets/report.png", ItemReports()],
-    ["Item Requests", "assets/shopping-list.png", ItemRequest()],
+    ["Approved Item", "assets/check.png", const ApprovedItem()],
+    ["Retrieve Item", "assets/download.png", const RetrieveItem()],
+    ["Item Details", "assets/file.png", const ItemDetails()],
+    ["Item Reports", "assets/report.png", const ItemReports()],
+    ["Item Requests", "assets/shopping-list.png", const ItemRequest()],
   ];
 
   @override
