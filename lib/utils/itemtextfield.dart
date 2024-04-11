@@ -3,7 +3,9 @@ import 'package:google_fonts/google_fonts.dart';
 
 class ItemTextField extends StatelessWidget {
   final String text;
-  const ItemTextField({super.key, required this.text});
+  final TextEditingController controller;
+  const ItemTextField(
+      {super.key, required this.text, required this.controller});
 
   @override
   Widget build(BuildContext context) {
@@ -15,6 +17,7 @@ class ItemTextField extends StatelessWidget {
           style: GoogleFonts.quicksand(fontSize: 14, color: Colors.blueGrey),
         ),
         TextField(
+          controller: controller,
           decoration: InputDecoration(
               enabledBorder: UnderlineInputBorder(
                   borderRadius: BorderRadius.circular(0),

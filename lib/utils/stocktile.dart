@@ -14,7 +14,7 @@ class StockTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.only(bottom: 25.0),
+      margin: const EdgeInsets.only(bottom: 20.0),
       padding: const EdgeInsets.only(bottom: 9.0),
       decoration: const BoxDecoration(
           border: Border(
@@ -28,12 +28,15 @@ class StockTile extends StatelessWidget {
             children: [
               Text(
                 itemName,
-                style: GoogleFonts.poppins(),
+                style: GoogleFonts.poppins(fontSize: 17),
               ),
-              const SizedBox(height: 8),
+              const SizedBox(height: 5),
               Text(
                 itemCode,
-                style: GoogleFonts.poppins(color: Colors.grey),
+                style: GoogleFonts.poppins(
+                    color: Colors.grey,
+                    fontWeight: FontWeight.w200,
+                    fontSize: 15),
               )
             ],
           ),

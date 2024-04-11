@@ -1,11 +1,9 @@
-import 'package:atk/pages/dashboard.dart';
-import 'package:atk/pages/fpassword.dart';
-import 'package:atk/pages/register.dart';
 import 'package:atk/providers/user.dart';
 import 'package:atk/utils/MyButton.dart';
 import 'package:atk/utils/logo.dart';
 import 'package:atk/utils/mytextfield.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
@@ -23,8 +21,7 @@ class _LoginPageState extends State<LoginPage> {
     final passControllerText = passController.text;
     user.login(user: userControllerText, pwd: passControllerText);
     if (user.isLogin) {
-      Navigator.push(
-          context, MaterialPageRoute(builder: (context) => DashboardPage()));
+      context.goNamed('dashboard-admin');
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
@@ -47,7 +44,7 @@ class _LoginPageState extends State<LoginPage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            SizedBox(height: MediaQuery.of(context).size.width * .25),
+            SizedBox(height: MediaQuery.of(context).size.height * .1),
             const MyLogo(),
             const Padding(
               padding: EdgeInsets.symmetric(horizontal: 70.0, vertical: 15.0),
@@ -74,7 +71,7 @@ class _LoginPageState extends State<LoginPage> {
             MyTextField(
                 text: "Password", controller: passController, obscure: true),
             const SizedBox(height: 20),
-            MyButton(text: "LOGIN", onLogin: () => onLogin(context)),
+            MyButton(text: "LOGIN", onPressed: () => onLogin(context)),
             Padding(
               padding: EdgeInsets.symmetric(
                   horizontal: MediaQuery.of(context).size.width * 0.12,

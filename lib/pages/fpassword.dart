@@ -17,7 +17,7 @@
 //         child: Column(
 //           mainAxisAlignment: MainAxisAlignment.start,
 //           children: [
-//             SizedBox(height: MediaQuery.of(context).size.width * .25),
+// SizedBox(height: MediaQuery.of(context).size.height * .1),
 //             const MyLogo(),
 //             const Padding(
 //               padding: EdgeInsets.symmetric(horizontal: 70.0, vertical: 15.0),
