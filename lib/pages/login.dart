@@ -87,12 +87,9 @@ class _LoginPageState extends State<LoginPage> {
                         fontSize: 20,
                         color: Colors.black),
                   ),
-                  InkWell(
+                  GestureDetector(
                     onTap: () {
-                      // Navigator.push(
-                      //     context,
-                      //     MaterialPageRoute(
-                      //         builder: (context) => const RegisterPage()));
+                      context.pushNamed("register");
                     },
                     child: Text(
                       "Register",
@@ -106,12 +103,9 @@ class _LoginPageState extends State<LoginPage> {
                 ],
               ),
             ),
-            InkWell(
+            GestureDetector(
               onTap: () {
-                // Navigator.push(
-                //     context,
-                //     MaterialPageRoute(
-                //         builder: (context) => const ForgotPage()));
+                context.pushNamed("forgot-password");
               },
               child: Text(
                 "Forgot Password ?",

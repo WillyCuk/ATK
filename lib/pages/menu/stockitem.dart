@@ -8,24 +8,6 @@ import 'package:provider/provider.dart';
 class StockItemUser extends StatelessWidget {
   const StockItemUser({super.key});
 
-  // final List item = [
-  //   ["Pulpen", "Boldliner", "100 Pcs"],
-  //   ["Kertas A4", "Bola Dunia", "100 Rim"],
-  //   ["Kertas F4", "Bola Dunia", "100 Rim"],
-  //   ["Kertas F4", "Bola Dunia", "100 Rim"],
-  //   ["Kertas F4", "Bola Dunia", "100 Rim"],
-  //   ["Kertas F4", "Bola Dunia", "100 Rim"],
-  //   ["Kertas F4", "Bola Dunia", "100 Rim"],
-  //   ["Kertas F4", "Bola Dunia", "100 Rim"],
-  //   ["Kertas F4", "Bola Dunia", "100 Rim"],
-  //   ["Kertas F4", "Bola Dunia", "100 Rim"],
-  //   ["Kertas F4", "Bola Dunia", "100 Rim"],
-  //   ["Kertas F4", "Bola Dunia", "100 Rim"],
-  //   ["Kertas F4", "Bola Dunia", "100 Rim"],
-  //   ["Kertas F4", "Bola Dunia", "100 Rim"],
-  //   ["Kertas F4", "Bola Dunia", "100 Rim"],
-  // ];
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -47,10 +29,19 @@ class StockItemUser extends StatelessWidget {
           padding: const EdgeInsets.symmetric(vertical: 20.0, horizontal: 30.0),
           child: ListView.builder(
               itemCount: context.watch<ItemList>().items.length,
-              itemBuilder: (context, index) => StockTile(
-                  itemName: context.watch<ItemList>().items[index][0],
-                  itemCode: context.watch<ItemList>().items[index][1],
-                  qty: context.watch<ItemList>().items[index][2]))),
+              itemBuilder: (context, index) => GestureDetector(
+                    onTap: () {
+                      debugPrint(index.toString());
+                      context.push("/item_details_user/$index");
+                    },
+                    child: StockTile(
+                        itemName: context.watch<ItemList>().items[index][0],
+                        itemCode: context.watch<ItemList>().items[index][1],
+                        qty: context
+                            .watch<ItemList>()
+                            .items[index][2]
+                            .toString()),
+                  ))),
     );
   }
 }
@@ -86,13 +77,20 @@ class StockItemAdmin extends StatelessWidget {
         child: const Icon(Icons.add),
       ),
       body: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 20.0, horizontal: 30.0),
-          child: ListView.builder(
-              itemCount: context.watch<ItemList>().items.length,
-              itemBuilder: (context, index) => StockTile(
-                  itemName: context.watch<ItemList>().items[index][0],
-                  itemCode: context.watch<ItemList>().items[index][1],
-                  qty: context.watch<ItemList>().items[index][2].toString()))),
+        padding: const EdgeInsets.symmetric(vertical: 20.0, horizontal: 30.0),
+        child: ListView.builder(
+          itemCount: context.watch<ItemList>().items.length,
+          itemBuilder: (context, index) => GestureDetector(
+            onTap: () {
+              context.push("/item_details_admin/$index");
+            },
+            child: StockTile(
+                itemName: context.watch<ItemList>().items[index][1],
+                itemCode: context.watch<ItemList>().items[index][2],
+                qty: context.watch<ItemList>().items[index][3].toString()),
+          ),
+        ),
+      ),
     );
   }
 }

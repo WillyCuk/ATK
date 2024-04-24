@@ -5,7 +5,7 @@ class MyLogo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       height: MediaQuery.of(context).size.height * .25,
       child: Image.asset(
         "assets/logo.jpg",

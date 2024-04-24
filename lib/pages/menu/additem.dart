@@ -1,10 +1,12 @@
+import 'dart:io';
 import 'package:atk/providers/itemlist.dart';
 import 'package:atk/utils/itemtextfield.dart';
-import 'package:atk/utils/mybutton.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
+
+import '../../utils/mypagebutton.dart';
 
 class AddItem extends StatefulWidget {
   const AddItem({super.key});
@@ -14,14 +16,81 @@ class AddItem extends StatefulWidget {
 }
 
 class _AddItemState extends State<AddItem> {
-  TextEditingController _itemNameController = TextEditingController();
-  TextEditingController _itemBrandController = TextEditingController();
-  TextEditingController _itemTypeController = TextEditingController();
-  TextEditingController _itemDescController = TextEditingController();
-  TextEditingController _itemQtyController = TextEditingController();
+  void myAlert() {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+            title: Text(
+              'Please choose media to upload',
+              style: GoogleFonts.quicksand(),
+            ),
+            content: SizedBox(
+              height: MediaQuery.of(context).size.height * .13,
+              child: Column(
+                children: [
+                  ElevatedButton(
+                    //if user click this button, user can upload image from gallery
+                    onPressed: () {
+                      Navigator.pop(context);
+                      getImage(ImageSource.gallery);
+                    },
+                    child: Row(
+                      children: [
+                        const Icon(Icons.image),
+                        Text(
+                          'From Gallery',
+                          style: GoogleFonts.quicksand(),
+                        ),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(height: 20),
+                  ElevatedButton(
+                    //if user click this button. user can upload image from camera
+                    onPressed: () {
+                      Navigator.pop(context);
+                      getImage(ImageSource.camera);
+                    },
+                    child: Row(
+                      children: [
+                        const Icon(Icons.camera),
+                        Text(
+                          'From Camera',
+                          style: GoogleFonts.quicksand(),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          );
+        });
+  }
 
-  String _dropDownValue = "1";
-  var _items = ['1', 'Pcs', 'Rim'];
+  XFile? image;
+
+  final ImagePicker picker = ImagePicker();
+
+  Future getImage(ImageSource media) async {
+    var img = await picker.pickImage(source: media);
+
+    setState(() {
+      image = img;
+    });
+  }
+
+  final TextEditingController _itemNameController = TextEditingController();
+  final TextEditingController _itemBrandController = TextEditingController();
+  final TextEditingController _itemTypeController = TextEditingController();
+  final TextEditingController _itemDescController = TextEditingController();
+  final TextEditingController _itemQtyController = TextEditingController();
+
+  // String _dropDownValue = "1";
+  // var _items = ['1', 'Pcs', 'Rim'];
 
   @override
   Widget build(BuildContext context) {
@@ -57,22 +126,64 @@ class _AddItemState extends State<AddItem> {
             const SizedBox(height: 25),
             ItemTextField(
                 text: "Item Quantity", controller: _itemQtyController),
-            const SizedBox(height: 25),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 25.0),
-              child: MyButton(text: "Upload Image", onPressed: () {}),
+            const SizedBox(height: 15),
+            Center(
+              child: MyPageButton(
+                  width: MediaQuery.of(context).size.width * .7,
+                  height: 50,
+                  text: "UPLOAD IMAGE",
+                  onPressed: () {
+                    myAlert();
+                  }),
             ),
-            const SizedBox(height: 25),
-            MyButton(
-                text: "CONFIRM",
-                onPressed: () {
-                  context.read<ItemList>().addItem(
-                      itemName: _itemNameController.text,
-                      itemBrand: _itemBrandController.text,
-                      itemType: _itemTypeController.text,
-                      itemDesc: _itemDescController.text,
-                      itemQty: _itemQtyController.text);
-                })
+            const SizedBox(height: 15),
+            image == null
+                ? Container(
+                    decoration: const BoxDecoration(
+                        color: Color.fromRGBO(5, 44, 96, 0.7)),
+                    width: MediaQuery.of(context).size.width * .7,
+                    height: MediaQuery.of(context).size.height * .15,
+                  )
+                : SizedBox(
+                    width: MediaQuery.of(context).size.width * .7,
+                    height: MediaQuery.of(context).size.height * .15,
+                    child: Center(
+                      child: Image.file(
+                        File(image!.path),
+                        fit: BoxFit.fill,
+                      ),
+                    ),
+                  ),
+            const SizedBox(height: 20),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                MyPageButton(
+                    width: MediaQuery.of(context).size.width * .25,
+                    height: 50,
+                    text: "CONFIRM",
+                    onPressed: () {
+                      context.read<ItemList>().addItem(
+                          itemName: _itemNameController.text,
+                          itemBrand: _itemBrandController.text,
+                          itemType: _itemTypeController.text,
+                          itemDesc: _itemDescController.text,
+                          itemQty: int.parse(_itemQtyController.text),
+                          itemImg: image != null
+                              ? image!
+                              : "assets/whitebackground.jpeg");
+                      Navigator.pop(context);
+                    }),
+                const SizedBox(width: 20),
+                MyPageButton(
+                    width: MediaQuery.of(context).size.width * .25,
+                    height: 50,
+                    text: "CANCEL",
+                    onPressed: () {
+                      Navigator.pop(context);
+                    }),
+              ],
+            )
           ],
         )),
       ),

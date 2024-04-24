@@ -35,12 +35,12 @@ class MainPage extends StatelessWidget {
             ),
             MyButton(
               text: "REGISTER",
-              onPressed: () => context.goNamed("login"),
+              onPressed: () => context.pushNamed("register"),
             ),
             const SizedBox(height: 30),
             MyButton(
               text: "LOGIN",
-              onPressed: () => context.goNamed("login"),
+              onPressed: () => context.pushNamed("login"),
             ),
             const Padding(
               padding: EdgeInsets.fromLTRB(70.0, 25.0, 70.0, 45.0),
@@ -49,13 +49,18 @@ class MainPage extends StatelessWidget {
                 color: Color.fromARGB(255, 5, 44, 96),
               ),
             ),
-            Text(
-              "Forgot Password ?",
-              style: GoogleFonts.dmSans(
-                  fontWeight: FontWeight.w400,
-                  fontSize: 18,
-                  color: const Color.fromARGB(255, 0, 74, 173),
-                  letterSpacing: -1),
+            GestureDetector(
+              onTap: () {
+                context.pushNamed("forgot-password");
+              },
+              child: Text(
+                "Forgot Password ?",
+                style: GoogleFonts.dmSans(
+                    fontWeight: FontWeight.w400,
+                    fontSize: 18,
+                    color: const Color.fromARGB(255, 0, 74, 173),
+                    letterSpacing: -1),
+              ),
             )
           ],
         ),
