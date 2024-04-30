@@ -1,110 +1,146 @@
+import "package:atk/pages/menu/admin/approved.dart";
 import "package:atk/pages/error.dart";
 import "package:atk/pages/fpassword.dart";
 import "package:atk/pages/menu/additem.dart";
-import "package:atk/pages/menu/itemrequest.dart";
-import "package:atk/pages/menu/stockitem.dart";
+import "package:atk/pages/menu/admin/orderstatus.dart";
+import "package:atk/pages/menu/user/itemrequest.dart";
+import "package:atk/pages/menu/user/stockitem.dart";
+import "package:atk/pages/menu/admin/rejected.dart";
+import "package:atk/router/routernamed.dart";
 import "package:flutter/material.dart";
 import "package:go_router/go_router.dart";
-import "../pages/dashboard.dart";
+import "../pages/menu/admin/dashboard.dart";
+import "../pages/menu/admin/itemdetail.dart";
+import "../pages/menu/user/approved.dart";
+import "../pages/menu/user/dashboard.dart";
+import "../pages/menu/admin/itemrequests.dart";
 import "../pages/login.dart";
 import "../pages/mainpage.dart";
-import "package:provider/provider.dart";
-import "../pages/menu/itemdetails.dart";
+import "../pages/menu/admin/stockitem.dart";
+import "../pages/menu/user/itemdetail.dart";
+import "../pages/menu/user/rejected.dart";
 import "../pages/register.dart";
-import "../providers/itemlist.dart";
 import "../providers/user.dart";
 
 class MyRouter {
   GoRouter router = GoRouter(
-      initialLocation: "/item_request",
+      initialLocation: "/",
       routes: [
         GoRoute(
           path: "/",
-          name: "main",
+          name: RouterName.mainPageName,
           builder: (context, state) => const MainPage(),
         ),
         GoRoute(
           path: "/login",
-          name: "login",
+          name: RouterName.loginPageName,
           pageBuilder: (context, state) {
             return const MaterialPage(child: LoginPage());
           },
         ),
         GoRoute(
             path: "/register",
-            name: "register",
+            name: RouterName.registerPageName,
             pageBuilder: (context, state) {
               return const MaterialPage(child: RegisterPage());
             }),
         GoRoute(
             path: "/forgot_password",
-            name: "forgot-password",
+            name: RouterName.forgotPassPage,
             pageBuilder: (context, state) {
               return const MaterialPage(child: ForgotPage());
             }),
         GoRoute(
             path: "/dashboard_admin",
-            name: "dashboard-admin",
+            name: RouterName.dashboardAdminPage,
             pageBuilder: (context, state) {
               return MaterialPage(child: DashboardAdminPage());
             }),
         GoRoute(
             path: "/dashboard_user",
-            name: "dashboard-user",
+            name: RouterName.dashboardUserPage,
             pageBuilder: (context, state) {
               return MaterialPage(child: DashboardUserPage());
             }),
         GoRoute(
-            path: "/stock_item_user",
-            name: "stock-item-user",
-            pageBuilder: (context, state) {
-              return const MaterialPage(child: StockItemUser());
-            }),
-        GoRoute(
             path: "/stock_item_admin",
-            name: "stock-item-admin",
+            name: RouterName.stockItemAdminPage,
             pageBuilder: (context, state) {
               return const MaterialPage(child: StockItemAdmin());
             }),
         GoRoute(
+            path: "/stock_item_user",
+            name: RouterName.stockItemUserPage,
+            pageBuilder: (context, state) {
+              return const MaterialPage(child: StockItemUser());
+            }),
+        GoRoute(
             path: "/add_item",
-            name: "add-item",
+            name: RouterName.addItemAdminPage,
             pageBuilder: (context, state) {
               return const MaterialPage(child: AddItem());
             }),
         GoRoute(
-            path: "/item_request",
-            name: "item-request",
+            path: "/item_request_user",
+            name: RouterName.itemRequestsUserPage,
             pageBuilder: (context, state) {
               return const MaterialPage(child: ItemRequest());
             }),
         GoRoute(
+            path: "/approved_order_admin",
+            name: RouterName.approvedOrderAdminPage,
+            pageBuilder: (context, state) {
+              return const MaterialPage(child: AprrovedOrderAdmin());
+            }),
+        GoRoute(
+            path: "/rejected_order_admin",
+            name: RouterName.rejectedOrderAdminPage,
+            pageBuilder: (context, state) {
+              return const MaterialPage(child: RejectedOrderAdmin());
+            }),
+        GoRoute(
+            path: "/order_status_admin",
+            name: RouterName.orderStatusAdminPage,
+            pageBuilder: (context, state) {
+              return const MaterialPage(child: OrderStatusAdmin());
+            }),
+        GoRoute(
+            path: "/approved_order_user",
+            name: RouterName.approvedOrderUserPage,
+            pageBuilder: (context, state) {
+              return const MaterialPage(child: AprrovedOrderUser());
+            }),
+        GoRoute(
+            path: "/rejected_order_user",
+            name: RouterName.rejectedOrderUserPage,
+            pageBuilder: (context, state) {
+              return const MaterialPage(child: RejectedOrderUser());
+            }),
+        GoRoute(
+            path: "/item_request_admin",
+            name: RouterName.itemRequestsAdminPage,
+            pageBuilder: (context, state) {
+              return const MaterialPage(child: ItemRequestAdmin());
+            }),
+        GoRoute(
           path: "/item_details_admin/:index",
-          name: "item-details_admin",
+          name: RouterName.itemDetailAdminPage,
           pageBuilder: (context, state) {
-            final int index =
-                int.tryParse(state.pathParameters['index'] ?? '') ?? -1;
-            final item = context.watch<ItemList>().items[index];
+            final int index = int.parse(state.pathParameters['index']!);
             return MaterialPage(
               child: ItemDetailsAdmin(
-                item: item,
-                index: index,
+                itemIndex: index,
               ),
             );
           },
         ),
         GoRoute(
           path: "/item_details_user/:index",
-          name: "item-details_user",
+          name: RouterName.itemDetailUserPage,
           pageBuilder: (context, state) {
-            debugPrint(state.pathParameters['index'].toString());
-            final int index =
-                int.tryParse(state.pathParameters['index'] ?? '') ?? -1;
-            final item = context.watch<ItemList>().items[index];
+            final int index = int.parse(state.pathParameters['index']!);
             return MaterialPage(
-              child: ItemDetailsUser(
-                item: item,
-              ),
+              child: ItemDetailsUser(itemIndex: index),
             );
           },
         ),

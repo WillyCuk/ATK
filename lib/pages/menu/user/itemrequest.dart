@@ -6,8 +6,9 @@ import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import "package:intl/intl.dart";
 import 'package:provider/provider.dart';
-import '../../providers/itemlist.dart';
-import '../../providers/user.dart';
+import '../../../Colors/colors.dart';
+import '../../../providers/itemlist.dart';
+import '../../../providers/user.dart';
 
 class ItemRequest extends StatefulWidget {
   const ItemRequest({super.key});
@@ -30,7 +31,7 @@ class _ItemRequestState extends State<ItemRequest> {
   @override
   Widget build(BuildContext context) {
     DateTime now = DateTime.now();
-    DateFormat date = DateFormat('dd-MM-yyyy');
+    DateFormat date = DateFormat('dd MMMM yyyy');
     List itemList = Provider.of<ItemList>(context).items;
     String brand = itemList[int.parse(_selectedVal)][2].toString();
     String type = itemList[int.parse(_selectedVal)][3].toString();
@@ -42,12 +43,12 @@ class _ItemRequestState extends State<ItemRequest> {
         title: Text(
           "Request Forms",
           style: GoogleFonts.poppins(
-            color: Colors.white,
             fontWeight: FontWeight.bold,
             fontSize: 18,
           ),
         ),
-        backgroundColor: const Color.fromARGB(255, 5, 44, 96),
+        backgroundColor: AppColor.appBarBackground,
+        foregroundColor: AppColor.appBarForeground,
       ),
       body: Padding(
         padding: EdgeInsets.symmetric(
@@ -60,7 +61,7 @@ class _ItemRequestState extends State<ItemRequest> {
             Text(
               "Tanggal Permintaan",
               style: GoogleFonts.poppins(
-                color: Colors.blueGrey,
+                color: AppColor.subtitleText,
                 fontWeight: FontWeight.w400,
                 fontSize: 16,
               ),
@@ -69,17 +70,17 @@ class _ItemRequestState extends State<ItemRequest> {
             Text(
               date.format(now),
               style: GoogleFonts.poppins(
-                color: Colors.blueGrey,
+                color: AppColor.subtitleText,
                 fontWeight: FontWeight.w400,
                 fontSize: 15,
               ),
             ),
-            const Divider(color: Color.fromARGB(255, 5, 44, 96)),
+            Divider(color: AppColor.blueDivider),
             const SizedBox(height: 12),
             Text(
               "Nama Pengguna",
               style: GoogleFonts.poppins(
-                color: Colors.blueGrey,
+                color: AppColor.subtitleText,
                 fontWeight: FontWeight.w400,
                 fontSize: 16,
               ),
@@ -87,12 +88,12 @@ class _ItemRequestState extends State<ItemRequest> {
             Text(
               user,
               style: GoogleFonts.poppins(
-                color: Colors.blueGrey,
+                color: AppColor.subtitleText,
                 fontWeight: FontWeight.w400,
                 fontSize: 15,
               ),
             ),
-            const Divider(color: Color.fromARGB(255, 5, 44, 96)),
+            Divider(color: AppColor.blueDivider),
             const SizedBox(height: 20),
             itemRequest.isNotEmpty
                 ? SizedBox(
@@ -101,7 +102,7 @@ class _ItemRequestState extends State<ItemRequest> {
                       shrinkWrap: true,
                       itemCount: itemRequest.length,
                       itemBuilder: (context, index) {
-                        var item = itemList
+                        List item = itemList
                             .where((e) => e[0] == itemRequest[index]['id'])
                             .toList();
                         debugPrint(item.toString());
@@ -190,7 +191,7 @@ class _ItemRequestState extends State<ItemRequest> {
                                 Text(
                                   "Items",
                                   style: GoogleFonts.poppins(
-                                    color: Colors.blueGrey,
+                                    color: AppColor.subtitleText,
                                     fontWeight: FontWeight.w400,
                                     fontSize: 15.5,
                                   ),
@@ -198,10 +199,10 @@ class _ItemRequestState extends State<ItemRequest> {
                                 const SizedBox(height: 8),
                                 DropdownButtonFormField(
                                   iconSize: 46,
-                                  decoration: const InputDecoration(
+                                  decoration: InputDecoration(
                                     border: UnderlineInputBorder(
                                       borderSide: BorderSide(
-                                        color: Color.fromARGB(255, 5, 44, 96),
+                                        color: AppColor.blueDivider,
                                       ),
                                     ),
                                   ),
@@ -219,7 +220,7 @@ class _ItemRequestState extends State<ItemRequest> {
                                               Text(
                                                 e[1],
                                                 style: GoogleFonts.poppins(
-                                                  color: Colors.black,
+                                                  color: AppColor.mainText,
                                                   fontWeight: FontWeight.w400,
                                                   fontSize: 15,
                                                 ),
@@ -229,7 +230,8 @@ class _ItemRequestState extends State<ItemRequest> {
                                                   Text(
                                                     e[2],
                                                     style: GoogleFonts.poppins(
-                                                      color: Colors.blueGrey,
+                                                      color:
+                                                          AppColor.subtitleText,
                                                       fontWeight:
                                                           FontWeight.w300,
                                                       fontSize: 15,
@@ -238,7 +240,8 @@ class _ItemRequestState extends State<ItemRequest> {
                                                   Text(
                                                     e[4],
                                                     style: GoogleFonts.poppins(
-                                                      color: Colors.blueGrey,
+                                                      color:
+                                                          AppColor.subtitleText,
                                                       fontWeight:
                                                           FontWeight.w300,
                                                       fontSize: 15,
@@ -273,7 +276,7 @@ class _ItemRequestState extends State<ItemRequest> {
                                 Text(
                                   "Brand",
                                   style: GoogleFonts.poppins(
-                                    color: Colors.blueGrey,
+                                    color: AppColor.subtitleText,
                                     fontWeight: FontWeight.w400,
                                     fontSize: 15,
                                   ),
@@ -281,7 +284,7 @@ class _ItemRequestState extends State<ItemRequest> {
                                 Text(
                                   brand.isEmpty ? "-" : brand,
                                   style: GoogleFonts.poppins(
-                                    color: Colors.blueGrey,
+                                    color: AppColor.subtitleText,
                                     fontWeight: FontWeight.w400,
                                     fontSize: 15,
                                   ),
@@ -294,7 +297,7 @@ class _ItemRequestState extends State<ItemRequest> {
                                 Text(
                                   "Item Type",
                                   style: GoogleFonts.poppins(
-                                    color: Colors.blueGrey,
+                                    color: AppColor.subtitleText,
                                     fontWeight: FontWeight.w400,
                                     fontSize: 15,
                                   ),
@@ -302,20 +305,20 @@ class _ItemRequestState extends State<ItemRequest> {
                                 Text(
                                   type.isEmpty ? "-" : type,
                                   style: GoogleFonts.poppins(
-                                    color: Colors.blueGrey,
+                                    color: AppColor.subtitleText,
                                     fontWeight: FontWeight.w400,
                                     fontSize: 15,
                                   ),
                                 ),
-                                const Divider(
+                                Divider(
                                   thickness: 1.5,
-                                  color: Color.fromARGB(255, 5, 44, 96),
+                                  color: AppColor.blueDivider,
                                 ),
                                 const SizedBox(height: 5),
                                 Text(
                                   "Description",
                                   style: GoogleFonts.poppins(
-                                    color: Colors.blueGrey,
+                                    color: AppColor.subtitleText,
                                     fontWeight: FontWeight.w400,
                                     fontSize: 15,
                                   ),
@@ -323,19 +326,19 @@ class _ItemRequestState extends State<ItemRequest> {
                                 Text(
                                   desc.isEmpty ? "-" : desc,
                                   style: GoogleFonts.poppins(
-                                    color: Colors.blueGrey,
+                                    color: AppColor.subtitleText,
                                     fontWeight: FontWeight.w400,
                                     fontSize: 15,
                                   ),
                                 ),
-                                const Divider(
+                                Divider(
                                   thickness: 1.5,
-                                  color: Color.fromARGB(255, 5, 44, 96),
+                                  color: AppColor.blueDivider,
                                 ),
                                 Text(
                                   "Qty",
                                   style: GoogleFonts.poppins(
-                                    color: Colors.blueGrey,
+                                    color: AppColor.subtitleText,
                                     fontWeight: FontWeight.w400,
                                     fontSize: 15,
                                   ),
@@ -348,20 +351,20 @@ class _ItemRequestState extends State<ItemRequest> {
                                     ),
                                   ],
                                   style: GoogleFonts.poppins(
-                                    color: Colors.blueGrey,
+                                    color: AppColor.subtitleText,
                                     fontWeight: FontWeight.w400,
                                     fontSize: 15,
                                   ),
-                                  decoration: const InputDecoration(
+                                  decoration: InputDecoration(
                                     enabledBorder: UnderlineInputBorder(
                                       borderSide: BorderSide(
-                                        color: Color.fromARGB(255, 5, 44, 96),
+                                        color: AppColor.blueDivider,
                                         width: 2,
                                       ),
                                     ),
                                     focusedBorder: UnderlineInputBorder(
                                       borderSide: BorderSide(
-                                        color: Color.fromARGB(255, 5, 44, 96),
+                                        color: AppColor.blueDivider,
                                         width: 2,
                                       ),
                                     ),
@@ -452,8 +455,29 @@ class _ItemRequestState extends State<ItemRequest> {
                   child: MyButton(
                     text: "CONFIRM",
                     onPressed: () {
-                      Provider.of<UserOrder>(context, listen: false)
-                          .addOrder(user: user, itemRequest: itemRequest);
+                      if (itemRequest.isEmpty) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            margin: const EdgeInsets.fromLTRB(10, 0, 10, 100),
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10)),
+                            backgroundColor: AppColor.snackBarBackground,
+                            content: Text("Item Has not been added",
+                                style: GoogleFonts.poppins(
+                                    fontWeight: FontWeight.w400,
+                                    color: AppColor.snackBarText)),
+                            duration: const Duration(seconds: 1),
+                            // dismissDirection: DismissDirection.none,
+                            behavior: SnackBarBehavior.floating,
+                          ),
+                        );
+                      } else {
+                        Provider.of<UserOrder>(context, listen: false).addOrder(
+                            user: user,
+                            itemRequest: itemRequest,
+                            date: date.format(now));
+                        Navigator.pop(context);
+                      }
                     },
                   ),
                 ),

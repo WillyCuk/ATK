@@ -1,8 +1,10 @@
+import 'package:atk/router/routernamed.dart';
 import 'package:atk/utils/MyButton.dart';
 import 'package:atk/utils/logo.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
+import '../Colors/colors.dart' as color;
 
 class MainPage extends StatelessWidget {
   const MainPage({super.key});
@@ -19,46 +21,52 @@ class MainPage extends StatelessWidget {
             Text(
               "Aplikasi Pendataan",
               style: GoogleFonts.poppins(
-                  fontWeight: FontWeight.bold, fontSize: 26),
+                fontWeight: FontWeight.bold,
+                fontSize: 26,
+                color: color.AppColor.mainText,
+              ),
             ),
             Text(
               "Alat Tulis Kantor",
               style: GoogleFonts.poppins(
-                  fontWeight: FontWeight.bold, fontSize: 26),
+                fontWeight: FontWeight.bold,
+                fontSize: 26,
+                color: color.AppColor.mainText,
+              ),
             ),
-            const Padding(
-              padding: EdgeInsets.fromLTRB(70.0, 15.0, 70.0, 25.0),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(70.0, 15.0, 70.0, 25.0),
               child: Divider(
                 thickness: 3,
-                color: Color.fromARGB(255, 5, 44, 96),
+                color: color.AppColor.blueDivider,
               ),
             ),
             MyButton(
               text: "REGISTER",
-              onPressed: () => context.pushNamed("register"),
+              onPressed: () => context.goNamed(RouterName.registerPageName),
             ),
             const SizedBox(height: 30),
             MyButton(
               text: "LOGIN",
-              onPressed: () => context.pushNamed("login"),
+              onPressed: () => context.goNamed(RouterName.loginPageName),
             ),
-            const Padding(
-              padding: EdgeInsets.fromLTRB(70.0, 25.0, 70.0, 45.0),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(70.0, 25.0, 70.0, 45.0),
               child: Divider(
                 thickness: 3,
-                color: Color.fromARGB(255, 5, 44, 96),
+                color: color.AppColor.blueDivider,
               ),
             ),
             GestureDetector(
               onTap: () {
-                context.pushNamed("forgot-password");
+                context.pushNamed(RouterName.forgotPassPage);
               },
               child: Text(
                 "Forgot Password ?",
                 style: GoogleFonts.dmSans(
                     fontWeight: FontWeight.w400,
                     fontSize: 18,
-                    color: const Color.fromARGB(255, 0, 74, 173),
+                    color: color.AppColor.blueButtonText,
                     letterSpacing: -1),
               ),
             )

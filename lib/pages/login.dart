@@ -1,11 +1,13 @@
 import 'package:atk/providers/user.dart';
+import 'package:atk/router/routernamed.dart';
 import 'package:atk/utils/MyButton.dart';
 import 'package:atk/utils/logo.dart';
-import 'package:atk/utils/mytextfield.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import '../Colors/colors.dart';
+import '../utils/textformfield.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -15,29 +17,13 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  void onLogin(BuildContext context) {
-    final user = context.read<User>();
-    final userControllerText = userController.text;
-    final passControllerText = passController.text;
-    user.login(user: userControllerText, pwd: passControllerText);
-    if (user.isLogin) {
-      context.goNamed('dashboard-admin');
-    } else {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Invalid username or password'),
-          duration: Duration(seconds: 1),
-        ),
-      );
-      return; // Return to avoid further execution
-    }
-  }
-
+  bool toggleHiddenPass = true;
   TextEditingController userController = TextEditingController();
   TextEditingController passController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
+    final userProvider = context.read<User>();
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: Center(
@@ -46,38 +32,114 @@ class _LoginPageState extends State<LoginPage> {
           children: [
             SizedBox(height: MediaQuery.of(context).size.height * .1),
             const MyLogo(),
-            const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 70.0, vertical: 15.0),
+            Padding(
+              padding: EdgeInsets.symmetric(
+                  horizontal: MediaQuery.of(context).size.width * .125,
+                  vertical: 15.0),
               child: Divider(
                 thickness: 3,
-                color: Color.fromARGB(255, 5, 44, 96),
+                color: AppColor.blueDivider,
               ),
             ),
             Text(
               "Login Account",
               style: GoogleFonts.poppins(
-                  fontWeight: FontWeight.bold, fontSize: 26),
+                  fontWeight: FontWeight.bold,
+                  fontSize: 26,
+                  color: AppColor.mainText),
             ),
-            const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 40.0, vertical: 15.0),
+            Padding(
+              padding: EdgeInsets.symmetric(
+                  horizontal: MediaQuery.of(context).size.width * .1,
+                  vertical: 15.0),
               child: Divider(
                 thickness: 3,
-                color: Color.fromARGB(255, 5, 44, 96),
+                color: AppColor.blueDivider,
               ),
             ),
-            MyTextField(
-                text: "Email", controller: userController, obscure: false),
+            Padding(
+              padding: EdgeInsets.symmetric(
+                  horizontal: MediaQuery.of(context).size.width * .125),
+              child: Column(
+                children: [
+                  MyTextFormField(
+                      prefixIcon: const Icon(Icons.person),
+                      suffixIcon: null,
+                      obscureText: false,
+                      controller: userController,
+                      validator: (value) {
+                        if (value!.isEmpty) {
+                          return 'Username must be filled';
+                        }
+                        return null;
+                      },
+                      labelText: "Full Name (Username)"),
+                  const SizedBox(height: 20),
+                  MyTextFormField(
+                      prefixIcon: const Icon(Icons.lock),
+                      suffixIcon: GestureDetector(
+                        onTap: () {
+                          setState(() {
+                            toggleHiddenPass = !toggleHiddenPass;
+                          });
+                        },
+                        child: Icon(
+                          toggleHiddenPass
+                              ? Icons.visibility
+                              : Icons.visibility_off,
+                          color: Colors.blueGrey,
+                        ),
+                      ),
+                      obscureText: toggleHiddenPass,
+                      controller: passController,
+                      validator: (value) {
+                        if (value!.isEmpty) {
+                          return 'password must be filled';
+                        }
+                        return null;
+                      },
+                      labelText: "Password"),
+                ],
+              ),
+            ),
             const SizedBox(height: 20),
-            MyTextField(
-                text: "Password", controller: passController, obscure: true),
-            const SizedBox(height: 20),
-            MyButton(text: "LOGIN", onPressed: () => onLogin(context)),
+            MyButton(
+                text: "LOGIN",
+                onPressed: () {
+                  try {
+                    userProvider.login(
+                        user: userController.text, pwd: passController.text);
+                    if (userProvider.isLogin && userProvider.role == "admin") {
+                      context.goNamed(RouterName.dashboardAdminPage);
+                    } else if (userProvider.isLogin &&
+                        userProvider.role == "user") {
+                      context.goNamed(RouterName.dashboardUserPage);
+                    }
+                  } catch (e) {
+                    String errorMessage = e.toString().split(':').last.trim();
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        margin: const EdgeInsets.fromLTRB(10, 0, 10, 10),
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10)),
+                        backgroundColor: AppColor.snackBarBackground,
+                        content: Text(errorMessage,
+                            style: GoogleFonts.poppins(
+                                fontWeight: FontWeight.w400,
+                                color: AppColor.snackBarText)),
+                        duration: const Duration(seconds: 1),
+                        behavior: SnackBarBehavior.floating,
+                      ),
+                    );
+                    return;
+                  }
+                }),
             Padding(
               padding: EdgeInsets.symmetric(
                   horizontal: MediaQuery.of(context).size.width * 0.12,
                   vertical: 20.0),
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
                     "Don't have an account yet?",
@@ -85,11 +147,12 @@ class _LoginPageState extends State<LoginPage> {
                         fontWeight: FontWeight.w300,
                         letterSpacing: -1,
                         fontSize: 20,
-                        color: Colors.black),
+                        color: AppColor.mainText),
                   ),
+                  const SizedBox(width: 10),
                   GestureDetector(
                     onTap: () {
-                      context.pushNamed("register");
+                      context.goNamed(RouterName.registerPageName);
                     },
                     child: Text(
                       "Register",
@@ -97,7 +160,7 @@ class _LoginPageState extends State<LoginPage> {
                           fontWeight: FontWeight.w400,
                           letterSpacing: -1,
                           fontSize: 18,
-                          color: const Color.fromARGB(255, 0, 74, 173)),
+                          color: AppColor.blueButtonText),
                     ),
                   )
                 ],
@@ -105,14 +168,14 @@ class _LoginPageState extends State<LoginPage> {
             ),
             GestureDetector(
               onTap: () {
-                context.pushNamed("forgot-password");
+                context.pushNamed(RouterName.forgotPassPage);
               },
               child: Text(
                 "Forgot Password ?",
                 style: GoogleFonts.dmSans(
                     fontWeight: FontWeight.w400,
                     fontSize: 18,
-                    color: const Color.fromARGB(255, 0, 74, 173),
+                    color: AppColor.blueButtonText,
                     letterSpacing: -1),
               ),
             )
