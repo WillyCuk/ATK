@@ -29,6 +29,10 @@ class User extends ChangeNotifier {
   String get role => _role;
   bool get isLogin => _isLogin;
 
+  set isLogin(val) {
+    _isLogin = val;
+  }
+
   void login({
     required String user,
     required String pwd,

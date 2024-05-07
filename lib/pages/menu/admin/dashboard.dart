@@ -1,8 +1,13 @@
+import 'package:atk/providers/theme.dart';
+import 'package:atk/providers/user.dart';
 import 'package:atk/router/routernamed.dart';
 import 'package:atk/utils/dashboardtile.dart';
 import 'package:atk/utils/logo.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 import '/../Colors/colors.dart';
 
 class DashboardAdminPage extends StatelessWidget {
@@ -29,7 +34,40 @@ class DashboardAdminPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      drawer: const Drawer(),
+      drawer: Drawer(
+        child: ListView(
+            padding: const EdgeInsets.symmetric(vertical: 50, horizontal: 40),
+            children: [
+              Switch(
+                  value: Provider.of<ThemeProvider>(context, listen: false)
+                      .isDarkMode,
+                  onChanged: (value) =>
+                      Provider.of<ThemeProvider>(context, listen: false)
+                          .toggleTheme()),
+              const SizedBox(
+                height: 30,
+              ),
+              GestureDetector(
+                onTap: () {
+                  Provider.of<User>(context, listen: false).isLogin = false;
+                  context.goNamed(RouterName.loginPageName);
+                },
+                child: Row(
+                  children: [
+                    const Icon(
+                      Icons.lock,
+                      size: 24,
+                    ),
+                    const SizedBox(width: 15),
+                    Text(
+                      "Log Out",
+                      style: GoogleFonts.poppins(fontSize: 20),
+                    )
+                  ],
+                ),
+              )
+            ]),
+      ),
       appBar: AppBar(
         backgroundColor: AppColor.appBarBackground,
         foregroundColor: AppColor.appBarForeground,

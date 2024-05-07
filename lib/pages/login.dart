@@ -116,21 +116,7 @@ class _LoginPageState extends State<LoginPage> {
                       context.goNamed(RouterName.dashboardUserPage);
                     }
                   } catch (e) {
-                    String errorMessage = e.toString().split(':').last.trim();
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                        margin: const EdgeInsets.fromLTRB(10, 0, 10, 10),
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10)),
-                        backgroundColor: AppColor.snackBarBackground,
-                        content: Text(errorMessage,
-                            style: GoogleFonts.poppins(
-                                fontWeight: FontWeight.w400,
-                                color: AppColor.snackBarText)),
-                        duration: const Duration(seconds: 1),
-                        behavior: SnackBarBehavior.floating,
-                      ),
-                    );
+
                     return;
                   }
                 }),

@@ -66,7 +66,9 @@ class _OrderStatusAdminState extends State<OrderStatusAdmin> {
                 children: [
                   SizedBox(
                     child: ChoiceChip(
+                        showCheckmark: false,
                         padding: const EdgeInsets.symmetric(vertical: 15),
+                        selectedColor: Colors.pink,
                         label: Text(
                           "Approved",
                           style: GoogleFonts.poppins(),
@@ -83,7 +85,9 @@ class _OrderStatusAdminState extends State<OrderStatusAdmin> {
                   ),
                   const SizedBox(width: 10),
                   ChoiceChip(
+                      showCheckmark: false,
                       padding: const EdgeInsets.symmetric(vertical: 15),
+                      selectedColor: Colors.pink,
                       label: Text(
                         "Rejected",
                         style: GoogleFonts.poppins(),
@@ -306,8 +310,8 @@ class _OrderStatusAdminState extends State<OrderStatusAdmin> {
                                                               fontSize: 16)),
                                                   const Spacer(),
                                                   Text(
-                                                      approvedOrder[0]["order"]
-                                                          ["date"],
+                                                      approvedOrder[index]
+                                                          ["order"]["date"],
                                                       style:
                                                           GoogleFonts.poppins(
                                                               fontSize: 16)),
@@ -414,7 +418,7 @@ class _OrderStatusAdminState extends State<OrderStatusAdmin> {
                                     .toString()
                                     .padLeft(3, '0'),
                                 user: approvedOrder[index]["user"],
-                                date: approvedOrder[0]["order"]["date"],
+                                date: approvedOrder[index]["order"]["date"],
                               ),
                             );
                           }),
