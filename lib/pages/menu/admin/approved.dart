@@ -3,7 +3,6 @@ import 'package:atk/utils/ordertile.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-
 import '../../../providers/itemlist.dart';
 
 class AprrovedOrderAdmin extends StatelessWidget {
@@ -17,6 +16,8 @@ class AprrovedOrderAdmin extends StatelessWidget {
         .toList();
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
+        foregroundColor: Theme.of(context).appBarTheme.foregroundColor,
         leading: IconButton(
           icon: const Icon(Icons.menu),
           onPressed: () {},
@@ -31,8 +32,6 @@ class AprrovedOrderAdmin extends StatelessWidget {
             const Icon(Icons.menu)
           ],
         ),
-        backgroundColor: const Color.fromARGB(255, 5, 44, 96),
-        foregroundColor: Colors.white,
       ),
       body: Padding(
           padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 25.0),
@@ -84,7 +83,6 @@ class AprrovedOrderAdmin extends StatelessWidget {
                                                             [secondIndex]["id"],
                                                   )
                                                   .toList();
-                                          debugPrint(itemList.toString());
                                           return Padding(
                                             padding: const EdgeInsets.only(
                                                 bottom: 9.0),

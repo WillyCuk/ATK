@@ -41,10 +41,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 padding: EdgeInsets.symmetric(
                     horizontal: MediaQuery.of(context).size.width * .125,
                     vertical: 5.0),
-                child: Divider(
-                  thickness: 3,
-                  color: AppColor.blueDivider,
-                ),
+                child: const Divider(),
               ),
               Text(
                 "Register Account",
@@ -55,10 +52,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 padding: EdgeInsets.symmetric(
                     horizontal: MediaQuery.of(context).size.width * .1,
                     vertical: 5.0),
-                child: Divider(
-                  thickness: 3,
-                  color: AppColor.blueDivider,
-                ),
+                child: const Divider(),
               ),
               Padding(
                 padding: EdgeInsets.symmetric(
@@ -199,7 +193,7 @@ class _RegisterPageState extends State<RegisterPage> {
                           fontWeight: FontWeight.w300,
                           letterSpacing: -1,
                           fontSize: 20,
-                          color: AppColor.mainText),
+                          color: Theme.of(context).colorScheme.primary),
                     ),
                     const SizedBox(width: 20),
                     GestureDetector(
@@ -212,7 +206,7 @@ class _RegisterPageState extends State<RegisterPage> {
                             fontWeight: FontWeight.w400,
                             letterSpacing: -1,
                             fontSize: 18,
-                            color: AppColor.blueButtonText),
+                            color: Theme.of(context).colorScheme.primary),
                       ),
                     )
                   ],

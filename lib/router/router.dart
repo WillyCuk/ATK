@@ -6,6 +6,7 @@ import "package:atk/pages/menu/admin/orderstatus.dart";
 import "package:atk/pages/menu/user/itemrequest.dart";
 import "package:atk/pages/menu/user/stockitem.dart";
 import "package:atk/pages/menu/admin/rejected.dart";
+import "package:atk/pages/settings.dart";
 import "package:atk/router/routernamed.dart";
 import "package:flutter/material.dart";
 import "package:go_router/go_router.dart";
@@ -24,7 +25,7 @@ import "../providers/user.dart";
 
 class MyRouter {
   GoRouter router = GoRouter(
-      initialLocation: "/",
+      initialLocation: "/dashboard_admin",
       routes: [
         GoRoute(
           path: "/",
@@ -61,6 +62,12 @@ class MyRouter {
             name: RouterName.dashboardUserPage,
             pageBuilder: (context, state) {
               return MaterialPage(child: DashboardUserPage());
+            }),
+        GoRoute(
+            path: "/settings",
+            name: RouterName.settingsPage,
+            pageBuilder: (context, state) {
+              return const MaterialPage(child: Settings());
             }),
         GoRoute(
             path: "/stock_item_admin",

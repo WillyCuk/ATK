@@ -27,21 +27,24 @@ class DashboardTile extends StatelessWidget {
             Expanded(
               child: Container(
                 decoration: BoxDecoration(
-                  color: AppColor.blueButton,
+                  color: Theme.of(context).colorScheme.primaryContainer,
                   borderRadius: BorderRadius.circular(40),
                 ),
                 padding: const EdgeInsets.all(20.0),
                 child: Image.asset(
                   imagePath,
                   fit: BoxFit.contain,
+                  color: Theme.of(context).colorScheme.inversePrimary,
                 ),
               ),
             ),
             const SizedBox(height: 7),
             Text(
               menuName,
-              style:
-                  GoogleFonts.poppins(fontSize: 16, color: AppColor.mainText),
+              style: GoogleFonts.poppins(
+                  fontSize: 16,
+                  color: Theme.of(context).colorScheme.primary,
+                  fontWeight: FontWeight.w500),
             )
           ],
         ),

@@ -26,10 +26,7 @@ class _ForgotPageState extends State<ForgotPage> {
             const MyLogo(),
             const Padding(
               padding: EdgeInsets.symmetric(horizontal: 70.0, vertical: 15.0),
-              child: Divider(
-                thickness: 3,
-                color: Color.fromARGB(255, 29, 39, 54),
-              ),
+              child: Divider(),
             ),
             Text(
               "Forgot Password",
@@ -38,10 +35,7 @@ class _ForgotPageState extends State<ForgotPage> {
             ),
             const Padding(
               padding: EdgeInsets.symmetric(horizontal: 40.0, vertical: 15.0),
-              child: Divider(
-                thickness: 3,
-                color: Color.fromARGB(255, 5, 44, 96),
-              ),
+              child: Divider(),
             ),
             Padding(
               padding: const EdgeInsets.fromLTRB(0, 15, 0, 30),

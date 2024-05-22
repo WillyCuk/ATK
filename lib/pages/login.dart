@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import '../Colors/colors.dart';
 import '../utils/textformfield.dart';
 
 class LoginPage extends StatefulWidget {
@@ -36,26 +35,20 @@ class _LoginPageState extends State<LoginPage> {
               padding: EdgeInsets.symmetric(
                   horizontal: MediaQuery.of(context).size.width * .125,
                   vertical: 15.0),
-              child: Divider(
-                thickness: 3,
-                color: AppColor.blueDivider,
-              ),
+              child: const Divider(),
             ),
             Text(
               "Login Account",
               style: GoogleFonts.poppins(
                   fontWeight: FontWeight.bold,
                   fontSize: 26,
-                  color: AppColor.mainText),
+                  color: Theme.of(context).colorScheme.primary),
             ),
             Padding(
               padding: EdgeInsets.symmetric(
                   horizontal: MediaQuery.of(context).size.width * .1,
                   vertical: 15.0),
-              child: Divider(
-                thickness: 3,
-                color: AppColor.blueDivider,
-              ),
+              child: const Divider(),
             ),
             Padding(
               padding: EdgeInsets.symmetric(
@@ -116,7 +109,6 @@ class _LoginPageState extends State<LoginPage> {
                       context.goNamed(RouterName.dashboardUserPage);
                     }
                   } catch (e) {
-
                     return;
                   }
                 }),
@@ -133,7 +125,7 @@ class _LoginPageState extends State<LoginPage> {
                         fontWeight: FontWeight.w300,
                         letterSpacing: -1,
                         fontSize: 20,
-                        color: AppColor.mainText),
+                        color: Theme.of(context).colorScheme.primary),
                   ),
                   const SizedBox(width: 10),
                   GestureDetector(
@@ -146,7 +138,7 @@ class _LoginPageState extends State<LoginPage> {
                           fontWeight: FontWeight.w400,
                           letterSpacing: -1,
                           fontSize: 18,
-                          color: AppColor.blueButtonText),
+                          color: Theme.of(context).colorScheme.primary),
                     ),
                   )
                 ],
@@ -161,10 +153,10 @@ class _LoginPageState extends State<LoginPage> {
                 style: GoogleFonts.dmSans(
                     fontWeight: FontWeight.w400,
                     fontSize: 18,
-                    color: AppColor.blueButtonText,
+                    color: Theme.of(context).colorScheme.primary,
                     letterSpacing: -1),
               ),
-            )
+            ),
           ],
         ),
       ),

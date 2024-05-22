@@ -21,4 +21,5 @@ class RouterName {
   static String itemRetrieveUserPage = "item-retrieve-user";
   static String approvedOrderUserPage = "approved-order-user";
   static String rejectedOrderUserPage = "rejected-order-user";
+  static String settingsPage = "settings";
 }

@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import '../../../Colors/colors.dart';
 
 class StockItemAdmin extends StatelessWidget {
   const StockItemAdmin({super.key});
@@ -15,6 +14,8 @@ class StockItemAdmin extends StatelessWidget {
     List items = Provider.of<ItemList>(context).items;
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
+        foregroundColor: Theme.of(context).appBarTheme.foregroundColor,
         title: Row(
           children: [
             Text(
@@ -23,8 +24,6 @@ class StockItemAdmin extends StatelessWidget {
             ),
           ],
         ),
-        backgroundColor: AppColor.appBarBackground,
-        foregroundColor: AppColor.appBarForeground,
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
@@ -32,8 +31,8 @@ class StockItemAdmin extends StatelessWidget {
         },
         shape: const CircleBorder(),
         tooltip: 'increment',
-        backgroundColor: AppColor.appBarBackground,
-        foregroundColor: AppColor.appBarForeground,
+        backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
+        foregroundColor: Theme.of(context).appBarTheme.foregroundColor,
         child: const Icon(Icons.add),
       ),
       body: Padding(

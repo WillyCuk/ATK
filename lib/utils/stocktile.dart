@@ -28,7 +28,9 @@ class StockTile extends StatelessWidget {
         padding: const EdgeInsets.only(bottom: 9.0),
         decoration: BoxDecoration(
             border: Border(
-                bottom: BorderSide(color: AppColor.blueDivider, width: 2))),
+                bottom: BorderSide(
+                    color: Theme.of(context).colorScheme.primaryContainer,
+                    width: 2))),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -37,13 +39,15 @@ class StockTile extends StatelessWidget {
               children: [
                 Text(
                   itemName,
-                  style: GoogleFonts.poppins(fontSize: 17),
+                  style: GoogleFonts.poppins(
+                      fontSize: 17,
+                      color: Theme.of(context).colorScheme.primary),
                 ),
                 const SizedBox(height: 5),
                 Text(
                   itemBrand,
                   style: GoogleFonts.poppins(
-                      color: AppColor.subtitleText,
+                      color: Theme.of(context).colorScheme.secondary,
                       fontWeight: FontWeight.w200,
                       fontSize: 15),
                 )
@@ -51,7 +55,8 @@ class StockTile extends StatelessWidget {
             ),
             Text(
               qty,
-              style: GoogleFonts.poppins(),
+              style: GoogleFonts.poppins(
+                  color: Theme.of(context).colorScheme.secondary),
             ),
           ],
         ),

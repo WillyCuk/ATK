@@ -33,10 +33,10 @@ class MyTextFormField extends StatelessWidget {
           labelStyle: GoogleFonts.quicksand(
               fontSize: 18,
               fontWeight: FontWeight.w400,
-              color: AppColor.mainText),
+              color: Theme.of(context).colorScheme.primary),
           enabledBorder: UnderlineInputBorder(
               borderSide: BorderSide(
-            color: AppColor.blueDivider,
+            color: Theme.of(context).colorScheme.primary,
           ))),
     );
   }

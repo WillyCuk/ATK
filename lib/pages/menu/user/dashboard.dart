@@ -3,7 +3,8 @@ import 'package:atk/utils/dashboardtile.dart';
 import 'package:atk/utils/logo.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import '../../../Colors/colors.dart';
+import 'package:provider/provider.dart';
+import '../../../providers/theme.dart';
 
 class DashboardUserPage extends StatelessWidget {
   DashboardUserPage({super.key});
@@ -23,10 +24,16 @@ class DashboardUserPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      drawer: const Drawer(),
+      drawer: Drawer(
+        child: Switch(
+            value: Provider.of<ThemeProvider>(context).isDarkMode,
+            onChanged: (value) =>
+                Provider.of<ThemeProvider>(context, listen: false)
+                    .toggleTheme()),
+      ),
       appBar: AppBar(
-        backgroundColor: AppColor.appBarBackground,
-        foregroundColor: AppColor.appBarForeground,
+        backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
+        foregroundColor: Theme.of(context).appBarTheme.foregroundColor,
         title: Text(
           "Aplikasi Data BMN ATK",
           style: GoogleFonts.poppins(
@@ -39,29 +46,26 @@ class DashboardUserPage extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            SizedBox(height: MediaQuery.of(context).size.height * .03),
             const MyLogo(),
             Padding(
               padding: EdgeInsets.symmetric(
                   horizontal: MediaQuery.of(context).size.width * .125,
                   vertical: 10.0),
-              child: Divider(
-                thickness: 3,
-                color: AppColor.blueDivider,
-              ),
+              child: const Divider(),
             ),
             Text(
               "Menu Data",
               style: GoogleFonts.poppins(
-                  fontWeight: FontWeight.bold, fontSize: 26),
+                  fontWeight: FontWeight.bold,
+                  fontSize: 26,
+                  color: Theme.of(context).colorScheme.primary),
             ),
             Padding(
               padding: EdgeInsets.symmetric(
                   horizontal: MediaQuery.of(context).size.width * .1,
                   vertical: 10.0),
-              child: Divider(
-                thickness: 3,
-                color: AppColor.blueDivider,
-              ),
+              child: const Divider(),
             ),
             Expanded(
               child: GridView.builder(

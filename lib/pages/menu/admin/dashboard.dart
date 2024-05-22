@@ -4,11 +4,10 @@ import 'package:atk/router/routernamed.dart';
 import 'package:atk/utils/dashboardtile.dart';
 import 'package:atk/utils/logo.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+import 'package:flutter_switch/flutter_switch.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import '/../Colors/colors.dart';
 
 class DashboardAdminPage extends StatelessWidget {
   DashboardAdminPage({super.key});
@@ -35,42 +34,50 @@ class DashboardAdminPage extends StatelessWidget {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       drawer: Drawer(
-        child: ListView(
-            padding: const EdgeInsets.symmetric(vertical: 50, horizontal: 40),
-            children: [
-              Switch(
-                  value: Provider.of<ThemeProvider>(context, listen: false)
-                      .isDarkMode,
-                  onChanged: (value) =>
-                      Provider.of<ThemeProvider>(context, listen: false)
-                          .toggleTheme()),
-              const SizedBox(
-                height: 30,
-              ),
-              GestureDetector(
-                onTap: () {
-                  Provider.of<User>(context, listen: false).isLogin = false;
-                  context.goNamed(RouterName.loginPageName);
-                },
-                child: Row(
-                  children: [
-                    const Icon(
-                      Icons.lock,
-                      size: 24,
-                    ),
-                    const SizedBox(width: 15),
-                    Text(
-                      "Log Out",
-                      style: GoogleFonts.poppins(fontSize: 20),
-                    )
-                  ],
+        child: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 50, horizontal: 40),
+          child: Column(children: [
+            FlutterSwitch(
+                activeIcon: const Icon(
+                  Icons.dark_mode,
+                  color: Colors.black,
                 ),
-              )
-            ]),
+                inactiveIcon: const Icon(Icons.light_mode),
+                value: Provider.of<ThemeProvider>(context).isDarkMode,
+                onToggle: (value) =>
+                    Provider.of<ThemeProvider>(context, listen: false)
+                        .toggleTheme()),
+            const Spacer(),
+            GestureDetector(
+              onTap: () => context.pushNamed(RouterName.settingsPage),
+              child: const Text("settings"),
+            ),
+            GestureDetector(
+              onTap: () {
+                debugPrint("anjing");
+                Provider.of<User>(context, listen: false).isLogin = false;
+                context.goNamed(RouterName.loginPageName);
+              },
+              child: Row(
+                children: [
+                  const Icon(
+                    Icons.lock,
+                    size: 24,
+                  ),
+                  const SizedBox(width: 15),
+                  Text(
+                    "Log Out",
+                    style: GoogleFonts.poppins(fontSize: 20),
+                  )
+                ],
+              ),
+            )
+          ]),
+        ),
       ),
       appBar: AppBar(
-        backgroundColor: AppColor.appBarBackground,
-        foregroundColor: AppColor.appBarForeground,
+        backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
+        foregroundColor: Theme.of(context).appBarTheme.foregroundColor,
         title: Text(
           "Aplikasi Data BMN ATK",
           style: GoogleFonts.poppins(fontWeight: FontWeight.bold, fontSize: 18),
@@ -80,31 +87,26 @@ class DashboardAdminPage extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            SizedBox(height: MediaQuery.of(context).size.height * .03),
             const MyLogo(),
             Padding(
               padding: EdgeInsets.symmetric(
                   horizontal: MediaQuery.of(context).size.width * .125,
                   vertical: 10.0),
-              child: Divider(
-                thickness: 3,
-                color: AppColor.blueDivider,
-              ),
+              child: const Divider(),
             ),
             Text(
               "Menu Data",
               style: GoogleFonts.poppins(
                   fontWeight: FontWeight.bold,
                   fontSize: 26,
-                  color: AppColor.mainText),
+                  color: Theme.of(context).colorScheme.primary),
             ),
             Padding(
               padding: EdgeInsets.symmetric(
                   horizontal: MediaQuery.of(context).size.width * .1,
                   vertical: 10.0),
-              child: Divider(
-                thickness: 3,
-                color: AppColor.blueDivider,
-              ),
+              child: const Divider(),
             ),
             Expanded(
               child: GridView.builder(

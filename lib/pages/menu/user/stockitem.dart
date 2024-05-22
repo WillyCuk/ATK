@@ -13,6 +13,8 @@ class StockItemUser extends StatelessWidget {
     List items = Provider.of<ItemList>(context).items;
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
+        foregroundColor: Theme.of(context).appBarTheme.foregroundColor,
         title: Row(
           children: [
             Text(
@@ -21,8 +23,6 @@ class StockItemUser extends StatelessWidget {
             ),
           ],
         ),
-        backgroundColor: AppColor.appBarBackground,
-        foregroundColor: AppColor.appBarForeground,
       ),
       body: Padding(
           padding: const EdgeInsets.symmetric(vertical: 20.0, horizontal: 30.0),
