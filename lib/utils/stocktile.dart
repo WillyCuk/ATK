@@ -1,4 +1,3 @@
-import 'package:atk/Colors/colors.dart';
 import 'package:atk/router/routernamed.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -9,19 +8,24 @@ class StockTile extends StatelessWidget {
   final String itemName;
   final String itemBrand;
   final String qty;
+  final String role;
   const StockTile(
       {super.key,
       required this.routeIndex,
       required this.itemName,
       required this.itemBrand,
-      required this.qty});
+      required this.qty,
+      required this.role});
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        context.pushNamed(RouterName.itemDetailUserPage,
-            pathParameters: {'index': routeIndex});
+        role == "admin"
+            ? context.pushNamed(RouterName.itemDetailAdminPage,
+                pathParameters: {'index': routeIndex})
+            : context.pushNamed(RouterName.itemDetailUserPage,
+                pathParameters: {'index': routeIndex});
       },
       child: Container(
         margin: const EdgeInsets.only(bottom: 20.0),

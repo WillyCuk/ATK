@@ -6,7 +6,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 
-import '../../utils/mypagebutton.dart';
+import '../../../utils/mypagebutton.dart';
 
 class AddItem extends StatefulWidget {
   const AddItem({super.key});
@@ -97,18 +97,12 @@ class _AddItemState extends State<AddItem> {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(
-              "Add Item",
-              style: GoogleFonts.poppins(fontWeight: FontWeight.bold),
-            ),
-            const Icon(Icons.menu)
-          ],
+        title: Text(
+          "Add Item",
+          style: GoogleFonts.poppins(fontWeight: FontWeight.bold),
         ),
-        backgroundColor: const Color.fromARGB(255, 5, 44, 96),
-        foregroundColor: Colors.white,
+        backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
+        foregroundColor: Theme.of(context).appBarTheme.foregroundColor,
       ),
       body: Padding(
         padding: const EdgeInsets.all(30.0),
@@ -139,8 +133,9 @@ class _AddItemState extends State<AddItem> {
             const SizedBox(height: 15),
             image == null
                 ? Container(
-                    decoration: const BoxDecoration(
-                        color: Color.fromRGBO(5, 44, 96, 0.7)),
+                    decoration: BoxDecoration(
+                      color: Theme.of(context).colorScheme.secondaryContainer,
+                    ),
                     width: MediaQuery.of(context).size.width * .7,
                     height: MediaQuery.of(context).size.height * .15,
                   )

@@ -21,8 +21,8 @@ class ItemTextField extends StatelessWidget {
           decoration: InputDecoration(
               enabledBorder: UnderlineInputBorder(
                   borderRadius: BorderRadius.circular(0),
-                  borderSide: const BorderSide(
-                    color: Color.fromARGB(255, 5, 44, 96),
+                  borderSide: BorderSide(
+                    color: Theme.of(context).colorScheme.primaryContainer,
                   ))),
         ),
       ],

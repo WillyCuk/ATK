@@ -20,7 +20,7 @@ class MyPageButton extends StatelessWidget {
     return ElevatedButton(
       onPressed: onPressed,
       style: ElevatedButton.styleFrom(
-          backgroundColor: const Color.fromARGB(255, 5, 44, 96),
+          backgroundColor: Theme.of(context).colorScheme.primaryContainer,
           elevation: 0,
           minimumSize: Size(width, height),
           shape:
@@ -28,7 +28,9 @@ class MyPageButton extends StatelessWidget {
       child: Text(
         text,
         style: GoogleFonts.quicksand(
-            fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white),
+            fontSize: 18,
+            fontWeight: FontWeight.bold,
+            color: Theme.of(context).colorScheme.inversePrimary),
       ),
     );
   }

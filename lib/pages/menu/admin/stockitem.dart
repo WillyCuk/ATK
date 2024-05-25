@@ -40,6 +40,7 @@ class StockItemAdmin extends StatelessWidget {
         child: ListView.builder(
           itemCount: items.length,
           itemBuilder: (context, index) => StockTile(
+              role: 'admin',
               routeIndex: index.toString(),
               itemName: items[index][1],
               itemBrand: items[index][2],

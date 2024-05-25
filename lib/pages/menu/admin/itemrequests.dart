@@ -35,8 +35,8 @@ class ItemRequestAdmin extends StatelessWidget {
             const Icon(Icons.menu)
           ],
         ),
-        backgroundColor: const Color.fromARGB(255, 5, 44, 96),
-        foregroundColor: Colors.white,
+        backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
+        foregroundColor: Theme.of(context).appBarTheme.foregroundColor,
       ),
       body: Padding(
           padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 25.0),

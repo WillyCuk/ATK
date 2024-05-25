@@ -18,10 +18,11 @@ class OrderTile extends StatelessWidget {
     return Container(
       margin: const EdgeInsets.only(bottom: 25.0),
       padding: const EdgeInsets.only(bottom: 9.0),
-      decoration: const BoxDecoration(
+      decoration: BoxDecoration(
           border: Border(
-              bottom:
-                  BorderSide(color: Color.fromARGB(255, 5, 44, 96), width: 2))),
+              bottom: BorderSide(
+                  color: Theme.of(context).colorScheme.primaryContainer,
+                  width: 2))),
       child: Stack(
         children: [
           Row(

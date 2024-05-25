@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import '../utils/textformfield.dart';
+import '../../../utils/textformfield.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -109,6 +109,23 @@ class _LoginPageState extends State<LoginPage> {
                       context.goNamed(RouterName.dashboardUserPage);
                     }
                   } catch (e) {
+                    String errorMessage = e.toString().split(':').last.trim();
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        margin: const EdgeInsets.fromLTRB(10, 0, 10, 10),
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10)),
+                        backgroundColor:
+                            Theme.of(context).colorScheme.primaryContainer,
+                        content: Text(errorMessage,
+                            style: GoogleFonts.poppins(
+                              fontWeight: FontWeight.w400,
+                              color: Theme.of(context).colorScheme.primary,
+                            )),
+                        duration: const Duration(seconds: 1),
+                        behavior: SnackBarBehavior.floating,
+                      ),
+                    );
                     return;
                   }
                 }),

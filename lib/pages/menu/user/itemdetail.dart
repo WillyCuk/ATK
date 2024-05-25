@@ -15,6 +15,8 @@ class ItemDetailsUser extends StatelessWidget {
     List<dynamic> item = Provider.of<ItemList>(context).items[itemIndex];
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
+        foregroundColor: Theme.of(context).appBarTheme.foregroundColor,
         title: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -24,8 +26,6 @@ class ItemDetailsUser extends StatelessWidget {
             ),
           ],
         ),
-        backgroundColor: AppColor.appBarBackground,
-        foregroundColor: AppColor.appBarForeground,
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(vertical: 30.0, horizontal: 40.0),
