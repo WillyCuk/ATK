@@ -3,7 +3,6 @@ import 'package:atk/utils/stocktile.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import '../../../Colors/colors.dart';
 
 class StockItemUser extends StatelessWidget {
   const StockItemUser({super.key});

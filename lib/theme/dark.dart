@@ -8,6 +8,9 @@ ThemeData darkMode = ThemeData(
       foregroundColor: Color.fromARGB(255, 5, 44, 96),
       backgroundColor: Color.fromARGB(255, 255, 255, 255),
     ),
+    bottomSheetTheme: const BottomSheetThemeData(
+      backgroundColor: Color.fromARGB(255, 5, 44, 96),
+    ),
     dividerTheme: const DividerThemeData(color: Colors.white, thickness: 3),
     colorScheme: const ColorScheme.dark(
       background: Color.fromARGB(255, 5, 44, 96),

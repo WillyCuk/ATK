@@ -2,7 +2,6 @@ import 'package:atk/providers/userorder.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import '../../../Colors/colors.dart';
 import '../../../providers/itemlist.dart';
 import '../../../utils/ordertile.dart';
 
@@ -50,12 +49,13 @@ class _OrderStatusAdminState extends State<OrderStatusAdmin> {
 
     return Scaffold(
         appBar: AppBar(
-          title: const Text(
+          backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
+          foregroundColor: Theme.of(context).appBarTheme.foregroundColor,
+          title: Text(
             "Order Statuses",
+            style:
+                GoogleFonts.poppins(fontWeight: FontWeight.bold, fontSize: 18),
           ),
-          centerTitle: true,
-          backgroundColor: AppColor.appBarBackground,
-          foregroundColor: AppColor.appBarForeground,
         ),
         body: Padding(
           padding: const EdgeInsets.all(40.0),
@@ -64,25 +64,23 @@ class _OrderStatusAdminState extends State<OrderStatusAdmin> {
               height: 50,
               child: Row(
                 children: [
-                  SizedBox(
-                    child: ChoiceChip(
-                        showCheckmark: false,
-                        padding: const EdgeInsets.symmetric(vertical: 15),
-                        selectedColor: Colors.pink,
-                        label: Text(
-                          "Approved",
-                          style: GoogleFonts.poppins(),
-                        ),
-                        selected: isApproved,
-                        onSelected: (val) {
-                          setState(() {
-                            isApproved = !isApproved;
-                            isRejected = false;
-                            isFilterYear = false;
-                            _selectedVal = null;
-                          });
-                        }),
-                  ),
+                  ChoiceChip(
+                      showCheckmark: false,
+                      padding: const EdgeInsets.symmetric(vertical: 15),
+                      selectedColor: Colors.pink,
+                      label: Text(
+                        "Approved",
+                        style: GoogleFonts.poppins(),
+                      ),
+                      selected: isApproved,
+                      onSelected: (val) {
+                        setState(() {
+                          isApproved = !isApproved;
+                          isRejected = false;
+                          isFilterYear = false;
+                          _selectedVal = null;
+                        });
+                      }),
                   const SizedBox(width: 10),
                   ChoiceChip(
                       showCheckmark: false,
@@ -113,12 +111,14 @@ class _OrderStatusAdminState extends State<OrderStatusAdmin> {
                       decoration: InputDecoration(
                         enabledBorder: OutlineInputBorder(
                           borderSide: BorderSide(
-                            color: AppColor.blueDivider,
+                            color:
+                                Theme.of(context).colorScheme.primaryContainer,
                           ),
                         ),
                         focusedBorder: OutlineInputBorder(
                           borderSide: BorderSide(
-                            color: AppColor.blueDivider,
+                            color:
+                                Theme.of(context).colorScheme.primaryContainer,
                           ),
                         ),
                       ),
