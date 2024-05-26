@@ -13,6 +13,7 @@ class RouterName {
   static String itemReportsAdminPage = "item-reports-admin";
   static String approvedOrderAdminPage = "approved-order-admin";
   static String rejectedOrderAdminPage = "rejected-order-admin";
+  static String itemRetrieveAdminPage = "item-retrieve-admin";
   static String dashboardUserPage = "dashboard-user";
   static String stockItemUserPage = "stock-item-user";
   static String itemDetailUserPage = "item-detail-user";

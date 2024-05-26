@@ -1,4 +1,5 @@
 import "package:atk/pages/menu/admin/approved.dart";
+import "package:atk/pages/menu/admin/retrieveitem.dart";
 import "package:atk/pages/user/admin/error.dart";
 import "package:atk/pages/user/admin/fpassword.dart";
 import "package:atk/pages/menu/admin/additem.dart";
@@ -128,6 +129,12 @@ class MyRouter {
             name: RouterName.itemRequestsAdminPage,
             pageBuilder: (context, state) {
               return const MaterialPage(child: ItemRequestAdmin());
+            }),
+        GoRoute(
+            path: "/item_retrieve_admin",
+            name: RouterName.itemRetrieveAdminPage,
+            pageBuilder: (context, state) {
+              return const MaterialPage(child: ItemRetrieveAdmin());
             }),
         GoRoute(
           path: "/item_details_admin/:index",
