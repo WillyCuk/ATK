@@ -4,7 +4,7 @@ import 'package:atk/utils/logo.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
-import '../../../Colors/colors.dart' as color;
+import '../../Colors/colors.dart' as color;
 
 class MainPage extends StatelessWidget {
   const MainPage({super.key});

@@ -1,12 +1,13 @@
 import "package:atk/pages/menu/admin/approved.dart";
 import "package:atk/pages/menu/admin/retrieveitem.dart";
-import "package:atk/pages/user/admin/error.dart";
-import "package:atk/pages/user/admin/fpassword.dart";
+import "package:atk/pages/user_admin/error.dart";
+import "package:atk/pages/user_admin/fpassword.dart";
 import "package:atk/pages/menu/admin/additem.dart";
 import "package:atk/pages/menu/admin/orderstatus.dart";
 import "package:atk/pages/menu/user/itemrequest.dart";
 import "package:atk/pages/menu/user/stockitem.dart";
 import "package:atk/pages/menu/admin/rejected.dart";
+import "package:atk/pages/user_admin/profile.dart";
 // import "package:atk/pages/user/admin/settings.dart";
 import "package:atk/router/routernamed.dart";
 import "package:flutter/material.dart";
@@ -16,17 +17,17 @@ import "../pages/menu/admin/itemdetail.dart";
 import "../pages/menu/user/approved.dart";
 import "../pages/menu/user/dashboard.dart";
 import "../pages/menu/admin/itemrequests.dart";
-import "../pages/user/admin/login.dart";
-import "../pages/user/admin/mainpage.dart";
+import "../pages/user_admin/login.dart";
+import "../pages/user_admin/mainpage.dart";
 import "../pages/menu/admin/stockitem.dart";
 import "../pages/menu/user/itemdetail.dart";
 import "../pages/menu/user/rejected.dart";
-import "../pages/user/admin/register.dart";
+import "../pages/user_admin/register.dart";
 // import "../providers/user.dart";
 
 class MyRouter {
   GoRouter router = GoRouter(
-      initialLocation: "/dashboard_admin",
+      initialLocation: "/profile",
       routes: [
         GoRoute(
           path: "/",
@@ -51,6 +52,12 @@ class MyRouter {
             name: RouterName.forgotPassPage,
             pageBuilder: (context, state) {
               return const MaterialPage(child: ForgotPage());
+            }),
+        GoRoute(
+            path: "/profile",
+            name: RouterName.profilePage,
+            pageBuilder: (context, state) {
+              return const MaterialPage(child: ProfilePage());
             }),
         GoRoute(
             path: "/dashboard_admin",
@@ -132,7 +139,7 @@ class MyRouter {
             }),
         GoRoute(
             path: "/item_retrieve_admin",
-            name: RouterName.itemRetrieveAdminPage,
+            name: RouterName.retrieveItemAdminPage,
             pageBuilder: (context, state) {
               return const MaterialPage(child: ItemRetrieveAdmin());
             }),

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
 class User extends ChangeNotifier {
-  String _user = '';
+  String _user = 'username';
+  String _email = 'user@gmail.com';
   String _role = 'user';
   bool _isLogin = false;
   final List<Map<String, String>> _userList = [
@@ -26,6 +27,7 @@ class User extends ChangeNotifier {
   ];
 
   String get user => _user;
+  String get email => _email;
   String get role => _role;
   bool get isLogin => _isLogin;
 
@@ -48,6 +50,7 @@ class User extends ChangeNotifier {
         int userIndex =
             _userList.indexWhere((element) => element['username'] == user);
         _role = _userList[userIndex]['role']!;
+        _email = email;
       } else if (!isValidUser) {
         throw Exception('Invalid Username');
       } else if (!isValidPass) {

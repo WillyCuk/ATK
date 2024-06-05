@@ -3,6 +3,7 @@ class RouterName {
   static String loginPageName = "login";
   static String registerPageName = "register";
   static String forgotPassPage = "forgot-password";
+  static String profilePage = "profile";
   static String dashboardAdminPage = "dashboard-admin";
   static String stockItemAdminPage = "stock-item-admin";
   static String itemDetailAdminPage = "item-detail-admin";
@@ -13,7 +14,6 @@ class RouterName {
   static String itemReportsAdminPage = "item-reports-admin";
   static String approvedOrderAdminPage = "approved-order-admin";
   static String rejectedOrderAdminPage = "rejected-order-admin";
-  static String itemRetrieveAdminPage = "item-retrieve-admin";
   static String dashboardUserPage = "dashboard-user";
   static String stockItemUserPage = "stock-item-user";
   static String itemDetailUserPage = "item-detail-user";
