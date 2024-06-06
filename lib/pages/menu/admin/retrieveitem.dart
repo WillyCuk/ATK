@@ -53,7 +53,9 @@ class ItemRetrieveAdmin extends StatelessWidget {
                                               style: GoogleFonts.poppins(
                                                   fontSize: 16)),
                                           const Spacer(),
-                                          Text(acceptOrder[0]["order"]["date"],
+                                          Text(
+                                              acceptOrder[index]["order"]
+                                                  ["date"],
                                               style: GoogleFonts.poppins(
                                                   fontSize: 16)),
                                         ],

@@ -40,16 +40,15 @@ class _ItemRequestState extends State<ItemRequest> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(
-          "Request Forms",
-          style: GoogleFonts.poppins(
-            fontWeight: FontWeight.bold,
-            fontSize: 18,
+          title: Text(
+            "Request Forms",
+            style: GoogleFonts.poppins(
+              fontWeight: FontWeight.bold,
+              fontSize: 18,
+            ),
           ),
-        ),
-        backgroundColor: AppColor.appBarBackground,
-        foregroundColor: AppColor.appBarForeground,
-      ),
+          backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
+          foregroundColor: Theme.of(context).appBarTheme.foregroundColor),
       body: Padding(
         padding: EdgeInsets.symmetric(
           vertical: 30.0,
@@ -61,7 +60,6 @@ class _ItemRequestState extends State<ItemRequest> {
             Text(
               "Tanggal Permintaan",
               style: GoogleFonts.poppins(
-                color: AppColor.subtitleText,
                 fontWeight: FontWeight.w400,
                 fontSize: 16,
               ),
@@ -70,17 +68,15 @@ class _ItemRequestState extends State<ItemRequest> {
             Text(
               date.format(now),
               style: GoogleFonts.poppins(
-                color: AppColor.subtitleText,
                 fontWeight: FontWeight.w400,
                 fontSize: 15,
               ),
             ),
-            Divider(color: AppColor.blueDivider),
+            const Divider(thickness: 2),
             const SizedBox(height: 12),
             Text(
               "Nama Pengguna",
               style: GoogleFonts.poppins(
-                color: AppColor.subtitleText,
                 fontWeight: FontWeight.w400,
                 fontSize: 16,
               ),
@@ -88,12 +84,11 @@ class _ItemRequestState extends State<ItemRequest> {
             Text(
               user,
               style: GoogleFonts.poppins(
-                color: AppColor.subtitleText,
                 fontWeight: FontWeight.w400,
                 fontSize: 15,
               ),
             ),
-            Divider(color: AppColor.blueDivider),
+            const Divider(thickness: 2),
             const SizedBox(height: 20),
             itemRequest.isNotEmpty
                 ? SizedBox(
@@ -188,188 +183,186 @@ class _ItemRequestState extends State<ItemRequest> {
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text(
-                                  "Items",
-                                  style: GoogleFonts.poppins(
-                                    color: AppColor.subtitleText,
-                                    fontWeight: FontWeight.w400,
-                                    fontSize: 15.5,
-                                  ),
-                                ),
-                                const SizedBox(height: 8),
-                                DropdownButtonFormField(
-                                  iconSize: 46,
-                                  decoration: InputDecoration(
-                                    border: UnderlineInputBorder(
-                                      borderSide: BorderSide(
-                                        color: AppColor.blueDivider,
+                                StatefulBuilder(builder: (BuildContext context,
+                                    StateSetter setState) {
+                                  return Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        "Items",
+                                        style: GoogleFonts.poppins(
+                                          fontWeight: FontWeight.w400,
+                                          fontSize: 15.5,
+                                        ),
                                       ),
-                                    ),
-                                  ),
-                                  value: _selectedVal,
-                                  items: itemList
-                                      .map(
-                                        (e) => DropdownMenuItem<String>(
-                                          value: e[0].toString(),
-                                          child: Column(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.start,
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              Text(
-                                                e[1],
-                                                style: GoogleFonts.poppins(
-                                                  color: AppColor.mainText,
-                                                  fontWeight: FontWeight.w400,
-                                                  fontSize: 15,
-                                                ),
-                                              ),
-                                              Row(
-                                                children: [
-                                                  Text(
-                                                    e[2],
-                                                    style: GoogleFonts.poppins(
-                                                      color:
-                                                          AppColor.subtitleText,
-                                                      fontWeight:
-                                                          FontWeight.w300,
-                                                      fontSize: 15,
-                                                    ),
-                                                  ),
-                                                  Text(
-                                                    e[4],
-                                                    style: GoogleFonts.poppins(
-                                                      color:
-                                                          AppColor.subtitleText,
-                                                      fontWeight:
-                                                          FontWeight.w300,
-                                                      fontSize: 15,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ],
+                                      const SizedBox(height: 8),
+                                      DropdownButtonFormField(
+                                        iconSize: 46,
+                                        decoration: InputDecoration(
+                                          border: UnderlineInputBorder(
+                                            borderSide: BorderSide(
+                                              color: Theme.of(context)
+                                                  .colorScheme
+                                                  .primaryContainer,
+                                            ),
                                           ),
                                         ),
-                                      )
-                                      .toList(),
-                                  elevation: 0,
-                                  focusColor: Colors.transparent,
-                                  onChanged: (String? val) {
-                                    setState(() {
-                                      _selectedVal = val!;
-                                      brand = itemList[int.parse(_selectedVal)]
-                                              [2]
-                                          .toString();
-                                      type = itemList[int.parse(_selectedVal)]
-                                              [3]
-                                          .toString();
-                                      desc = itemList[int.parse(_selectedVal)]
-                                              [4]
-                                          .toString();
-                                      debugPrint(_selectedVal);
-                                    });
-                                  },
-                                ),
-                                const SizedBox(height: 10),
-                                Text(
-                                  "Brand",
-                                  style: GoogleFonts.poppins(
-                                    color: AppColor.subtitleText,
-                                    fontWeight: FontWeight.w400,
-                                    fontSize: 15,
-                                  ),
-                                ),
-                                Text(
-                                  brand.isEmpty ? "-" : brand,
-                                  style: GoogleFonts.poppins(
-                                    color: AppColor.subtitleText,
-                                    fontWeight: FontWeight.w400,
-                                    fontSize: 15,
-                                  ),
-                                ),
-                                const Divider(
-                                  thickness: 1.5,
-                                  color: Color.fromARGB(255, 5, 44, 96),
-                                ),
-                                const SizedBox(height: 5),
-                                Text(
-                                  "Item Type",
-                                  style: GoogleFonts.poppins(
-                                    color: AppColor.subtitleText,
-                                    fontWeight: FontWeight.w400,
-                                    fontSize: 15,
-                                  ),
-                                ),
-                                Text(
-                                  type.isEmpty ? "-" : type,
-                                  style: GoogleFonts.poppins(
-                                    color: AppColor.subtitleText,
-                                    fontWeight: FontWeight.w400,
-                                    fontSize: 15,
-                                  ),
-                                ),
-                                Divider(
-                                  thickness: 1.5,
-                                  color: AppColor.blueDivider,
-                                ),
-                                const SizedBox(height: 5),
-                                Text(
-                                  "Description",
-                                  style: GoogleFonts.poppins(
-                                    color: AppColor.subtitleText,
-                                    fontWeight: FontWeight.w400,
-                                    fontSize: 15,
-                                  ),
-                                ),
-                                Text(
-                                  desc.isEmpty ? "-" : desc,
-                                  style: GoogleFonts.poppins(
-                                    color: AppColor.subtitleText,
-                                    fontWeight: FontWeight.w400,
-                                    fontSize: 15,
-                                  ),
-                                ),
-                                Divider(
-                                  thickness: 1.5,
-                                  color: AppColor.blueDivider,
-                                ),
-                                Text(
-                                  "Qty",
-                                  style: GoogleFonts.poppins(
-                                    color: AppColor.subtitleText,
-                                    fontWeight: FontWeight.w400,
-                                    fontSize: 15,
-                                  ),
-                                ),
-                                TextFormField(
-                                  controller: qtyController,
-                                  inputFormatters: <TextInputFormatter>[
-                                    FilteringTextInputFormatter.allow(
-                                      RegExp(r'[0-9]'),
-                                    ),
-                                  ],
-                                  style: GoogleFonts.poppins(
-                                    color: AppColor.subtitleText,
-                                    fontWeight: FontWeight.w400,
-                                    fontSize: 15,
-                                  ),
-                                  decoration: InputDecoration(
-                                    enabledBorder: UnderlineInputBorder(
-                                      borderSide: BorderSide(
-                                        color: AppColor.blueDivider,
-                                        width: 2,
+                                        value: _selectedVal,
+                                        items: itemList
+                                            .map(
+                                              (e) => DropdownMenuItem<String>(
+                                                value: e[0].toString(),
+                                                child: Column(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.start,
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  children: [
+                                                    Text(
+                                                      e[1],
+                                                      style:
+                                                          GoogleFonts.poppins(
+                                                        fontWeight:
+                                                            FontWeight.w400,
+                                                        fontSize: 15,
+                                                      ),
+                                                    ),
+                                                    Row(
+                                                      children: [
+                                                        Text(
+                                                          e[2],
+                                                          style: GoogleFonts
+                                                              .poppins(
+                                                            fontWeight:
+                                                                FontWeight.w300,
+                                                            fontSize: 15,
+                                                          ),
+                                                        ),
+                                                        Text(
+                                                          e[4],
+                                                          style: GoogleFonts
+                                                              .poppins(
+                                                            fontWeight:
+                                                                FontWeight.w300,
+                                                            fontSize: 15,
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                            )
+                                            .toList(),
+                                        elevation: 0,
+                                        focusColor: Colors.transparent,
+                                        onChanged: (String? val) {
+                                          setState(() {
+                                            _selectedVal = val!;
+                                            brand = itemList[
+                                                    int.parse(_selectedVal)][2]
+                                                .toString();
+                                            type = itemList[
+                                                    int.parse(_selectedVal)][3]
+                                                .toString();
+                                            desc = itemList[
+                                                    int.parse(_selectedVal)][4]
+                                                .toString();
+                                          });
+                                        },
                                       ),
-                                    ),
-                                    focusedBorder: UnderlineInputBorder(
-                                      borderSide: BorderSide(
-                                        color: AppColor.blueDivider,
-                                        width: 2,
+                                      const SizedBox(height: 10),
+                                      Text(
+                                        "Brand",
+                                        style: GoogleFonts.poppins(
+                                          fontWeight: FontWeight.w400,
+                                          fontSize: 15,
+                                        ),
                                       ),
-                                    ),
-                                  ),
-                                ),
+                                      Text(
+                                        brand.isEmpty ? "-" : brand,
+                                        style: GoogleFonts.poppins(
+                                          fontWeight: FontWeight.w400,
+                                          fontSize: 15,
+                                        ),
+                                      ),
+                                      const Divider(
+                                        thickness: 1.5,
+                                        color: Color.fromARGB(255, 5, 44, 96),
+                                      ),
+                                      const SizedBox(height: 5),
+                                      Text(
+                                        "Item Type",
+                                        style: GoogleFonts.poppins(
+                                          fontWeight: FontWeight.w400,
+                                          fontSize: 15,
+                                        ),
+                                      ),
+                                      Text(
+                                        type.isEmpty ? "-" : type,
+                                        style: GoogleFonts.poppins(
+                                          fontWeight: FontWeight.w400,
+                                          fontSize: 15,
+                                        ),
+                                      ),
+                                      const Divider(thickness: 1.5),
+                                      const SizedBox(height: 5),
+                                      Text(
+                                        "Description",
+                                        style: GoogleFonts.poppins(
+                                          fontWeight: FontWeight.w400,
+                                          fontSize: 15,
+                                        ),
+                                      ),
+                                      Text(
+                                        desc.isEmpty ? "-" : desc,
+                                        style: GoogleFonts.poppins(
+                                          fontWeight: FontWeight.w400,
+                                          fontSize: 15,
+                                        ),
+                                      ),
+                                      const Divider(thickness: 1.5),
+                                      Text(
+                                        "Qty",
+                                        style: GoogleFonts.poppins(
+                                          fontWeight: FontWeight.w400,
+                                          fontSize: 15,
+                                        ),
+                                      ),
+                                      TextFormField(
+                                        controller: qtyController,
+                                        inputFormatters: <TextInputFormatter>[
+                                          FilteringTextInputFormatter.allow(
+                                            RegExp(r'[0-9]'),
+                                          ),
+                                        ],
+                                        style: GoogleFonts.poppins(
+                                          fontWeight: FontWeight.w400,
+                                          fontSize: 15,
+                                        ),
+                                        decoration: InputDecoration(
+                                          enabledBorder: UnderlineInputBorder(
+                                            borderSide: BorderSide(
+                                              width: 2,
+                                              color: Theme.of(context)
+                                                  .colorScheme
+                                                  .primaryContainer,
+                                            ),
+                                          ),
+                                          focusedBorder: UnderlineInputBorder(
+                                            borderSide: BorderSide(
+                                              width: 2,
+                                              color: Theme.of(context)
+                                                  .colorScheme
+                                                  .primaryContainer,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  );
+                                }),
                                 const Spacer(),
                                 Row(
                                   children: [

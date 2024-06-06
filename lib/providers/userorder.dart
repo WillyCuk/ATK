@@ -39,7 +39,7 @@ class UserOrder extends ChangeNotifier {
     {
       "user": "anying",
       "order": {
-        "id": 3,
+        "id": 4,
         "status": "Waiting",
         "date": '23 Juni 2023',
         "items": [
@@ -50,7 +50,7 @@ class UserOrder extends ChangeNotifier {
     {
       "user": "anying",
       "order": {
-        "id": 4,
+        "id": 5,
         "status": "Approved",
         "date": '23 April 2024',
         "items": [
@@ -67,9 +67,12 @@ class UserOrder extends ChangeNotifier {
       {required String user, required List itemRequest, required String date}) {
     _userOrderList.add({
       "user": user,
-      "order": [
-        {"id": id + 1, "status": "Waiting", "date": date, "items": itemRequest}
-      ]
+      "order": {
+        "id": id + 1,
+        "status": "Waiting",
+        "date": date,
+        "items": itemRequest
+      }
     });
     debugPrint(_userOrderList.toString());
     notifyListeners();

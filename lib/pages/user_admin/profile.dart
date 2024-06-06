@@ -1,4 +1,5 @@
 import 'package:atk/providers/user.dart';
+import 'package:atk/utils/mypagebutton.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -123,42 +124,19 @@ class ProfilePage extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                ElevatedButton(
-                  onPressed: () {},
-                  style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color.fromARGB(255, 5, 44, 96),
-                      elevation: 0,
-                      minimumSize: Size(141.7, 46.4),
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(15))),
-                  child: Text(
-                    'Confirm',
-                    style: TextStyle(
-                        fontSize: 15,
-                        fontWeight: FontWeight.w300,
-                        color: Colors.white),
-                  ),
+                MyPageButton(
+                    text: "CONFIRM",
+                    onPressed: () {},
+                    width: MediaQuery.sizeOf(context).width * .4,
+                    height: 50),
+                const SizedBox(
+                  width: 10,
                 ),
-                SizedBox(
-                  width: 30,
-                ),
-                ElevatedButton(
-                  onPressed: () {},
-                  style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color.fromARGB(255, 242, 242, 242),
-                      elevation: 0,
-                      minimumSize: Size(141.7, 46.4),
-                      shape: RoundedRectangleBorder(
-                          side: BorderSide(color: Colors.grey),
-                          borderRadius: BorderRadius.circular(15))),
-                  child: Text(
-                    'Back',
-                    style: TextStyle(
-                        fontSize: 15,
-                        fontWeight: FontWeight.w300,
-                        color: const Color.fromARGB(255, 5, 44, 96)),
-                  ),
-                )
+                MyPageButton(
+                    text: "BACK",
+                    onPressed: () {},
+                    width: MediaQuery.sizeOf(context).width * .4,
+                    height: 50)
               ],
             )
           ],

@@ -18,34 +18,33 @@ class DashboardTile extends StatelessWidget {
       onTap: () {
         context.pushNamed(route);
       },
-      child: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Expanded(
-              child: Container(
-                decoration: BoxDecoration(
-                  color: Theme.of(context).colorScheme.primaryContainer,
-                  borderRadius: BorderRadius.circular(40),
-                ),
-                padding: const EdgeInsets.all(20.0),
-                child: Image.asset(
-                  imagePath,
-                  fit: BoxFit.contain,
-                  color: Theme.of(context).colorScheme.inversePrimary,
-                ),
-              ),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Container(
+            width: MediaQuery.sizeOf(context).width * .28,
+            height: MediaQuery.sizeOf(context).width * .28,
+            decoration: BoxDecoration(
+              color: Theme.of(context).colorScheme.primaryContainer,
+              borderRadius: BorderRadius.circular(40),
             ),
-            const SizedBox(height: 7),
-            Text(
-              menuName,
-              style: GoogleFonts.poppins(
-                  fontSize: 16,
-                  color: Theme.of(context).colorScheme.primary,
-                  fontWeight: FontWeight.w500),
-            )
-          ],
-        ),
+            padding: const EdgeInsets.all(20.0),
+            child: Image.asset(
+              imagePath,
+              fit: BoxFit.contain,
+              color: Theme.of(context).colorScheme.inversePrimary,
+            ),
+          ),
+          const SizedBox(height: 4),
+          Text(
+            menuName,
+            style: GoogleFonts.poppins(
+                fontSize: MediaQuery.sizeOf(context).width * .025,
+                color: Theme.of(context).colorScheme.primary,
+                fontWeight: FontWeight.w500),
+            textAlign: TextAlign.center,
+          ),
+        ],
       ),
     );
   }

@@ -35,44 +35,63 @@ class DashboardAdminPage extends StatelessWidget {
       resizeToAvoidBottomInset: false,
       drawer: Drawer(
         child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 50, horizontal: 40),
-          child: Column(children: [
-            FlutterSwitch(
-                activeIcon: const Icon(
-                  Icons.dark_mode,
-                  color: Colors.black,
-                ),
-                inactiveIcon: const Icon(Icons.light_mode),
-                value: Provider.of<ThemeProvider>(context).isDarkMode,
-                onToggle: (value) =>
-                    Provider.of<ThemeProvider>(context, listen: false)
-                        .toggleTheme()),
-            const Spacer(),
-            GestureDetector(
-              onTap: () => context.pushNamed(RouterName.settingsPage),
-              child: const Text("settings"),
-            ),
-            GestureDetector(
-              onTap: () {
-                debugPrint("anjing");
-                Provider.of<User>(context, listen: false).isLogin = false;
-                context.goNamed(RouterName.loginPageName);
-              },
-              child: Row(
-                children: [
-                  const Icon(
-                    Icons.lock,
-                    size: 24,
+          padding: const EdgeInsets.symmetric(vertical: 80, horizontal: 40),
+          child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  "Aplikasi Pendataan Alat Tulis Kantor",
+                  style: GoogleFonts.poppins(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 20,
+                    color: Theme.of(context).colorScheme.primary,
                   ),
-                  const SizedBox(width: 15),
-                  Text(
-                    "Log Out",
-                    style: GoogleFonts.poppins(fontSize: 20),
-                  )
-                ],
-              ),
-            )
-          ]),
+                ),
+                const SizedBox(height: 70),
+                GestureDetector(
+                  onTap: () => context.pushNamed(RouterName.dashboardAdminPage),
+                  child: const Text("Main Page"),
+                ),
+                GestureDetector(
+                  onTap: () => context.pushNamed(RouterName.profilePage),
+                  child: const Text("Profile"),
+                ),
+                FlutterSwitch(
+                    activeIcon: const Icon(
+                      Icons.dark_mode,
+                      color: Colors.black,
+                    ),
+                    inactiveIcon: const Icon(Icons.light_mode),
+                    value: Provider.of<ThemeProvider>(context).isDarkMode,
+                    onToggle: (value) =>
+                        Provider.of<ThemeProvider>(context, listen: false)
+                            .toggleTheme()),
+                const Spacer(),
+                GestureDetector(
+                  onTap: () => context.pushNamed(RouterName.settingsPage),
+                  child: const Text("settings"),
+                ),
+                GestureDetector(
+                  onTap: () {
+                    Provider.of<User>(context, listen: false).isLogin = false;
+                    context.goNamed(RouterName.loginPageName);
+                  },
+                  child: Row(
+                    children: [
+                      const Icon(
+                        Icons.lock,
+                        size: 24,
+                      ),
+                      const SizedBox(width: 15),
+                      Text(
+                        "Log Out",
+                        style: GoogleFonts.poppins(fontSize: 20),
+                      )
+                    ],
+                  ),
+                )
+              ]),
         ),
       ),
       appBar: AppBar(
@@ -83,48 +102,47 @@ class DashboardAdminPage extends StatelessWidget {
           style: GoogleFonts.poppins(fontWeight: FontWeight.bold, fontSize: 18),
         ),
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            SizedBox(height: MediaQuery.of(context).size.height * .03),
-            const MyLogo(),
-            Padding(
-              padding: EdgeInsets.symmetric(
-                  horizontal: MediaQuery.of(context).size.width * .125,
-                  vertical: 10.0),
-              child: const Divider(),
+      body: ListView(
+        children: [
+          SizedBox(height: MediaQuery.of(context).size.height * .03),
+          const MyLogo(),
+          Padding(
+            padding: EdgeInsets.symmetric(
+                horizontal: MediaQuery.of(context).size.width * .125,
+                vertical: 10.0),
+            child: const Divider(),
+          ),
+          Text(
+            "Menu Data",
+            textAlign: TextAlign.center,
+            style: GoogleFonts.poppins(
+                fontWeight: FontWeight.bold,
+                fontSize: 26,
+                color: Theme.of(context).colorScheme.primary),
+          ),
+          Padding(
+            padding: EdgeInsets.symmetric(
+                horizontal: MediaQuery.of(context).size.width * .1,
+                vertical: 10.0),
+            child: const Divider(),
+          ),
+          GridView.builder(
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 3,
+              mainAxisSpacing: 10,
+              // crossAxisSpacing: 10,
             ),
-            Text(
-              "Menu Data",
-              style: GoogleFonts.poppins(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 26,
-                  color: Theme.of(context).colorScheme.primary),
-            ),
-            Padding(
-              padding: EdgeInsets.symmetric(
-                  horizontal: MediaQuery.of(context).size.width * .1,
-                  vertical: 10.0),
-              child: const Divider(),
-            ),
-            Expanded(
-              child: GridView.builder(
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 3,
-                  mainAxisSpacing: 10,
-                ),
-                itemCount: menu.length,
-                itemBuilder: (context, index) {
-                  return DashboardTile(
-                      route: menu[index][2],
-                      imagePath: menu[index][1],
-                      menuName: menu[index][0]);
-                },
-              ),
-            )
-          ],
-        ),
+            itemCount: menu.length,
+            itemBuilder: (context, index) {
+              return DashboardTile(
+                  route: menu[index][2],
+                  imagePath: menu[index][1],
+                  menuName: menu[index][0]);
+            },
+          )
+        ],
       ),
     );
   }

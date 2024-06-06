@@ -18,25 +18,15 @@ class ItemRequestAdmin extends StatelessWidget {
         .userOrderList
         .where((e) => e["order"]["status"] == "Waiting")
         .toList();
-
+    debugPrint(waitingOrder.toString());
     return Scaffold(
       appBar: AppBar(
-        leading: IconButton(
-          icon: const Icon(Icons.menu),
-          onPressed: () {},
-        ),
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(
-              "Request Items",
-              style: GoogleFonts.poppins(fontWeight: FontWeight.bold),
-            ),
-            const Icon(Icons.menu)
-          ],
-        ),
         backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
         foregroundColor: Theme.of(context).appBarTheme.foregroundColor,
+        title: Text(
+          "Request Items",
+          style: GoogleFonts.poppins(fontWeight: FontWeight.bold),
+        ),
       ),
       body: Padding(
           padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 25.0),
@@ -44,7 +34,7 @@ class ItemRequestAdmin extends StatelessWidget {
           child: ListView.builder(
               itemCount: waitingOrder.length,
               itemBuilder: (context, index) {
-                debugPrint(waitingOrder[index]["order"]["status"].toString());
+                // debugPrint(waitingOrder[index]["order"]["status"].toString());
                 if (waitingOrder[index]["order"]["status"] == "Waiting") {
                   // Penggunaan Gesture Detector agar setiap container yang dibuat bisa di klik untuk menampilkan detail purchase order
                   return GestureDetector(
@@ -65,7 +55,9 @@ class ItemRequestAdmin extends StatelessWidget {
                                             style: GoogleFonts.poppins(
                                                 fontSize: 16)),
                                         const Spacer(),
-                                        Text(waitingOrder[0]["order"]["date"],
+                                        Text(
+                                            waitingOrder[index]["order"]
+                                                ["date"],
                                             style: GoogleFonts.poppins(
                                                 fontSize: 16)),
                                       ],
@@ -206,7 +198,7 @@ class ItemRequestAdmin extends StatelessWidget {
                           .toString()
                           .padLeft(3, '0'),
                       user: waitingOrder[index]["user"],
-                      date: waitingOrder[0]["order"]["date"],
+                      date: waitingOrder[index]["order"]["date"],
                     ),
                   );
                 } else {

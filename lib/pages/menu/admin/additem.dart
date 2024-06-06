@@ -105,83 +105,82 @@ class _AddItemState extends State<AddItem> {
         foregroundColor: Theme.of(context).appBarTheme.foregroundColor,
       ),
       body: Padding(
-        padding: const EdgeInsets.all(30.0),
-        child: Center(
-            child: Column(
-          children: [
-            ItemTextField(text: "Item Name", controller: _itemNameController),
-            const SizedBox(height: 25),
-            ItemTextField(text: "Item Brand", controller: _itemBrandController),
-            const SizedBox(height: 25),
-            ItemTextField(text: "Item Type", controller: _itemTypeController),
-            const SizedBox(height: 25),
-            ItemTextField(
-                text: "Item Description", controller: _itemDescController),
-            const SizedBox(height: 25),
-            ItemTextField(
-                text: "Item Quantity", controller: _itemQtyController),
-            const SizedBox(height: 15),
-            Center(
-              child: MyPageButton(
-                  width: MediaQuery.of(context).size.width * .7,
-                  height: 50,
-                  text: "UPLOAD IMAGE",
-                  onPressed: () {
-                    myAlert();
-                  }),
-            ),
-            const SizedBox(height: 15),
-            image == null
-                ? Container(
-                    decoration: BoxDecoration(
-                      color: Theme.of(context).colorScheme.secondaryContainer,
-                    ),
+          padding: const EdgeInsets.all(30.0),
+          child: ListView(
+            children: [
+              ItemTextField(text: "Item Name", controller: _itemNameController),
+              const SizedBox(height: 25),
+              ItemTextField(
+                  text: "Item Brand", controller: _itemBrandController),
+              const SizedBox(height: 25),
+              ItemTextField(text: "Item Type", controller: _itemTypeController),
+              const SizedBox(height: 25),
+              ItemTextField(
+                  text: "Item Description", controller: _itemDescController),
+              const SizedBox(height: 25),
+              ItemTextField(
+                  text: "Item Quantity", controller: _itemQtyController),
+              const SizedBox(height: 15),
+              Center(
+                child: MyPageButton(
                     width: MediaQuery.of(context).size.width * .7,
-                    height: MediaQuery.of(context).size.height * .15,
-                  )
-                : SizedBox(
-                    width: MediaQuery.of(context).size.width * .7,
-                    height: MediaQuery.of(context).size.height * .15,
-                    child: Center(
-                      child: Image.file(
-                        File(image!.path),
-                        fit: BoxFit.fill,
+                    height: 50,
+                    text: "UPLOAD IMAGE",
+                    onPressed: () {
+                      myAlert();
+                    }),
+              ),
+              const SizedBox(height: 15),
+              image == null
+                  ? Container(
+                      decoration: BoxDecoration(
+                        color: Theme.of(context).colorScheme.secondaryContainer,
+                      ),
+                      width: MediaQuery.of(context).size.width * .7,
+                      height: MediaQuery.of(context).size.height * .15,
+                    )
+                  : SizedBox(
+                      width: MediaQuery.of(context).size.width * .7,
+                      height: MediaQuery.of(context).size.height * .15,
+                      child: Center(
+                        child: Image.file(
+                          File(image!.path),
+                          fit: BoxFit.fill,
+                        ),
                       ),
                     ),
-                  ),
-            const SizedBox(height: 20),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                MyPageButton(
-                    width: MediaQuery.of(context).size.width * .25,
-                    height: 50,
-                    text: "CONFIRM",
-                    onPressed: () {
-                      context.read<ItemList>().addItem(
-                          itemName: _itemNameController.text,
-                          itemBrand: _itemBrandController.text,
-                          itemType: _itemTypeController.text,
-                          itemDesc: _itemDescController.text,
-                          itemQty: int.parse(_itemQtyController.text),
-                          itemImg: image != null
-                              ? image!
-                              : "assets/whitebackground.jpeg");
-                      Navigator.pop(context);
-                    }),
-                const SizedBox(width: 20),
-                MyPageButton(
-                    width: MediaQuery.of(context).size.width * .25,
-                    height: 50,
-                    text: "CANCEL",
-                    onPressed: () {
-                      Navigator.pop(context);
-                    }),
-              ],
-            )
-          ],
-        )),
-      ),
+              const SizedBox(height: 20),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  MyPageButton(
+                      width: MediaQuery.of(context).size.width * .25,
+                      height: 50,
+                      text: "CONFIRM",
+                      onPressed: () {
+                        context.read<ItemList>().addItem(
+                            itemName: _itemNameController.text,
+                            itemBrand: _itemBrandController.text,
+                            itemType: _itemTypeController.text,
+                            itemDesc: _itemDescController.text,
+                            itemQty: int.parse(_itemQtyController.text),
+                            itemImg: image != null
+                                ? image!
+                                : "assets/whitebackground.jpeg");
+                        Navigator.pop(context);
+                      }),
+                  const SizedBox(width: 20),
+                  MyPageButton(
+                      width: MediaQuery.of(context).size.width * .25,
+                      height: 50,
+                      text: "CANCEL",
+                      onPressed: () {
+                        Navigator.pop(context);
+                      }),
+                ],
+              )
+            ],
+          )),
     );
   }
 }
