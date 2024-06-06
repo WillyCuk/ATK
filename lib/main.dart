@@ -1,3 +1,4 @@
+import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:atk/providers/itemlist.dart';
 import 'package:atk/providers/theme.dart';
 import 'package:atk/providers/user.dart';
@@ -5,6 +6,7 @@ import 'package:atk/providers/userorder.dart';
 import 'package:atk/router/router.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:page_transition/page_transition.dart';
 
 // void main() {
 //   runApp(MultiProvider(providers: [
@@ -45,19 +47,28 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp.router(
+    return MaterialApp(
       debugShowCheckedModeBanner: false,
-      routerConfig: MyRouter().router,
-      builder: (context, router) {
-        return Consumer<ThemeProvider>(
-          builder: (context, themeProvider, child) {
-            return Theme(
-              data: themeProvider.themeData,
-              child: router!,
-            );
-          },
-        );
-      },
+      title: "ATK",
+      home: AnimatedSplashScreen(
+          splash: "s1600.png",
+          splashIconSize: 400,
+          splashTransition: SplashTransition.sizeTransition,
+          pageTransitionType: PageTransitionType.leftToRight,
+          nextScreen: MaterialApp.router(
+            debugShowCheckedModeBanner: false,
+            routerConfig: MyRouter().router,
+            builder: (context, router) {
+              return Consumer<ThemeProvider>(
+                builder: (context, themeProvider, child) {
+                  return Theme(
+                    data: themeProvider.themeData,
+                    child: router!,
+                  );
+                },
+              );
+            },
+          )),
     );
   }
 }

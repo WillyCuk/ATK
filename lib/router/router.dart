@@ -27,7 +27,7 @@ import "../pages/user_admin/register.dart";
 
 class MyRouter {
   GoRouter router = GoRouter(
-      initialLocation: "/dashboard_user",
+      initialLocation: "/",
       routes: [
         GoRoute(
           path: "/",

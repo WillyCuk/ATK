@@ -4,7 +4,6 @@ import 'package:atk/utils/logo.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
-import '../../Colors/colors.dart' as color;
 
 class MainPage extends StatelessWidget {
   const MainPage({super.key});
@@ -23,7 +22,6 @@ class MainPage extends StatelessWidget {
               style: GoogleFonts.poppins(
                 fontWeight: FontWeight.bold,
                 fontSize: 26,
-                color: color.AppColor.mainText,
               ),
             ),
             Text(
@@ -31,15 +29,11 @@ class MainPage extends StatelessWidget {
               style: GoogleFonts.poppins(
                 fontWeight: FontWeight.bold,
                 fontSize: 26,
-                color: color.AppColor.mainText,
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(70.0, 15.0, 70.0, 25.0),
-              child: Divider(
-                thickness: 3,
-                color: color.AppColor.blueDivider,
-              ),
+            const Padding(
+              padding: EdgeInsets.fromLTRB(70.0, 15.0, 70.0, 25.0),
+              child:  Divider(),
             ),
             MyButton(
               text: "REGISTER",
@@ -50,12 +44,9 @@ class MainPage extends StatelessWidget {
               text: "LOGIN",
               onPressed: () => context.goNamed(RouterName.loginPageName),
             ),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(70.0, 25.0, 70.0, 45.0),
-              child: Divider(
-                thickness: 3,
-                color: color.AppColor.blueDivider,
-              ),
+            const Padding(
+              padding: EdgeInsets.fromLTRB(70.0, 25.0, 70.0, 45.0),
+              child: Divider(),
             ),
             GestureDetector(
               onTap: () {
@@ -66,7 +57,7 @@ class MainPage extends StatelessWidget {
                 style: GoogleFonts.dmSans(
                     fontWeight: FontWeight.w400,
                     fontSize: 18,
-                    color: color.AppColor.blueButtonText,
+                    color: Theme.of(context).colorScheme.inversePrimary,
                     letterSpacing: -1),
               ),
             )

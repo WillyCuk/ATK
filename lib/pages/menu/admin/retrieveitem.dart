@@ -104,7 +104,7 @@ class ItemRetrieveAdmin extends StatelessWidget {
                             .toString()
                             .padLeft(3, '0'),
                         user: acceptOrder[index]["user"],
-                        date: acceptOrder[0]["order"]["date"],
+                        date: acceptOrder[index]["order"]["date"],
                       ),
                     );
                   })
