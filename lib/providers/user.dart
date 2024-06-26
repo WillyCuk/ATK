@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import "dart:math";
 
 class User extends ChangeNotifier {
   String _user = 'username';
@@ -14,13 +15,13 @@ class User extends ChangeNotifier {
     },
     {
       'username': 'cecilia',
-      "email": "willyhalim543@gmail.com",
+      "email": "willyhalim5@gmail.com",
       'password': 'haiyahai',
       'role': 'user'
     },
     {
       'username': 'jason',
-      "email": "willyhalim543@gmail.com",
+      "email": "willyhalim43@gmail.com",
       'password': 'haiyahaiya',
       'role': 'user'
     }
@@ -82,5 +83,27 @@ class User extends ChangeNotifier {
     } catch (e) {
       rethrow;
     }
+  }
+
+  requestOTP(String userEmail) {
+    try {
+      bool isEmailValid = _userList.any((email) => email['email'] == userEmail);
+      if (isEmailValid) {
+        var random = Random();
+        int randomNumber = 1000 + random.nextInt(9000);
+        return randomNumber;
+      } else {
+        throw "Invalid Email";
+      }
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  changePass(String userEmail, String newPass) {
+    int userIndex =
+        _userList.indexWhere((email) => email['email'] == userEmail);
+    _userList[userIndex]['password'] = newPass;
+    debugPrint("list of email : ${_userList.toString()}");
   }
 }

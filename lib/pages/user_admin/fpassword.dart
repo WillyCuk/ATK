@@ -1,9 +1,15 @@
+import 'package:atk/notification/notif_service.dart';
+import 'package:atk/providers/user.dart';
+import 'package:atk/router/routernamed.dart';
 import 'package:atk/utils/MyButton.dart';
+import 'package:atk/utils/forgot_pass_dialog.dart';
 import 'package:atk/utils/logo.dart';
+import 'package:atk/utils/mysnackbar.dart';
 import 'package:atk/utils/mytextfield.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 
 class ForgotPage extends StatefulWidget {
   const ForgotPage({super.key});
@@ -13,9 +19,11 @@ class ForgotPage extends StatefulWidget {
 }
 
 class _ForgotPageState extends State<ForgotPage> {
-  TextEditingController emailController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
+    debugPrint(MediaQuery.sizeOf(context).toString());
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: Center(
@@ -41,14 +49,35 @@ class _ForgotPageState extends State<ForgotPage> {
               padding: const EdgeInsets.fromLTRB(0, 15, 0, 30),
               child: MyTextField(
                 text: "Email",
-                controller: emailController,
+                controller: _emailController,
                 obscure: false,
               ),
             ),
             MyButton(
               text: "SUBMIT",
-              onPressed: () {
-                context.pushNamed("dashboard-user");
+              onPressed: () async {
+                String email = _emailController.text;
+                FocusScope.of(context).unfocus();
+                try {
+                  int otp = await Provider.of<User>(context, listen: false)
+                      .requestOTP(email);
+                  NotificationService.showNotif("OTP", otp.toString());
+                  if (context.mounted) {
+                    await showDialog(
+                        context: context,
+                        builder: (context) {
+                          return ForgotDialog(
+                            otp: otp.toString(),
+                            email: _emailController.text,
+                          );
+                        });
+                    context.goNamed(RouterName.loginPageName);
+                  }
+                } catch (e) {
+                  if (context.mounted) {
+                    showSnackBar(context, e.toString());
+                  }
+                }
               },
             ),
           ],

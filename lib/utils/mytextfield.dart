@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import "../Colors/colors.dart" as color;
 
 class MyTextField extends StatelessWidget {
   final String text;
@@ -23,13 +22,13 @@ class MyTextField extends StatelessWidget {
         decoration: InputDecoration(
             labelText: text,
             labelStyle: GoogleFonts.quicksand(
-                fontSize: 18,
-                fontWeight: FontWeight.w400,
-                color: color.AppColor.mainText),
+              fontSize: 18,
+              fontWeight: FontWeight.w400,
+            ),
             enabledBorder: UnderlineInputBorder(
                 borderRadius: BorderRadius.circular(0),
                 borderSide: BorderSide(
-                  color: color.AppColor.blueDivider,
+                  color: Theme.of(context).colorScheme.primaryContainer,
                 ))),
       ),
     );

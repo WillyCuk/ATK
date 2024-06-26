@@ -1,4 +1,5 @@
 import "package:atk/pages/menu/admin/approved.dart";
+import "package:atk/pages/menu/admin/itemreport.dart";
 import "package:atk/pages/menu/admin/retrieveitem.dart";
 import "package:atk/pages/user_admin/error.dart";
 import "package:atk/pages/user_admin/fpassword.dart";
@@ -118,6 +119,12 @@ class MyRouter {
             name: RouterName.orderStatusAdminPage,
             pageBuilder: (context, state) {
               return const MaterialPage(child: OrderStatusAdmin());
+            }),
+        GoRoute(
+            path: "/item_report_admin",
+            name: RouterName.itemReportsAdminPage,
+            pageBuilder: (context, state) {
+              return const MaterialPage(child: ItemReportAdmin());
             }),
         GoRoute(
             path: "/approved_order_user",
