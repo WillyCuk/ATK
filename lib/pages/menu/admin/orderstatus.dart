@@ -161,6 +161,8 @@ class _OrderStatusAdminState extends State<OrderStatusAdmin> {
                                     child: Padding(
                                       padding: const EdgeInsets.all(30),
                                       child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
                                         children: [
                                           Row(
                                             children: [
@@ -176,9 +178,10 @@ class _OrderStatusAdminState extends State<OrderStatusAdmin> {
                                             ],
                                           ),
                                           const SizedBox(height: 8),
-                                          Expanded(
+                                          Flexible(
                                             // Listview disini digunakan untuk merender setiap item detail dalam purchase order masing-masing
                                             child: ListView.builder(
+                                                shrinkWrap: true,
                                                 itemCount: yearOrder[index]
                                                         ["order"]["items"]
                                                     .length,
@@ -267,6 +270,14 @@ class _OrderStatusAdminState extends State<OrderStatusAdmin> {
                                                   );
                                                 }),
                                           ),
+                                          yearOrder[index]["order"]
+                                                      ["message"] ==
+                                                  ""
+                                              ? Container()
+                                              : Text(
+                                                  "Reject Message : ${yearOrder[index]["order"]["message"]}",
+                                                  style: GoogleFonts.poppins(),
+                                                ),
                                         ],
                                       ),
                                     ),
@@ -427,7 +438,7 @@ class _OrderStatusAdminState extends State<OrderStatusAdmin> {
                         ),
                       )
                     : isRejected
-                        ? Expanded(
+                        ? Flexible(
                             child: ListView.builder(
                               itemCount: rejectedOrder.length,
                               itemBuilder: ((context, index) {
@@ -546,6 +557,15 @@ class _OrderStatusAdminState extends State<OrderStatusAdmin> {
                                                           );
                                                         }),
                                                   ),
+                                                  rejectedOrder[index]["order"]
+                                                              ["message"] ==
+                                                          ""
+                                                      ? Container()
+                                                      : Text(
+                                                          "Reject Message : ${rejectedOrder[index]["order"]["message"]}",
+                                                          style: GoogleFonts
+                                                              .poppins(),
+                                                        ),
                                                 ],
                                               ),
                                             ),
@@ -565,7 +585,7 @@ class _OrderStatusAdminState extends State<OrderStatusAdmin> {
                               }),
                             ),
                           )
-                        : Expanded(
+                        : Flexible(
                             child: ListView.builder(
                               itemCount: allOrder.length,
                               itemBuilder: ((context, index) {
@@ -682,6 +702,15 @@ class _OrderStatusAdminState extends State<OrderStatusAdmin> {
                                                           );
                                                         }),
                                                   ),
+                                                  allOrder[index]["order"]
+                                                              ["message"] ==
+                                                          ""
+                                                      ? Container()
+                                                      : Text(
+                                                          "Reject Message : ${allOrder[index]["order"]["message"]}",
+                                                          style: GoogleFonts
+                                                              .poppins(),
+                                                        ),
                                                 ],
                                               ),
                                             ),

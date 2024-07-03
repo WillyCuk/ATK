@@ -23,6 +23,7 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     final userProvider = context.read<User>();
+
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: Center(

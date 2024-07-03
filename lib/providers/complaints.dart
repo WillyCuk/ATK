@@ -2,18 +2,25 @@ import 'package:atk/models/Complaint.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
-class CustomerComplaint extends ChangeNotifier{
-  
+class CustomerComplaint extends ChangeNotifier {
   String _name = "Test";
   String _email = "Test";
+  bool _isMaintenance = true;
   final TextEditingController complaintController = TextEditingController();
 
   List<Complaint> _complaints = [
-    Complaint(name: "Test", email: "Test", date: DateTime.now().toString(), complaint: "Test"),
-    Complaint(name: "Test1", email: "Test2", date: DateTime.now().toString(), complaint: "lorem gdhasgdhaskfondsakvlhnasoivhdwsod"),
+    Complaint(
+        name: "Test",
+        email: "Test",
+        date: DateTime.now().toString(),
+        complaint: "Test"),
+    Complaint(
+        name: "Test1",
+        email: "Test2",
+        date: DateTime.now().toString(),
+        complaint: "lorem gdhasgdhaskfondsakvlhnasoivhdwsod"),
   ];
   List<Complaint> get complaints => _complaints;
-
 
   String get name => _name;
 
@@ -21,27 +28,31 @@ class CustomerComplaint extends ChangeNotifier{
 
   String get complain => complaintController.text;
 
-  void setUserEmail(String name, String email){
+  bool get isMaintenance => _isMaintenance;
+
+  void setUserEmail(String name, String email) {
     _name = name;
     _email = email;
     notifyListeners();
   }
 
-  void addComplaint(){
+  void addComplaint() {
     final newComplaint = Complaint(
-      name: _name, 
-      email: _email, 
-      date: DateFormat('yyyy-MM-dd').format(DateTime.now()).toString(),
-      complaint: complaintController.text);
+        name: _name,
+        email: _email,
+        date: DateFormat('yyyy-MM-dd').format(DateTime.now()).toString(),
+        complaint: complaintController.text);
 
     _complaints.add(newComplaint);
     notifyListeners();
     complaintController.clear();
   }
 
-
-  Complaint getComplaint(){
-    return Complaint(name: _name, email: _email, date: DateTime.now().toString(), complaint: complaintController.text);
+  Complaint getComplaint() {
+    return Complaint(
+        name: _name,
+        email: _email,
+        date: DateTime.now().toString(),
+        complaint: complaintController.text);
   }
-
 }

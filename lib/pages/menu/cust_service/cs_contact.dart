@@ -37,9 +37,12 @@ class _CSContactState extends State<CSContact> {
           actions: <Widget>[
             TextButton(
               onPressed: () {
-                Navigator.of(context).pop(); // Close the dialog
+                Navigator.pop(context); // Close the dialog;
               },
-              child: Text('OK'),
+              child: Text(
+                'OK',
+                style: GoogleFonts.poppins(),
+              ),
             ),
           ],
         );
@@ -60,8 +63,6 @@ class _CSContactState extends State<CSContact> {
               Navigator.pop(context);
             },
           ),
-          backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
-          foregroundColor: Theme.of(context).appBarTheme.foregroundColor,
           title: Text(
             "CS Contact",
             style:
@@ -83,7 +84,7 @@ class _CSContactState extends State<CSContact> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Padding(
-                          padding: EdgeInsets.only(bottom: 10.0),
+                          padding: const EdgeInsets.only(bottom: 10.0),
                           child: Text(
                             "Contact Person",
                             style: GoogleFonts.poppins(
@@ -96,7 +97,7 @@ class _CSContactState extends State<CSContact> {
                         Padding(
                           padding: const EdgeInsets.symmetric(vertical: 8),
                           child: Row(children: [
-                            Icon(Icons.phone),
+                            const Icon(Icons.phone),
                             Text(
                               ' 08123456789 - Cecilia',
                               style: GoogleFonts.poppins(
@@ -108,7 +109,7 @@ class _CSContactState extends State<CSContact> {
                         Padding(
                           padding: const EdgeInsets.symmetric(vertical: 8),
                           child: Row(children: [
-                            Icon(Icons.phone),
+                            const Icon(Icons.phone),
                             Text(
                               ' 0824572190 - Jason Wilbert',
                               style: GoogleFonts.poppins(
@@ -122,7 +123,7 @@ class _CSContactState extends State<CSContact> {
                           color: Theme.of(context).colorScheme.primary,
                         ),
                         Container(
-                          padding: EdgeInsets.symmetric(vertical: 20.0),
+                          padding: const EdgeInsets.symmetric(vertical: 20.0),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
@@ -179,7 +180,7 @@ class _CSContactState extends State<CSContact> {
                                               .colorScheme
                                               .primary),
                                     ),
-                                    SizedBox(height: 8),
+                                    const SizedBox(height: 8),
                                     Text(
                                       'For your information, you can contact our Customer Service',
                                       style: GoogleFonts.poppins(
@@ -198,22 +199,14 @@ class _CSContactState extends State<CSContact> {
                     ),
                   ],
                 ),
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
                 MyButton(
                   text: 'Submit',
                   onPressed: () {
                     complaintProvider.setUserEmail(user.user, user.email);
                     complaintProvider.addComplaint();
-                    final complaints = complaintProvider.complaints;
-                    for (var complaint in complaints) {
-                      print('Name: ${complaint.name}');
-                      print('Email: ${complaint.email}');
-                      print('Phone: ${user.role}');
-                      print('Date: ${complaint.date}');
-                      print('Complaint: ${complaint.complaint}');
-                      print('---------------------------');
-                    }
                     showSuccessDialog(user.role);
+                    Navigator.pop(context);
                   },
                 ),
               ],
