@@ -7,7 +7,11 @@ class UserOrder extends ChangeNotifier {
       "order": {
         "id": 1,
         "status": "Waiting",
+        "retrieve_admin": null,
+        "retrieve_user": null,
+        "message": "",
         "date": '23 April 2021',
+        "send_date": "",
         "items": [
           {"id": 2, "qty": 21},
           {"id": 0, "qty": 123}
@@ -15,44 +19,62 @@ class UserOrder extends ChangeNotifier {
       }
     },
     {
-      "user": "anying",
+      "user": "cecilia",
       "order": {
         "id": 2,
         "status": "Approved",
-        "date": '24 Mei 2022',
+        "retrieve_admin": false,
+        "retrieve_user": null,
+        "message": "",
+        "date": '24 May 2022',
+        "send_date": "",
         "items": [
           {"id": 2, "qty": 21},
+          {"id": 3, "qty": 211},
+          {"id": 1, "qty": 221},
         ]
       }
     },
     {
-      "user": "anying",
+      "user": "cecilia",
       "order": {
         "id": 3,
         "status": "Waiting",
-        "date": '23 Juni 2023',
+        "retrieve_admin": null,
+        "retrieve_user": null,
+        "message": "",
+        "date": '23 June 2023',
+        "send_date": "",
         "items": [
           {"id": 2, "qty": 21},
         ]
       }
     },
     {
-      "user": "anying",
+      "user": "cecilia",
       "order": {
         "id": 4,
         "status": "Waiting",
-        "date": '23 Juni 2023',
+        "retrieve_admin": null,
+        "retrieve_user": null,
+        "message": "",
+        "date": '23 June 2023',
+        "send_date": "",
         "items": [
           {"id": 2, "qty": 21},
         ]
       }
     },
     {
-      "user": "anying",
+      "user": "kuntul",
       "order": {
         "id": 5,
         "status": "Approved",
+        "retrieve_admin": true,
+        "retrieve_user": false,
+        "message": "",
         "date": '23 April 2024',
+        "send_date": "25 April 2024",
         "items": [
           {"id": 2, "qty": 21},
         ]
@@ -70,7 +92,11 @@ class UserOrder extends ChangeNotifier {
       "order": {
         "id": id + 1,
         "status": "Waiting",
+        "retrieve_admin": null,
+        "retrieve_user": null,
+        "message": "",
         "date": date,
+        "send_date": "",
         "items": itemRequest
       }
     });
@@ -82,6 +108,7 @@ class UserOrder extends ChangeNotifier {
     int orderIndex =
         _userOrderList.indexWhere((element) => element["order"]['id'] == index);
     _userOrderList[orderIndex]["order"]["status"] = "Approved";
+    _userOrderList[orderIndex]["order"]["retrieve_admin"] = false;
     notifyListeners();
   }
 
@@ -90,6 +117,22 @@ class UserOrder extends ChangeNotifier {
         _userOrderList.indexWhere((element) => element["order"]['id'] == index);
     _userOrderList[orderIndex]["order"]["message"] = message;
     _userOrderList[orderIndex]["order"]["status"] = "Rejected";
+    notifyListeners();
+  }
+
+  void changeRetrieveStatus({required int index}) {
+    int orderIndex =
+        _userOrderList.indexWhere((element) => element["order"]['id'] == index);
+    _userOrderList[orderIndex]["order"]["retrieve_admin"] = true;
+    _userOrderList[orderIndex]["order"]["retrieve_user"] = false;
+    notifyListeners();
+  }
+
+  void changeRetrieveUserStatus({required int index}) {
+    int orderIndex =
+        _userOrderList.indexWhere((element) => element["order"]['id'] == index);
+
+    _userOrderList[orderIndex]["order"]["retrieve_user"] = true;
     notifyListeners();
   }
 }

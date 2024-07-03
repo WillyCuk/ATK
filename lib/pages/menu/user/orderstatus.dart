@@ -1,3 +1,4 @@
+import 'package:atk/providers/user.dart';
 import 'package:atk/providers/userorder.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -5,38 +6,41 @@ import 'package:provider/provider.dart';
 import '../../../providers/itemlist.dart';
 import '../../../utils/ordertile.dart';
 
-class OrderStatusAdmin extends StatefulWidget {
-  const OrderStatusAdmin({super.key});
+class OrderStatusUser extends StatefulWidget {
+  const OrderStatusUser({super.key});
 
   @override
-  State<OrderStatusAdmin> createState() => _OrderStatusAdminState();
+  State<OrderStatusUser> createState() => _OrderStatusUserState();
 }
 
-class _OrderStatusAdminState extends State<OrderStatusAdmin> {
+class _OrderStatusUserState extends State<OrderStatusUser> {
   bool isApproved = false;
   bool isRejected = false;
   bool isFilterYear = false;
   String? _selectedVal;
   @override
   Widget build(BuildContext context) {
+    final String user = Provider.of<User>(context).user;
     List<Map<String, dynamic>> allOrder = Provider.of<UserOrder>(context)
         .userOrderList
-        .where((element) =>
-            element["order"]["status"] == "Approved" ||
-            element["order"]["status"] == "Rejected")
+        .where((order) => order["user"] == user)
         .toList();
-    debugPrint(allOrder.toString());
+
     List<Map<String, dynamic>> approvedOrder = Provider.of<UserOrder>(context)
         .userOrderList
-        .where((element) => element["order"]["status"] == "Approved")
+        .where((order) =>
+            order["order"]["status"] == "Approved" && order["user"] == user)
         .toList();
     List<Map<String, dynamic>> rejectedOrder = Provider.of<UserOrder>(context)
         .userOrderList
-        .where((element) => element["order"]["status"] == "Rejected")
+        .where((order) =>
+            order["order"]["status"] == "Rejected" && order["user"] == user)
         .toList();
 
     List<Map<String, dynamic>> yearOrder = allOrder
-        .where((order) => order['order']['date'].split(' ')[2] == _selectedVal)
+        .where((order) =>
+            order['order']['date'].split(' ')[2] == _selectedVal &&
+            order["user"] == user)
         .toList();
 
     List<String> uniqueYears = allOrder
@@ -49,8 +53,6 @@ class _OrderStatusAdminState extends State<OrderStatusAdmin> {
 
     return Scaffold(
         appBar: AppBar(
-          backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
-          foregroundColor: Theme.of(context).appBarTheme.foregroundColor,
           title: Text(
             "Order Statuses",
             style:
@@ -280,7 +282,7 @@ class _OrderStatusAdminState extends State<OrderStatusAdmin> {
                             user: yearOrder[index]["user"],
                             date: yearOrder[index]["order"]["date"],
                             retrieveStatus: yearOrder[index]["order"]
-                                ["retrieve_admin"],
+                                ["retrieve_user"],
                           ),
                         );
                       }),
@@ -420,7 +422,7 @@ class _OrderStatusAdminState extends State<OrderStatusAdmin> {
                                 user: approvedOrder[index]["user"],
                                 date: approvedOrder[index]["order"]["date"],
                                 retrieveStatus: approvedOrder[index]["order"]
-                                    ["retrieve_admin"],
+                                    ["retrieve_user"],
                               ),
                             );
                           }),
@@ -695,7 +697,7 @@ class _OrderStatusAdminState extends State<OrderStatusAdmin> {
                                     user: allOrder[index]["user"],
                                     date: allOrder[index]["order"]["date"],
                                     retrieveStatus: allOrder[index]["order"]
-                                        ["retrieve_admin"],
+                                        ["retrieve_user"],
                                   ),
                                 );
                               }),

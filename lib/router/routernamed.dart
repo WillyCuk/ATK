@@ -22,5 +22,9 @@ class RouterName {
   static String itemRetrieveUserPage = "item-retrieve-user";
   static String approvedOrderUserPage = "approved-order-user";
   static String rejectedOrderUserPage = "rejected-order-user";
+  static String customerServicePage = "customer-service";
+  static String custComplaint = "customer-complaint";
+  static String dashboardCSPage = "dashboard-cs";
+  static String csContact = "cs-contact";
   static String settingsPage = "settings";
 }

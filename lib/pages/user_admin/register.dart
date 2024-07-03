@@ -7,7 +7,6 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import "../../Colors/colors.dart";
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({super.key});
@@ -167,11 +166,13 @@ class _RegisterPageState extends State<RegisterPage> {
                           margin: const EdgeInsets.fromLTRB(10, 0, 10, 10),
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(10)),
-                          backgroundColor: AppColor.snackBarBackground,
+                          backgroundColor:
+                              Theme.of(context).colorScheme.primaryContainer,
                           content: Text(errorMessage,
                               style: GoogleFonts.poppins(
-                                  fontWeight: FontWeight.w400,
-                                  color: AppColor.snackBarText)),
+                                fontWeight: FontWeight.w400,
+                                color: Theme.of(context).colorScheme.primary,
+                              )),
                           duration: const Duration(seconds: 1),
                           behavior: SnackBarBehavior.floating,
                         ),

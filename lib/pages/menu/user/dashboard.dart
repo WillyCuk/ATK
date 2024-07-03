@@ -1,10 +1,9 @@
 import 'package:atk/router/routernamed.dart';
 import 'package:atk/utils/dashboardtile.dart';
 import 'package:atk/utils/logo.dart';
+import 'package:atk/utils/mydrawer.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
-import '../../../providers/theme.dart';
 
 class DashboardUserPage extends StatelessWidget {
   DashboardUserPage({super.key});
@@ -24,16 +23,8 @@ class DashboardUserPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      drawer: Drawer(
-        child: Switch(
-            value: Provider.of<ThemeProvider>(context).isDarkMode,
-            onChanged: (value) =>
-                Provider.of<ThemeProvider>(context, listen: false)
-                    .toggleTheme()),
-      ),
+      drawer: const MyUserDrawer(),
       appBar: AppBar(
-        backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
-        foregroundColor: Theme.of(context).appBarTheme.foregroundColor,
         title: Text(
           "Aplikasi Data BMN ATK",
           style: GoogleFonts.poppins(

@@ -71,7 +71,9 @@ class _ForgotPageState extends State<ForgotPage> {
                             email: _emailController.text,
                           );
                         });
-                    context.goNamed(RouterName.loginPageName);
+                    if (context.mounted) {
+                      context.goNamed(RouterName.loginPageName);
+                    }
                   }
                 } catch (e) {
                   if (context.mounted) {

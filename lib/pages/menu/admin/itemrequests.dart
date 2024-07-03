@@ -1,6 +1,7 @@
 import 'package:atk/providers/userorder.dart';
 import 'package:atk/utils/mybutton.dart';
 import 'package:atk/utils/ordertile.dart';
+import 'package:atk/utils/reject-dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -155,14 +156,20 @@ class ItemRequestAdmin extends StatelessWidget {
                                         Expanded(
                                           child: MyButton(
                                               text: "REJECT",
-                                              onPressed: () {
+                                              onPressed: () async {
+                                                final message =
+                                                    await showDialog(
+                                                        context: context,
+                                                        builder: (context) {
+                                                          return const RejectDialog();
+                                                        });
                                                 debugPrint("reject");
                                                 Provider.of<UserOrder>(context,
                                                         listen: false)
                                                     .changeStatusRejected(
                                                   index: waitingOrder[index]
                                                       ["order"]['id'],
-                                                  message: "tayang",
+                                                  message: message.toString(),
                                                 );
                                                 Navigator.pop(context);
                                               }),
@@ -199,6 +206,7 @@ class ItemRequestAdmin extends StatelessWidget {
                           .padLeft(3, '0'),
                       user: waitingOrder[index]["user"],
                       date: waitingOrder[index]["order"]["date"],
+                      retrieveStatus: null,
                     ),
                   );
                 } else {

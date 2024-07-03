@@ -44,7 +44,7 @@ class ItemTile extends StatelessWidget {
               const Spacer(),
               Text(qty.toString(), style: GoogleFonts.poppins(fontSize: 14)),
               const SizedBox(width: 15),
-              Text("Pulpen", style: GoogleFonts.poppins(fontSize: 14))
+              Text("Rim", style: GoogleFonts.poppins(fontSize: 14))
             ],
           ),
         ],

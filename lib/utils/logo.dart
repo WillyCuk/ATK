@@ -10,6 +10,7 @@ class MyLogo extends StatelessWidget {
       child: Image.asset(
         "assets/logo.png",
         fit: BoxFit.fitHeight,
+        color: Theme.of(context).colorScheme.primary,
       ),
     );
   }

@@ -1,29 +1,20 @@
-import "package:atk/providers/user.dart";
 import "package:atk/utils/mypagebutton.dart";
 import "package:atk/utils/textformfield.dart";
 import "package:flutter/material.dart";
 
-import "package:provider/provider.dart";
-
-class ForgotDialog extends StatefulWidget {
-  final String otp;
-  final String email;
-
-  const ForgotDialog({
+class RejectDialog extends StatefulWidget {
+  const RejectDialog({
     super.key,
-    required this.otp,
-    required this.email,
   });
 
   @override
-  State<ForgotDialog> createState() => _ForgotDialogState();
+  State<RejectDialog> createState() => _RejectDialogState();
 }
 
-class _ForgotDialogState extends State<ForgotDialog> {
+class _RejectDialogState extends State<RejectDialog> {
   final _formKey = GlobalKey<FormState>();
-  final TextEditingController otpController = TextEditingController();
-  final TextEditingController passController = TextEditingController();
-  bool toggleHiddenPass = true;
+
+  final TextEditingController _messageController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -40,47 +31,19 @@ class _ForgotDialogState extends State<ForgotDialog> {
             children: [
               // Bagian Form Field <<
               MyTextFormField(
-                controller: otpController,
+                controller: _messageController,
                 validator: (value) {
                   if (value!.isEmpty) {
-                    return 'OTP must be filled';
-                  } else if (otpController.text != widget.otp) {
-                    debugPrint(otpController.text);
-                    return "OTP Don't match";
+                    return 'Message must be filled';
                   }
                   return null;
                 },
-                labelText: "OTP Code",
+                labelText: "Reject Message / Reason",
                 prefixIcon: null,
                 suffixIcon: null,
                 obscureText: false,
               ),
-              MyTextFormField(
-                  prefixIcon: const Icon(Icons.lock),
-                  suffixIcon: GestureDetector(
-                    onTap: () {
-                      setState(() {
-                        toggleHiddenPass = !toggleHiddenPass;
-                      });
-                    },
-                    child: Icon(
-                      toggleHiddenPass
-                          ? Icons.visibility
-                          : Icons.visibility_off,
-                      color: Colors.blueGrey,
-                    ),
-                  ),
-                  obscureText: toggleHiddenPass,
-                  controller: passController,
-                  validator: (value) {
-                    if (value!.isEmpty) {
-                      return 'password must be filled';
-                    } else if (passController.text.length < 8) {
-                      return "Password length should not below 8";
-                    }
-                    return null;
-                  },
-                  labelText: "Password"),
+
               // Bagian Form Field >>
               // Bagian Button <<
               Row(
@@ -98,10 +61,7 @@ class _ForgotDialogState extends State<ForgotDialog> {
                     onPressed: () {
                       if (_formKey.currentState!.validate()) {
                         try {
-                          Provider.of<User>(context, listen: false)
-                              .changePass(widget.email, passController.text);
-                          // context.goNamed(RouterName.loginPageName);
-                          Navigator.pop(context);
+                          Navigator.pop(context, _messageController.text);
                         } catch (e) {
                           String errorMessage =
                               e.toString().split(':').last.trim();

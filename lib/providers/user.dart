@@ -2,24 +2,28 @@ import 'package:flutter/material.dart';
 import "dart:math";
 
 class User extends ChangeNotifier {
-  String _user = 'username';
+  String _user = 'cecilia';
   String _email = 'user@gmail.com';
   String _role = 'user';
+  int _id = 2;
   bool _isLogin = false;
-  final List<Map<String, String>> _userList = [
+  final List<Map<String, dynamic>> _userList = [
     {
+      "id": 1,
       'username': 'willy',
       "email": "willyhalim543@gmail.com",
       'password': 'mantapkali',
       'role': 'admin'
     },
     {
+      "id": 2,
       'username': 'cecilia',
       "email": "willyhalim5@gmail.com",
-      'password': 'haiyahai',
-      'role': 'user'
+      'password': 'willybulat',
+      'role': 'cs'
     },
     {
+      "id": 3,
       'username': 'jason',
       "email": "willyhalim43@gmail.com",
       'password': 'haiyahaiya',
@@ -31,6 +35,8 @@ class User extends ChangeNotifier {
   String get email => _email;
   String get role => _role;
   bool get isLogin => _isLogin;
+  int get id => _id;
+  int get ids => _userList.length;
 
   set isLogin(val) {
     _isLogin = val;
@@ -41,7 +47,6 @@ class User extends ChangeNotifier {
     required String pwd,
   }) {
     try {
-      debugPrint(_userList.toString());
       bool isValidUser =
           _userList.any((element) => element['username'] == user);
       bool isValidPass = _userList.any((element) => element['password'] == pwd);
@@ -50,8 +55,9 @@ class User extends ChangeNotifier {
         _isLogin = true;
         int userIndex =
             _userList.indexWhere((element) => element['username'] == user);
-        _role = _userList[userIndex]['role']!;
-        _email = email;
+        _role = _userList[userIndex]['role'];
+        _email = _userList[userIndex]['email'];
+        _id = _userList[userIndex]['id'];
       } else if (!isValidUser) {
         throw Exception('Invalid Username');
       } else if (!isValidPass) {
@@ -72,7 +78,8 @@ class User extends ChangeNotifier {
       if (userExist) {
         throw Exception('Username already exist');
       }
-      Map<String, String> user = {
+      Map<String, dynamic> user = {
+        "id": ids,
         "username": username,
         "email": email,
         "password": password,
@@ -105,5 +112,21 @@ class User extends ChangeNotifier {
         _userList.indexWhere((email) => email['email'] == userEmail);
     _userList[userIndex]['password'] = newPass;
     debugPrint("list of email : ${_userList.toString()}");
+  }
+
+  changeUserEmail(
+      {required int id, required String name, required String email}) {
+    int userIndex = _userList.indexWhere((user) => user["id"] == id);
+
+    if (name != "" && email != "") {
+      _userList[userIndex]["username"] = name;
+      _userList[userIndex]["email"] = email;
+    } else if (name != "") {
+      _userList[userIndex]["username"] = name;
+    } else if (email != "") {
+      _userList[userIndex]["email"] = email;
+    }
+    debugPrint(_userList.toString());
+    notifyListeners();
   }
 }

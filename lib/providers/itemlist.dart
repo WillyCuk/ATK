@@ -8,7 +8,7 @@ class ItemList extends ChangeNotifier {
       "Boldliner",
       "",
       "",
-      100,
+      1000,
       "assets/boldliner.jpg",
     ],
     [
@@ -17,7 +17,7 @@ class ItemList extends ChangeNotifier {
       "Bola Dunia",
       "",
       "",
-      100,
+      1000,
       "assets/bola_dunia.jpg",
     ],
     [
@@ -26,16 +26,16 @@ class ItemList extends ChangeNotifier {
       "Bola Dunia",
       "",
       "",
-      100,
+      1000,
       "assets/bola_dunia2.jpg",
     ],
     [
       3,
-      "Kertas F4",
+      "Kertas B4",
       "Bola Dunia",
       "",
       "",
-      100,
+      250,
       "assets/logo.jpg",
     ]
   ];
@@ -97,5 +97,20 @@ class ItemList extends ChangeNotifier {
       debugPrint(e.toString());
     }
     notifyListeners();
+  }
+
+  void retrieveQty({required List<Map<String, int>> item}) {
+    try {
+      for (var i in item) {
+        var item = _items.firstWhere((element) => element[0] == i['id']);
+        if (item[5] - i['qty']! < 0) {
+          throw Exception('Insufficient quantity for ${item[1]}');
+        } else {
+          item[5] -= i['qty']!;
+        }
+      }
+    } catch (e) {
+      rethrow;
+    }
   }
 }

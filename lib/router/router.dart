@@ -1,34 +1,34 @@
-import "package:atk/pages/menu/admin/approved.dart";
 import "package:atk/pages/menu/admin/itemreport.dart";
 import "package:atk/pages/menu/admin/retrieveitem.dart";
+import "package:atk/pages/menu/cust_service/cs_contact.dart";
+import "package:atk/pages/menu/cust_service/customer_complaints.dart";
+import "package:atk/pages/menu/cust_service/dashboard.dart";
+import "package:atk/pages/menu/user/orderstatus.dart";
+import "package:atk/pages/menu/user/retrieveitem.dart";
 import "package:atk/pages/user_admin/error.dart";
 import "package:atk/pages/user_admin/fpassword.dart";
 import "package:atk/pages/menu/admin/additem.dart";
 import "package:atk/pages/menu/admin/orderstatus.dart";
 import "package:atk/pages/menu/user/itemrequest.dart";
 import "package:atk/pages/menu/user/stockitem.dart";
-import "package:atk/pages/menu/admin/rejected.dart";
 import "package:atk/pages/user_admin/profile.dart";
-// import "package:atk/pages/user/admin/settings.dart";
 import "package:atk/router/routernamed.dart";
 import "package:flutter/material.dart";
 import "package:go_router/go_router.dart";
 import "../pages/menu/admin/dashboard.dart";
 import "../pages/menu/admin/itemdetail.dart";
-import "../pages/menu/user/approved.dart";
 import "../pages/menu/user/dashboard.dart";
 import "../pages/menu/admin/itemrequests.dart";
 import "../pages/user_admin/login.dart";
 import "../pages/user_admin/mainpage.dart";
 import "../pages/menu/admin/stockitem.dart";
 import "../pages/menu/user/itemdetail.dart";
-import "../pages/menu/user/rejected.dart";
 import "../pages/user_admin/register.dart";
 // import "../providers/user.dart";
 
 class MyRouter {
   GoRouter router = GoRouter(
-      initialLocation: "/",
+      initialLocation: "/dashboard_admin",
       routes: [
         GoRoute(
           path: "/",
@@ -103,18 +103,6 @@ class MyRouter {
               return const MaterialPage(child: ItemRequest());
             }),
         GoRoute(
-            path: "/approved_order_admin",
-            name: RouterName.approvedOrderAdminPage,
-            pageBuilder: (context, state) {
-              return const MaterialPage(child: AprrovedOrderAdmin());
-            }),
-        GoRoute(
-            path: "/rejected_order_admin",
-            name: RouterName.rejectedOrderAdminPage,
-            pageBuilder: (context, state) {
-              return const MaterialPage(child: RejectedOrderAdmin());
-            }),
-        GoRoute(
             path: "/order_status_admin",
             name: RouterName.orderStatusAdminPage,
             pageBuilder: (context, state) {
@@ -125,18 +113,6 @@ class MyRouter {
             name: RouterName.itemReportsAdminPage,
             pageBuilder: (context, state) {
               return const MaterialPage(child: ItemReportAdmin());
-            }),
-        GoRoute(
-            path: "/approved_order_user",
-            name: RouterName.approvedOrderUserPage,
-            pageBuilder: (context, state) {
-              return const MaterialPage(child: AprrovedOrderUser());
-            }),
-        GoRoute(
-            path: "/rejected_order_user",
-            name: RouterName.rejectedOrderUserPage,
-            pageBuilder: (context, state) {
-              return const MaterialPage(child: RejectedOrderUser());
             }),
         GoRoute(
             path: "/item_request_admin",
@@ -163,6 +139,19 @@ class MyRouter {
           },
         ),
         GoRoute(
+            path: "/order_status_user",
+            name: RouterName.orderStatusUserPage,
+            pageBuilder: (context, state) {
+              return const MaterialPage(child: OrderStatusUser());
+            }),
+        GoRoute(
+            path: "/item_retrieve_user",
+            name: RouterName.itemRetrieveUserPage,
+            pageBuilder: (context, state) {
+              return const MaterialPage(child: ItemRetrieveUser());
+            }),
+
+        GoRoute(
           path: "/item_details_user/:index",
           name: RouterName.itemDetailUserPage,
           pageBuilder: (context, state) {
@@ -172,6 +161,30 @@ class MyRouter {
             );
           },
         ),
+        GoRoute(
+            path: "/cs",
+            name: RouterName.customerServicePage,
+            pageBuilder: (context, state) {
+              return const MaterialPage(child: OrderStatusUser());
+            }),
+        GoRoute(
+            path: "/cs_contact",
+            name: RouterName.csContact,
+            pageBuilder: (context, state) {
+              return const MaterialPage(child: CSContact());
+            }),
+        GoRoute(
+            path: "/cust_complaint",
+            name: RouterName.custComplaint,
+            pageBuilder: (context, state) {
+              return const MaterialPage(child: CustomerComplaintPage());
+            }),
+        GoRoute(
+            path: "/dashboard_cs",
+            name: RouterName.dashboardCSPage,
+            pageBuilder: (context, state) {
+              return const MaterialPage(child: DashboardCSPage());
+            }),
       ],
       // redirect: (BuildContext context, GoRouterState state) {
       //   if (Provider.of<User>(context, listen: false).isLogin) {

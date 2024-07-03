@@ -20,10 +20,9 @@ class ItemTextField extends StatelessWidget {
           controller: controller,
           decoration: InputDecoration(
               enabledBorder: UnderlineInputBorder(
-                  borderRadius: BorderRadius.circular(0),
                   borderSide: BorderSide(
-                    color: Theme.of(context).colorScheme.primaryContainer,
-                  ))),
+            color: Theme.of(context).colorScheme.primaryContainer,
+          ))),
         ),
       ],
     );

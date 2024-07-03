@@ -1,4 +1,3 @@
-import 'package:atk/Colors/colors.dart';
 import 'package:atk/router/routernamed.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -7,10 +6,7 @@ import 'package:google_fonts/google_fonts.dart';
 class MonthTile extends StatelessWidget {
   final String month;
   final String qty;
-  const MonthTile(
-      {super.key,
-      required this.month,
-      required this.qty});
+  const MonthTile({super.key, required this.month, required this.qty});
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +20,8 @@ class MonthTile extends StatelessWidget {
         padding: const EdgeInsets.only(bottom: 9.0),
         decoration: BoxDecoration(
             border: Border(
-                bottom: BorderSide(color: AppColor.blueDivider, width: 1))),
+                bottom: BorderSide(
+                    color: Theme.of(context).dividerColor, width: 1))),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [

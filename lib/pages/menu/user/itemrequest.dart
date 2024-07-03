@@ -6,7 +6,6 @@ import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import "package:intl/intl.dart";
 import 'package:provider/provider.dart';
-import '../../../Colors/colors.dart';
 import '../../../providers/itemlist.dart';
 import '../../../providers/user.dart';
 
@@ -454,11 +453,14 @@ class _ItemRequestState extends State<ItemRequest> {
                             margin: const EdgeInsets.fromLTRB(10, 0, 10, 100),
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(10)),
-                            backgroundColor: AppColor.snackBarBackground,
+                            backgroundColor:
+                                Theme.of(context).colorScheme.primaryContainer,
                             content: Text("Item Has not been added",
                                 style: GoogleFonts.poppins(
                                     fontWeight: FontWeight.w400,
-                                    color: AppColor.snackBarText)),
+                                    color: Theme.of(context)
+                                        .colorScheme
+                                        .primaryContainer)),
                             duration: const Duration(seconds: 1),
                             // dismissDirection: DismissDirection.none,
                             behavior: SnackBarBehavior.floating,

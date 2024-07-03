@@ -107,6 +107,9 @@ class _LoginPageState extends State<LoginPage> {
                     } else if (userProvider.isLogin &&
                         userProvider.role == "user") {
                       context.goNamed(RouterName.dashboardUserPage);
+                    } else if (userProvider.isLogin &&
+                        userProvider.role == "cs") {
+                      context.goNamed(RouterName.dashboardCSPage);
                     }
                   } catch (e) {
                     String errorMessage = e.toString().split(':').last.trim();
