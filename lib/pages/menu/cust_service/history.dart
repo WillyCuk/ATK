@@ -117,7 +117,7 @@ class _MaintenanceHistoryPageState extends State<MaintenanceHistoryPage> {
                     ),
                   )
                 : ListView.builder(
-                    reverse: true, // Display the list from newest to oldest
+                    // Display the list from newest to oldest
                     padding: const EdgeInsets.all(16),
                     itemCount: maintenanceHistory.length,
                     itemBuilder: (context, index) {

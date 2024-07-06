@@ -13,10 +13,12 @@ class MaintenanceProvider with ChangeNotifier {
     MaintenanceRecord(
       regard: 'Initial Record',
       startTime: DateTime(2024, 5, 26),
+      endTime: DateTime(2024, 5, 28),
     ),
     MaintenanceRecord(
       regard: 'Initial Record',
       startTime: DateTime(2024, 6, 26),
+      endTime: DateTime(2024, 5, 27),
     ),
   ];
 
