@@ -11,12 +11,12 @@ class MaintenanceProvider with ChangeNotifier {
   final List<MaintenanceRecord> _maintenanceHistory = [
     //create a initial record example
     MaintenanceRecord(
-      regard: 'Initial Record',
+      regard: 'Maintenance V1.1 - Minor Bug on Add Item',
       startTime: DateTime(2024, 5, 26),
       endTime: DateTime(2024, 5, 28),
     ),
     MaintenanceRecord(
-      regard: 'Initial Record',
+      regard: 'Maintenance V2.1 - Release New Feature - Customer Complaint',
       startTime: DateTime(2024, 6, 26),
       endTime: DateTime(2024, 5, 27),
     ),

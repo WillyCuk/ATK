@@ -9,12 +9,7 @@ class MaintenanceService extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
-          "Maintenance Service",
-          style: GoogleFonts.poppins(),
-        ),
-        backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
-        foregroundColor: Theme.of(context).appBarTheme.foregroundColor,
+        title: const Text("Maintenance Service"),
         leading: IconButton(
             onPressed: () {
               Navigator.pop(context);
@@ -32,7 +27,7 @@ class MaintenanceService extends StatelessWidget {
                   fontWeight: FontWeight.bold, fontSize: 24),
             ),
             const SizedBox(height: 16),
-            Divider(color: Theme.of(context).dividerTheme.color),
+            const Divider(),
             const SizedBox(height: 16),
             const MaintenanceModeToggle()
           ],
