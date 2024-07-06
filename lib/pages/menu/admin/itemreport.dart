@@ -12,8 +12,6 @@ class ItemReportAdmin extends StatefulWidget {
 
 class _ItemReportAdminState extends State<ItemReportAdmin> {
   bool isFilterYear = false;
-  String _selectedVal = "2";
-  String? _selectedYear;
   late List monthList;
   late List itemList;
   late String brand;
@@ -23,23 +21,12 @@ class _ItemReportAdminState extends State<ItemReportAdmin> {
   final tabs = ['Text', 'Graph'];
 
   @override
-  void initState() {
-    super.initState();
-    _selectedYear = DateTime.now().year.toString();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return DefaultTabController(
       length: tabs.length,
       child: Scaffold(
         appBar: AppBar(
-          title: const Text(
-            "Item Report",
-          ),
-          centerTitle: true,
-          backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
-          foregroundColor: Theme.of(context).appBarTheme.foregroundColor,
+          title: const Text("Item Report"),
           bottom: TabBar(indicatorColor: Colors.black, tabs: [
             for (final tab in tabs)
               Tab(

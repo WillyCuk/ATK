@@ -1,8 +1,12 @@
 import "package:atk/pages/menu/admin/itemreport.dart";
 import "package:atk/pages/menu/admin/retrieveitem.dart";
 import "package:atk/pages/menu/cust_service/cs_contact.dart";
+import "package:atk/pages/menu/cust_service/cs_front_page.dart";
 import "package:atk/pages/menu/cust_service/customer_complaints.dart";
 import "package:atk/pages/menu/cust_service/dashboard.dart";
+import "package:atk/pages/menu/cust_service/history.dart";
+import "package:atk/pages/menu/cust_service/maintenance.dart";
+import "package:atk/pages/menu/cust_service/maintenance_page.dart";
 import "package:atk/pages/menu/user/orderstatus.dart";
 import "package:atk/pages/menu/user/retrieveitem.dart";
 import "package:atk/pages/user_admin/error.dart";
@@ -184,6 +188,30 @@ class MyRouter {
             name: RouterName.dashboardCSPage,
             pageBuilder: (context, state) {
               return const MaterialPage(child: DashboardCSPage());
+            }),
+        GoRoute(
+            path: "/maintenance-service",
+            name: RouterName.maintenanceService,
+            pageBuilder: (context, state) {
+              return const MaterialPage(child: MaintenanceService());
+            }),
+        GoRoute(
+            path: "/maintenance",
+            name: RouterName.maintenancePage,
+            pageBuilder: (context, state) {
+              return const MaterialPage(child: Maintenance());
+            }),
+        GoRoute(
+            path: "/maintenance_history",
+            name: RouterName.maintenanceHistory,
+            pageBuilder: (context, state) {
+              return const MaterialPage(child: MaintenanceHistoryPage());
+            }),
+        GoRoute(
+            path: "/cs_front",
+            name: RouterName.custServiceFrontPage,
+            pageBuilder: (context, state) {
+              return const MaterialPage(child: CsFrontPage());
             }),
       ],
       // redirect: (BuildContext context, GoRouterState state) {

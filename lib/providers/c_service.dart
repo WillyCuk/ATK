@@ -1,14 +1,14 @@
-import 'package:atk/models/Complaint.dart';
+import 'package:atk/models/complaint.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 class CustomerComplaint extends ChangeNotifier {
   String _name = "Test";
   String _email = "Test";
-  bool _isMaintenance = true;
+
   final TextEditingController complaintController = TextEditingController();
 
-  List<Complaint> _complaints = [
+  final List<Complaint> _complaints = [
     Complaint(
         name: "Test",
         email: "Test",
@@ -27,8 +27,6 @@ class CustomerComplaint extends ChangeNotifier {
   String get email => _email;
 
   String get complain => complaintController.text;
-
-  bool get isMaintenance => _isMaintenance;
 
   void setUserEmail(String name, String email) {
     _name = name;

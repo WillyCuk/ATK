@@ -26,5 +26,9 @@ class RouterName {
   static String custComplaint = "customer-complaint";
   static String dashboardCSPage = "dashboard-cs";
   static String csContact = "cs-contact";
+  static String maintenanceService = "maintenance-service";
+  static String maintenancePage = "maintenance";
+  static String maintenanceHistory = "maintenance-history";
+  static String custServiceFrontPage = "cs-front";
   static String settingsPage = "settings";
 }

@@ -1,42 +1,32 @@
 import 'package:atk/providers/userorder.dart';
+import 'package:atk/utils/bottomlistitem.dart';
 import 'package:atk/utils/mybutton.dart';
 import 'package:atk/utils/ordertile.dart';
-import 'package:atk/utils/reject-dialog.dart';
+import 'package:atk/utils/reject_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-
 import '../../../providers/itemlist.dart';
+import '../../../utils/mysnackbar.dart';
 
 class ItemRequestAdmin extends StatelessWidget {
   const ItemRequestAdmin({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final List fullOrder = Provider.of<UserOrder>(context).userOrderList;
-    debugPrint(fullOrder.toString());
     final List waitingOrder = Provider.of<UserOrder>(context)
         .userOrderList
-        .where((e) => e["order"]["status"] == "Waiting")
+        .where((order) => order["order"]["status"] == "Waiting")
         .toList();
-    debugPrint(waitingOrder.toString());
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
-        foregroundColor: Theme.of(context).appBarTheme.foregroundColor,
-        title: Text(
-          "Request Items",
-          style: GoogleFonts.poppins(fontWeight: FontWeight.bold),
-        ),
-      ),
+      appBar: AppBar(title: const Text("Request Items")),
       body: Padding(
           padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 25.0),
           // Listview dibawah digunakan untuk merender bagian awal tampilan yang berisi purchase order + id dan tanggal
           child: ListView.builder(
               itemCount: waitingOrder.length,
               itemBuilder: (context, index) {
-                // debugPrint(waitingOrder[index]["order"]["status"].toString());
-                if (waitingOrder[index]["order"]["status"] == "Waiting") {
+                if (waitingOrder.isNotEmpty) {
                   // Penggunaan Gesture Detector agar setiap container yang dibuat bisa di klik untuk menampilkan detail purchase order
                   return GestureDetector(
                     onTap: () {
@@ -64,92 +54,12 @@ class ItemRequestAdmin extends StatelessWidget {
                                       ],
                                     ),
                                     const SizedBox(height: 8),
-                                    Expanded(
-                                      // Listview disini digunakan untuk merender setiap item detail dalam purchase order masing-masing
-                                      child: ListView.builder(
-                                          itemCount: waitingOrder[index]
-                                                  ["order"]["items"]
-                                              .length,
-                                          itemBuilder: (context, secondIndex) {
-                                            List itemList =
-                                                Provider.of<ItemList>(context)
-                                                    .items
-                                                    .where(
-                                                      (element) =>
-                                                          element[0] ==
-                                                          waitingOrder[index]
-                                                                      ["order"]
-                                                                  ["items"][
-                                                              secondIndex]["id"],
-                                                    )
-                                                    .toList();
-                                            debugPrint(itemList.toString());
-                                            return Padding(
-                                              padding: const EdgeInsets.only(
-                                                  bottom: 9.0),
-                                              child: Column(
-                                                children: [
-                                                  Row(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment.start,
-                                                    children: [
-                                                      Column(
-                                                        crossAxisAlignment:
-                                                            CrossAxisAlignment
-                                                                .start,
-                                                        children: [
-                                                          Text(
-                                                            itemList[0][1],
-                                                            style: GoogleFonts
-                                                                .poppins(
-                                                                    fontSize:
-                                                                        14),
-                                                          ),
-                                                          Row(
-                                                            children: [
-                                                              Text(
-                                                                  itemList[0]
-                                                                      [2],
-                                                                  style: GoogleFonts.poppins(
-                                                                      fontSize:
-                                                                          14,
-                                                                      color: Colors
-                                                                          .blueGrey)),
-                                                              Text(
-                                                                  itemList[0]
-                                                                      [3],
-                                                                  style: GoogleFonts
-                                                                      .poppins(
-                                                                          fontSize:
-                                                                              14))
-                                                            ],
-                                                          )
-                                                        ],
-                                                      ),
-                                                      const Spacer(),
-                                                      Text(
-                                                          waitingOrder[index]["order"]
-                                                                          [
-                                                                          "items"]
-                                                                      [
-                                                                      secondIndex]
-                                                                  ["qty"]
-                                                              .toString(),
-                                                          style: GoogleFonts
-                                                              .poppins(
-                                                                  fontSize:
-                                                                      14)),
-                                                      const SizedBox(width: 15),
-                                                      Text("Pulpen",
-                                                          style: GoogleFonts
-                                                              .poppins(
-                                                                  fontSize: 14))
-                                                    ],
-                                                  ),
-                                                ],
-                                              ),
-                                            );
-                                          }),
+                                    BottomListItem(
+                                      itemCount: waitingOrder[index]["order"]
+                                              ["items"]
+                                          .length,
+                                      index: index,
+                                      orderItem: waitingOrder[index],
                                     ),
                                     Row(
                                       children: [
@@ -163,15 +73,18 @@ class ItemRequestAdmin extends StatelessWidget {
                                                         builder: (context) {
                                                           return const RejectDialog();
                                                         });
-                                                debugPrint("reject");
-                                                Provider.of<UserOrder>(context,
-                                                        listen: false)
-                                                    .changeStatusRejected(
-                                                  index: waitingOrder[index]
-                                                      ["order"]['id'],
-                                                  message: message.toString(),
-                                                );
-                                                Navigator.pop(context);
+                                                if (message != null) {
+                                                  debugPrint(message);
+                                                  Provider.of<UserOrder>(
+                                                          context,
+                                                          listen: false)
+                                                      .changeStatusRejected(
+                                                    index: waitingOrder[index]
+                                                        ["order"]['id'],
+                                                    message: message.toString(),
+                                                  );
+                                                  Navigator.pop(context);
+                                                }
                                               }),
                                         ),
                                         const SizedBox(width: 20),
@@ -179,17 +92,31 @@ class ItemRequestAdmin extends StatelessWidget {
                                           child: MyButton(
                                               text: "APPROVE",
                                               onPressed: () {
-                                                debugPrint(waitingOrder[index]
-                                                        ["order"]['id']
-                                                    .toString());
-                                                Provider.of<UserOrder>(context,
-                                                        listen: false)
-                                                    .changeStatusApproved(
-                                                        index:
-                                                            waitingOrder[index]
-                                                                    ["order"]
-                                                                ['id']);
-                                                Navigator.pop(context);
+                                                try {
+                                                  Provider.of<ItemList>(context,
+                                                          listen: false)
+                                                      .retrieveQty(
+                                                          item: waitingOrder[
+                                                                      index]
+                                                                  ["order"]
+                                                              ["items"]);
+                                                  Provider.of<UserOrder>(
+                                                          context,
+                                                          listen: false)
+                                                      .changeStatusApproved(
+                                                          index: waitingOrder[
+                                                                  index]
+                                                              ["order"]['id']);
+                                                  Navigator.pop(context);
+                                                } catch (e) {
+                                                  String errorMessage = e
+                                                      .toString()
+                                                      .split(':')
+                                                      .last
+                                                      .trim();
+                                                  showTopSnackBar(
+                                                      context, errorMessage);
+                                                }
                                               }),
                                         ),
                                       ],

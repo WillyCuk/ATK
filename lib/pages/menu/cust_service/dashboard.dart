@@ -1,7 +1,7 @@
 import 'package:atk/router/routernamed.dart';
-import 'package:atk/utils/drawer.dart';
+import 'package:atk/utils/custdashboardtile.dart';
+import 'package:atk/utils/mydrawer.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class DashboardCSPage extends StatefulWidget {
@@ -21,7 +21,7 @@ class _DashboardCSPageState extends State<DashboardCSPage> {
           style: GoogleFonts.poppins(fontWeight: FontWeight.bold, fontSize: 18),
         ),
       ),
-      drawer: const DashboardDrawer(),
+      drawer: const MyCSDrawer(),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
@@ -44,52 +44,19 @@ class _DashboardCSPageState extends State<DashboardCSPage> {
               ),
             ),
             const SizedBox(height: 16),
-            const ComplaintButton(),
+            CustDashboardTile(
+                route: RouterName.custComplaint,
+                menuName: 'View Complaint',
+                menuIcon: const Icon(Icons.remove_red_eye)),
+            CustDashboardTile(
+                route: RouterName.maintenanceService,
+                menuName: 'Maintenance Service',
+                menuIcon: const Icon(Icons.timer_sharp)),
+            CustDashboardTile(
+                route: RouterName.maintenanceHistory,
+                menuName: 'Maintenance History',
+                menuIcon: const Icon(Icons.history)),
           ],
-        ),
-      ),
-    );
-  }
-}
-
-class ComplaintButton extends StatelessWidget {
-  const ComplaintButton({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8.0),
-      child: GestureDetector(
-        onTap: () {
-          context.pushNamed(RouterName.custComplaint);
-        },
-        child: Container(
-          width: double.infinity,
-          height: 60,
-          decoration: BoxDecoration(
-            color: Theme.of(context).colorScheme.primaryContainer,
-            borderRadius: BorderRadius.circular(8.0),
-          ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              Icon(
-                Icons.remove_red_eye,
-                color: Theme.of(context).colorScheme.inversePrimary,
-              ),
-              const SizedBox(width: 8),
-              Text(
-                'View Complaint',
-                style: GoogleFonts.poppins(
-                  color: Theme.of(context).colorScheme.inversePrimary,
-                  fontSize: 18,
-                ),
-              ),
-              const SizedBox(width: 8),
-              Icon(Icons.arrow_forward_ios,
-                  color: Theme.of(context).colorScheme.inversePrimary),
-            ],
-          ),
         ),
       ),
     );

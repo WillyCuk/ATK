@@ -1,6 +1,7 @@
-import 'package:atk/providers/complaints.dart';
+import 'package:atk/providers/c_service.dart';
 import 'package:atk/providers/user.dart';
 import 'package:atk/utils/mybutton.dart';
+import 'package:atk/utils/success_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -13,64 +14,14 @@ class CSContact extends StatefulWidget {
 }
 
 class _CSContactState extends State<CSContact> {
-  void showSuccessDialog(String role) {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          icon: Icon(Icons.done,
-              color: Theme.of(context).colorScheme.primary, size: 40),
-          title: Text(
-            'Success',
-            style: GoogleFonts.poppins(
-              fontSize: 16,
-              fontWeight: FontWeight.bold,
-              color: Theme.of(context).colorScheme.primary,
-            ),
-          ),
-          content: Text(
-            'Your complaint has been submitted successfully. Please wait for our response and we will get back to you.',
-            style: GoogleFonts.poppins(
-              color: Theme.of(context).colorScheme.primary,
-            ),
-          ),
-          actions: <Widget>[
-            TextButton(
-              onPressed: () {
-                Navigator.pop(context); // Close the dialog;
-              },
-              child: Text(
-                'OK',
-                style: GoogleFonts.poppins(),
-              ),
-            ),
-          ],
-        );
-      },
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     final complaintProvider = Provider.of<CustomerComplaint>(context);
     final user = Provider.of<User>(context);
     return Scaffold(
         resizeToAvoidBottomInset: false,
-        appBar: AppBar(
-          leading: IconButton(
-            icon: Icon(Icons.arrow_back),
-            onPressed: () {
-              Navigator.pop(context);
-            },
-          ),
-          title: Text(
-            "CS Contact",
-            style:
-                GoogleFonts.poppins(fontWeight: FontWeight.bold, fontSize: 18),
-          ),
-        ),
+        appBar: AppBar(title: const Text("CS Contact")),
         body: Container(
-          height: MediaQuery.of(context).size.height,
           padding: const EdgeInsets.all(20.0),
           child: Padding(
             padding: const EdgeInsets.only(bottom: 16.0),
@@ -118,10 +69,7 @@ class _CSContactState extends State<CSContact> {
                             )
                           ]),
                         ),
-                        Divider(
-                          thickness: 3,
-                          color: Theme.of(context).colorScheme.primary,
-                        ),
+                        const Divider(),
                         Container(
                           padding: const EdgeInsets.symmetric(vertical: 20.0),
                           child: Column(
@@ -205,7 +153,10 @@ class _CSContactState extends State<CSContact> {
                   onPressed: () {
                     complaintProvider.setUserEmail(user.user, user.email);
                     complaintProvider.addComplaint();
-                    showSuccessDialog(user.role);
+                    showSuccessDialog(
+                        context: context,
+                        msg:
+                            'Your complaint has been submitted successfully. Please wait for our response and we will get back to you.');
                     Navigator.pop(context);
                   },
                 ),

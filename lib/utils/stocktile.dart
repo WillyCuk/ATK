@@ -9,13 +9,15 @@ class StockTile extends StatelessWidget {
   final String itemBrand;
   final String qty;
   final String role;
+  final String unit;
   const StockTile(
       {super.key,
       required this.routeIndex,
       required this.itemName,
       required this.itemBrand,
       required this.qty,
-      required this.role});
+      required this.role,
+      required this.unit});
 
   @override
   Widget build(BuildContext context) {
@@ -57,10 +59,20 @@ class StockTile extends StatelessWidget {
                 )
               ],
             ),
-            Text(
-              qty,
-              style: GoogleFonts.poppins(
-                  color: Theme.of(context).colorScheme.secondary),
+            Row(
+              children: [
+                Text(
+                  qty,
+                  style: GoogleFonts.poppins(
+                      color: Theme.of(context).colorScheme.secondary),
+                ),
+                const SizedBox(width: 10),
+                Text(
+                  unit,
+                  style: GoogleFonts.poppins(
+                      color: Theme.of(context).colorScheme.secondary),
+                ),
+              ],
             ),
           ],
         ),

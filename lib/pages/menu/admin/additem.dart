@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
-
 import '../../../utils/mypagebutton.dart';
 
 class AddItem extends StatefulWidget {
@@ -88,6 +87,7 @@ class _AddItemState extends State<AddItem> {
   final TextEditingController _itemTypeController = TextEditingController();
   final TextEditingController _itemDescController = TextEditingController();
   final TextEditingController _itemQtyController = TextEditingController();
+  final TextEditingController _itemUnitController = TextEditingController();
 
   // String _dropDownValue = "1";
   // var _items = ['1', 'Pcs', 'Rim'];
@@ -96,14 +96,7 @@ class _AddItemState extends State<AddItem> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      appBar: AppBar(
-        title: Text(
-          "Add Item",
-          style: GoogleFonts.poppins(fontWeight: FontWeight.bold),
-        ),
-        backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
-        foregroundColor: Theme.of(context).appBarTheme.foregroundColor,
-      ),
+      appBar: AppBar(title: const Text("Add Item")),
       body: Padding(
           padding: const EdgeInsets.all(30.0),
           child: ListView(
@@ -120,6 +113,8 @@ class _AddItemState extends State<AddItem> {
               const SizedBox(height: 25),
               ItemTextField(
                   text: "Item Quantity", controller: _itemQtyController),
+              const SizedBox(height: 15),
+              ItemTextField(text: "Item Unit", controller: _itemUnitController),
               const SizedBox(height: 15),
               Center(
                 child: MyPageButton(
@@ -164,6 +159,7 @@ class _AddItemState extends State<AddItem> {
                             itemType: _itemTypeController.text,
                             itemDesc: _itemDescController.text,
                             itemQty: int.parse(_itemQtyController.text),
+                            itemUnit: _itemUnitController.text,
                             itemImg: image != null
                                 ? image!
                                 : "assets/whitebackground.jpeg");

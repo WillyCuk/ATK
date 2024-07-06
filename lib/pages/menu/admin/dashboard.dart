@@ -28,14 +28,8 @@ class DashboardAdminPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomInset: false,
       drawer: const MyAdminDrawer(),
-      appBar: AppBar(
-        title: Text(
-          "Aplikasi Data BMN ATK",
-          style: GoogleFonts.poppins(fontWeight: FontWeight.bold, fontSize: 18),
-        ),
-      ),
+      appBar: AppBar(title: const Text("Aplikasi Data BMN ATK")),
       body: ListView(
         children: [
           SizedBox(height: MediaQuery.of(context).size.height * .03),

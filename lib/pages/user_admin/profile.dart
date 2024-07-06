@@ -32,10 +32,7 @@ class _ProfilePageState extends State<ProfilePage> {
     final user = Provider.of<User>(context);
     return Scaffold(
       appBar: AppBar(
-        title: Text(
-          "Profile",
-          style: GoogleFonts.poppins(fontSize: 18, fontWeight: FontWeight.bold),
-        ),
+        title: const Text("Profile"),
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 20),

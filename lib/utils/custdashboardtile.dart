@@ -1,9 +1,14 @@
-import 'package:atk/router/routernamed.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 class CustDashboardTile extends StatelessWidget {
-  const CustDashboardTile({super.key});
+  final String route;
+  final String menuName;
+  final Icon menuIcon;
+  const CustDashboardTile({super.key
+      , required this.route
+      , required this.menuName
+      , required this.menuIcon});
 
   @override
   Widget build(BuildContext context) {
@@ -11,7 +16,7 @@ class CustDashboardTile extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 8.0),
       child: GestureDetector(
         onTap: () {
-          context.pushNamed(RouterName.custComplaint);
+          context.pushNamed(route);
         },
         child: Container(
           width: double.infinity,
@@ -24,12 +29,12 @@ class CustDashboardTile extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               Icon(
-                Icons.remove_red_eye,
+                menuIcon.icon,
                 color: Theme.of(context).colorScheme.inversePrimary,
               ),
               const SizedBox(width: 8),
               Text(
-                'View Complaint',
+                menuName,
                 style: TextStyle(
                   color: Theme.of(context).colorScheme.inversePrimary,
                   fontSize: 18,

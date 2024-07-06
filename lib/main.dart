@@ -1,7 +1,8 @@
 import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:atk/notification/notif_service.dart';
-import 'package:atk/providers/complaints.dart';
+import 'package:atk/providers/c_service.dart';
 import 'package:atk/providers/itemlist.dart';
+import 'package:atk/providers/maintenance.dart';
 import 'package:atk/providers/monthlyreport.dart';
 import 'package:atk/providers/theme.dart';
 import 'package:atk/providers/user.dart';
@@ -22,6 +23,7 @@ void main() async {
       ChangeNotifierProvider(create: (context) => ThemeProvider()),
       ChangeNotifierProvider(create: (context) => MonthlyReport()),
       ChangeNotifierProvider(create: (context) => CustomerComplaint()),
+      ChangeNotifierProvider(create: (context) => MaintenanceProvider()),
     ],
     child: const MyApp(),
   ));

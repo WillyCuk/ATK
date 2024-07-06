@@ -38,16 +38,7 @@ class _ItemRequestState extends State<ItemRequest> {
     String user = Provider.of<User>(context).user;
 
     return Scaffold(
-      appBar: AppBar(
-          title: Text(
-            "Request Forms",
-            style: GoogleFonts.poppins(
-              fontWeight: FontWeight.bold,
-              fontSize: 18,
-            ),
-          ),
-          backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
-          foregroundColor: Theme.of(context).appBarTheme.foregroundColor),
+      appBar: AppBar(title: const Text("Request Forms")),
       body: Padding(
         padding: EdgeInsets.symmetric(
           vertical: 30.0,

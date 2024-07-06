@@ -1,7 +1,6 @@
-import "package:atk/providers/itemlist.dart";
 import "package:atk/providers/user.dart";
 import "package:atk/providers/userorder.dart";
-import "package:atk/utils/itemtile.dart";
+import "package:atk/utils/bottomlistitem.dart";
 import "package:atk/utils/mybutton.dart";
 import "package:atk/utils/mysnackbar.dart";
 import "package:atk/utils/ordertile.dart";
@@ -99,37 +98,12 @@ class ItemRetrieveUser extends StatelessWidget {
                                                   .primary,
                                               fontSize: 18)),
                                       const SizedBox(height: 10),
-                                      Expanded(
-                                        // Listview disini digunakan untuk merender setiap item detail dalam purchase order masing-masing
-                                        child: ListView.builder(
-                                            itemCount: acceptOrder[index]
-                                                    ["order"]["items"]
-                                                .length,
-                                            itemBuilder:
-                                                (context, secondIndex) {
-                                              List itemList = Provider.of<
-                                                      ItemList>(context)
-                                                  .items
-                                                  .where(
-                                                    (element) =>
-                                                        element[0] ==
-                                                        acceptOrder[index]
-                                                                    ["order"]
-                                                                ["items"]
-                                                            [secondIndex]["id"],
-                                                  )
-                                                  .toList();
-                                              return ItemTile(
-                                                itemName: itemList[0][1],
-                                                itemBrand: itemList[0][2],
-                                                itemDesc: itemList[0][3],
-                                                qty: acceptOrder[index]["order"]
-                                                            ["items"]
-                                                        [secondIndex]["qty"]
-                                                    .toString(),
-                                              );
-                                            }),
-                                      ),
+                                      BottomListItem(
+                                          itemCount: acceptOrder[index]["order"]
+                                                  ["items"]
+                                              .length,
+                                          index: index,
+                                          orderItem: acceptOrder[index]),
                                       const SizedBox(height: 10),
                                       acceptOrder[index]["order"]
                                                   ["retrieve_user"] !=

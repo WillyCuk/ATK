@@ -44,7 +44,8 @@ class StockItemAdmin extends StatelessWidget {
               routeIndex: index.toString(),
               itemName: items[index][1],
               itemBrand: items[index][2],
-              qty: items[index][5].toString()),
+              qty: items[index][5].toString(),
+              unit: items[index][7]),
         ),
       ),
     );

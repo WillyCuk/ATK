@@ -23,21 +23,8 @@ class _ItemDetailsAdminState extends State<ItemDetailsAdmin> {
   Widget build(BuildContext context) {
     List<dynamic> item = Provider.of<ItemList>(context).items[widget.itemIndex];
     _qty = item[5];
-
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
-        foregroundColor: Theme.of(context).appBarTheme.foregroundColor,
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(
-              "Stock Item",
-              style: GoogleFonts.poppins(fontWeight: FontWeight.bold),
-            ),
-          ],
-        ),
-      ),
+      appBar: AppBar(title: const Text("Stock Item")),
       body: Padding(
         padding: const EdgeInsets.symmetric(vertical: 30.0, horizontal: 40.0),
         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [

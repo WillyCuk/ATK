@@ -1,3 +1,4 @@
+import 'package:atk/providers/maintenance.dart';
 import 'package:atk/providers/user.dart';
 import 'package:atk/router/routernamed.dart';
 import 'package:atk/utils/MyButton.dart';
@@ -23,6 +24,7 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     final userProvider = context.read<User>();
+    final csProvider = context.read<MaintenanceProvider>();
 
     return Scaffold(
       resizeToAvoidBottomInset: false,
@@ -103,14 +105,19 @@ class _LoginPageState extends State<LoginPage> {
                   try {
                     userProvider.login(
                         user: userController.text, pwd: passController.text);
-                    if (userProvider.isLogin && userProvider.role == "admin") {
+                    if (!csProvider.isMaintenance &&
+                        userProvider.isLogin &&
+                        userProvider.role == "admin") {
                       context.goNamed(RouterName.dashboardAdminPage);
-                    } else if (userProvider.isLogin &&
+                    } else if (!csProvider.isMaintenance &&
+                        userProvider.isLogin &&
                         userProvider.role == "user") {
                       context.goNamed(RouterName.dashboardUserPage);
                     } else if (userProvider.isLogin &&
                         userProvider.role == "cs") {
-                      context.goNamed(RouterName.dashboardCSPage);
+                      context.goNamed(RouterName.custServiceFrontPage);
+                    } else {
+                      context.goNamed(RouterName.maintenancePage);
                     }
                   } catch (e) {
                     String errorMessage = e.toString().split(':').last.trim();

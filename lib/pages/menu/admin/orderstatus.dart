@@ -1,8 +1,8 @@
 import 'package:atk/providers/userorder.dart';
+import 'package:atk/utils/bottomlistitem.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import '../../../providers/itemlist.dart';
 import '../../../utils/ordertile.dart';
 
 class OrderStatusAdmin extends StatefulWidget {
@@ -25,13 +25,12 @@ class _OrderStatusAdminState extends State<OrderStatusAdmin> {
             element["order"]["status"] == "Approved" ||
             element["order"]["status"] == "Rejected")
         .toList();
-    debugPrint(allOrder.toString());
-    List<Map<String, dynamic>> approvedOrder = Provider.of<UserOrder>(context)
-        .userOrderList
+
+    List<Map<String, dynamic>> approvedOrder = allOrder
         .where((element) => element["order"]["status"] == "Approved")
         .toList();
-    List<Map<String, dynamic>> rejectedOrder = Provider.of<UserOrder>(context)
-        .userOrderList
+
+    List<Map<String, dynamic>> rejectedOrder = allOrder
         .where((element) => element["order"]["status"] == "Rejected")
         .toList();
 
@@ -48,15 +47,7 @@ class _OrderStatusAdminState extends State<OrderStatusAdmin> {
         .toList();
 
     return Scaffold(
-        appBar: AppBar(
-          backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
-          foregroundColor: Theme.of(context).appBarTheme.foregroundColor,
-          title: Text(
-            "Order Statuses",
-            style:
-                GoogleFonts.poppins(fontWeight: FontWeight.bold, fontSize: 18),
-          ),
-        ),
+        appBar: AppBar(title: const Text("Order Statuses")),
         body: Padding(
           padding: const EdgeInsets.all(40.0),
           child: Column(children: [
@@ -67,7 +58,7 @@ class _OrderStatusAdminState extends State<OrderStatusAdmin> {
                   ChoiceChip(
                       showCheckmark: false,
                       padding: const EdgeInsets.symmetric(vertical: 15),
-                      selectedColor: Colors.pink,
+                      selectedColor: Colors.green,
                       label: Text(
                         "Approved",
                         style: GoogleFonts.poppins(),
@@ -85,11 +76,10 @@ class _OrderStatusAdminState extends State<OrderStatusAdmin> {
                   ChoiceChip(
                       showCheckmark: false,
                       padding: const EdgeInsets.symmetric(vertical: 15),
-                      selectedColor: Colors.pink,
+                      selectedColor: Colors.red,
                       label: Text(
                         "Rejected",
                         style: GoogleFonts.poppins(),
-                        textAlign: TextAlign.center,
                       ),
                       selected: isRejected,
                       onSelected: (val) {
@@ -178,98 +168,12 @@ class _OrderStatusAdminState extends State<OrderStatusAdmin> {
                                             ],
                                           ),
                                           const SizedBox(height: 8),
-                                          Flexible(
-                                            // Listview disini digunakan untuk merender setiap item detail dalam purchase order masing-masing
-                                            child: ListView.builder(
-                                                shrinkWrap: true,
-                                                itemCount: yearOrder[index]
-                                                        ["order"]["items"]
-                                                    .length,
-                                                itemBuilder:
-                                                    (context, secondIndex) {
-                                                  List itemList = Provider.of<
-                                                          ItemList>(context)
-                                                      .items
-                                                      .where(
-                                                        (element) =>
-                                                            element[0] ==
-                                                            yearOrder[index][
-                                                                        "order"]
-                                                                    ["items"][
-                                                                secondIndex]["id"],
-                                                      )
-                                                      .toList();
-                                                  debugPrint(
-                                                      itemList.toString());
-                                                  return Padding(
-                                                    padding:
-                                                        const EdgeInsets.only(
-                                                            bottom: 9.0),
-                                                    child: Column(
-                                                      children: [
-                                                        Row(
-                                                          mainAxisAlignment:
-                                                              MainAxisAlignment
-                                                                  .start,
-                                                          children: [
-                                                            Column(
-                                                              crossAxisAlignment:
-                                                                  CrossAxisAlignment
-                                                                      .start,
-                                                              children: [
-                                                                Text(
-                                                                  itemList[0]
-                                                                      [1],
-                                                                  style: GoogleFonts
-                                                                      .poppins(
-                                                                          fontSize:
-                                                                              14),
-                                                                ),
-                                                                Row(
-                                                                  children: [
-                                                                    Text(
-                                                                        itemList[0]
-                                                                            [2],
-                                                                        style: GoogleFonts.poppins(
-                                                                            fontSize:
-                                                                                14,
-                                                                            color:
-                                                                                Colors.blueGrey)),
-                                                                    Text(
-                                                                        itemList[0]
-                                                                            [3],
-                                                                        style: GoogleFonts.poppins(
-                                                                            fontSize:
-                                                                                14))
-                                                                  ],
-                                                                )
-                                                              ],
-                                                            ),
-                                                            const Spacer(),
-                                                            Text(
-                                                                yearOrder[index]["order"]["items"]
-                                                                            [
-                                                                            secondIndex]
-                                                                        ["qty"]
-                                                                    .toString(),
-                                                                style: GoogleFonts
-                                                                    .poppins(
-                                                                        fontSize:
-                                                                            14)),
-                                                            const SizedBox(
-                                                                width: 15),
-                                                            Text("Pulpen",
-                                                                style: GoogleFonts
-                                                                    .poppins(
-                                                                        fontSize:
-                                                                            14))
-                                                          ],
-                                                        ),
-                                                      ],
-                                                    ),
-                                                  );
-                                                }),
-                                          ),
+                                          BottomListItem(
+                                              itemCount: yearOrder[index]
+                                                      ["order"]["items"]
+                                                  .length,
+                                              index: index,
+                                              orderItem: yearOrder[index]),
                                           yearOrder[index]["order"]
                                                       ["message"] ==
                                                   ""
@@ -312,6 +216,8 @@ class _OrderStatusAdminState extends State<OrderStatusAdmin> {
                                         child: Padding(
                                           padding: const EdgeInsets.all(30),
                                           child: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
                                             children: [
                                               Row(
                                                 children: [
@@ -330,94 +236,14 @@ class _OrderStatusAdminState extends State<OrderStatusAdmin> {
                                                 ],
                                               ),
                                               const SizedBox(height: 8),
-                                              Expanded(
-                                                // Listview disini digunakan untuk merender setiap item detail dalam purchase order masing-masing
-                                                child: ListView.builder(
-                                                    itemCount:
-                                                        approvedOrder[index]
-                                                                    ["order"]
-                                                                ["items"]
-                                                            .length,
-                                                    itemBuilder:
-                                                        (context, secondIndex) {
-                                                      List itemList =
-                                                          Provider.of<ItemList>(
-                                                                  context)
-                                                              .items
-                                                              .where(
-                                                                (element) =>
-                                                                    element[
-                                                                        0] ==
-                                                                    approvedOrder[index]["order"]
-                                                                            [
-                                                                            "items"]
-                                                                        [
-                                                                        secondIndex]["id"],
-                                                              )
-                                                              .toList();
-
-                                                      return Padding(
-                                                        padding:
-                                                            const EdgeInsets
-                                                                .only(
-                                                                bottom: 9.0),
-                                                        child: Column(
-                                                          children: [
-                                                            Row(
-                                                              mainAxisAlignment:
-                                                                  MainAxisAlignment
-                                                                      .start,
-                                                              children: [
-                                                                Column(
-                                                                  crossAxisAlignment:
-                                                                      CrossAxisAlignment
-                                                                          .start,
-                                                                  children: [
-                                                                    Text(
-                                                                      itemList[
-                                                                          0][1],
-                                                                      style: GoogleFonts.poppins(
-                                                                          fontSize:
-                                                                              14),
-                                                                    ),
-                                                                    Row(
-                                                                      children: [
-                                                                        Text(
-                                                                            itemList[0][
-                                                                                2],
-                                                                            style:
-                                                                                GoogleFonts.poppins(fontSize: 14, color: Colors.blueGrey)),
-                                                                        Text(
-                                                                            itemList[0][
-                                                                                3],
-                                                                            style:
-                                                                                GoogleFonts.poppins(fontSize: 14))
-                                                                      ],
-                                                                    )
-                                                                  ],
-                                                                ),
-                                                                const Spacer(),
-                                                                Text(
-                                                                    approvedOrder[index]["order"]["items"][secondIndex]
-                                                                            [
-                                                                            "qty"]
-                                                                        .toString(),
-                                                                    style: GoogleFonts.poppins(
-                                                                        fontSize:
-                                                                            14)),
-                                                                const SizedBox(
-                                                                    width: 15),
-                                                                Text("Pulpen",
-                                                                    style: GoogleFonts.poppins(
-                                                                        fontSize:
-                                                                            14))
-                                                              ],
-                                                            ),
-                                                          ],
-                                                        ),
-                                                      );
-                                                    }),
-                                              ),
+                                              BottomListItem(
+                                                  itemCount:
+                                                      approvedOrder[index]
+                                                              ["order"]["items"]
+                                                          .length,
+                                                  index: index,
+                                                  orderItem:
+                                                      approvedOrder[index]),
                                             ],
                                           ),
                                         ),
@@ -438,7 +264,7 @@ class _OrderStatusAdminState extends State<OrderStatusAdmin> {
                         ),
                       )
                     : isRejected
-                        ? Flexible(
+                        ? Expanded(
                             child: ListView.builder(
                               itemCount: rejectedOrder.length,
                               itemBuilder: ((context, index) {
@@ -472,91 +298,15 @@ class _OrderStatusAdminState extends State<OrderStatusAdmin> {
                                                     ],
                                                   ),
                                                   const SizedBox(height: 8),
-                                                  Expanded(
-                                                    // Listview disini digunakan untuk merender setiap item detail dalam purchase order masing-masing
-                                                    child: ListView.builder(
-                                                        itemCount:
-                                                            rejectedOrder[index]
-                                                                        [
-                                                                        "order"]
-                                                                    ["items"]
-                                                                .length,
-                                                        itemBuilder: (context,
-                                                            secondIndex) {
-                                                          List itemList = Provider
-                                                                  .of<ItemList>(
-                                                                      context)
-                                                              .items
-                                                              .where(
-                                                                (element) =>
-                                                                    element[
-                                                                        0] ==
-                                                                    rejectedOrder[index]["order"]
-                                                                            [
-                                                                            "items"]
-                                                                        [
-                                                                        secondIndex]["id"],
-                                                              )
-                                                              .toList();
-                                                          debugPrint(itemList
-                                                              .toString());
-                                                          return Padding(
-                                                            padding:
-                                                                const EdgeInsets
-                                                                    .only(
-                                                                    bottom:
-                                                                        9.0),
-                                                            child: Column(
-                                                              children: [
-                                                                Row(
-                                                                  mainAxisAlignment:
-                                                                      MainAxisAlignment
-                                                                          .start,
-                                                                  children: [
-                                                                    Column(
-                                                                      crossAxisAlignment:
-                                                                          CrossAxisAlignment
-                                                                              .start,
-                                                                      children: [
-                                                                        Text(
-                                                                          itemList[0]
-                                                                              [
-                                                                              1],
-                                                                          style:
-                                                                              GoogleFonts.poppins(fontSize: 14),
-                                                                        ),
-                                                                        Row(
-                                                                          children: [
-                                                                            Text(itemList[0][2],
-                                                                                style: GoogleFonts.poppins(fontSize: 14, color: Colors.blueGrey)),
-                                                                            Text(itemList[0][3],
-                                                                                style: GoogleFonts.poppins(fontSize: 14))
-                                                                          ],
-                                                                        )
-                                                                      ],
-                                                                    ),
-                                                                    const Spacer(),
-                                                                    Text(
-                                                                        rejectedOrder[index]["order"]["items"][secondIndex]["qty"]
-                                                                            .toString(),
-                                                                        style: GoogleFonts.poppins(
-                                                                            fontSize:
-                                                                                14)),
-                                                                    const SizedBox(
-                                                                        width:
-                                                                            15),
-                                                                    Text(
-                                                                        "Pulpen",
-                                                                        style: GoogleFonts.poppins(
-                                                                            fontSize:
-                                                                                14))
-                                                                  ],
-                                                                ),
-                                                              ],
-                                                            ),
-                                                          );
-                                                        }),
-                                                  ),
+                                                  BottomListItem(
+                                                      itemCount:
+                                                          rejectedOrder[index]
+                                                                      ["order"]
+                                                                  ["items"]
+                                                              .length,
+                                                      index: index,
+                                                      orderItem:
+                                                          rejectedOrder[index]),
                                                   rejectedOrder[index]["order"]
                                                               ["message"] ==
                                                           ""
@@ -585,7 +335,7 @@ class _OrderStatusAdminState extends State<OrderStatusAdmin> {
                               }),
                             ),
                           )
-                        : Flexible(
+                        : Expanded(
                             child: ListView.builder(
                               itemCount: allOrder.length,
                               itemBuilder: ((context, index) {
@@ -619,89 +369,13 @@ class _OrderStatusAdminState extends State<OrderStatusAdmin> {
                                                     ],
                                                   ),
                                                   const SizedBox(height: 8),
-                                                  Expanded(
-                                                    // Listview disini digunakan untuk merender setiap item detail dalam purchase order masing-masing
-                                                    child: ListView.builder(
-                                                        itemCount: allOrder[
-                                                                        index]
-                                                                    ["order"]
-                                                                ["items"]
-                                                            .length,
-                                                        itemBuilder: (context,
-                                                            secondIndex) {
-                                                          List itemList = Provider
-                                                                  .of<ItemList>(
-                                                                      context)
-                                                              .items
-                                                              .where(
-                                                                (element) =>
-                                                                    element[0] ==
-                                                                    allOrder[index]["order"]
-                                                                            [
-                                                                            "items"]
-                                                                        [
-                                                                        secondIndex]["id"],
-                                                              )
-                                                              .toList();
-                                                          debugPrint(itemList
-                                                              .toString());
-                                                          return Padding(
-                                                            padding:
-                                                                const EdgeInsets
-                                                                    .only(
-                                                                    bottom:
-                                                                        9.0),
-                                                            child: Column(
-                                                              children: [
-                                                                Row(
-                                                                  mainAxisAlignment:
-                                                                      MainAxisAlignment
-                                                                          .start,
-                                                                  children: [
-                                                                    Column(
-                                                                      crossAxisAlignment:
-                                                                          CrossAxisAlignment
-                                                                              .start,
-                                                                      children: [
-                                                                        Text(
-                                                                          itemList[0]
-                                                                              [
-                                                                              1],
-                                                                          style:
-                                                                              GoogleFonts.poppins(fontSize: 14),
-                                                                        ),
-                                                                        Row(
-                                                                          children: [
-                                                                            Text(itemList[0][2],
-                                                                                style: GoogleFonts.poppins(fontSize: 14, color: Colors.blueGrey)),
-                                                                            Text(itemList[0][3],
-                                                                                style: GoogleFonts.poppins(fontSize: 14))
-                                                                          ],
-                                                                        )
-                                                                      ],
-                                                                    ),
-                                                                    const Spacer(),
-                                                                    Text(
-                                                                        allOrder[index]["order"]["items"][secondIndex]["qty"]
-                                                                            .toString(),
-                                                                        style: GoogleFonts.poppins(
-                                                                            fontSize:
-                                                                                14)),
-                                                                    const SizedBox(
-                                                                        width:
-                                                                            15),
-                                                                    Text(
-                                                                        "Pulpen",
-                                                                        style: GoogleFonts.poppins(
-                                                                            fontSize:
-                                                                                14))
-                                                                  ],
-                                                                ),
-                                                              ],
-                                                            ),
-                                                          );
-                                                        }),
-                                                  ),
+                                                  BottomListItem(
+                                                      itemCount: allOrder[index]
+                                                              ["order"]["items"]
+                                                          .length,
+                                                      index: index,
+                                                      orderItem:
+                                                          allOrder[index]),
                                                   allOrder[index]["order"]
                                                               ["message"] ==
                                                           ""

@@ -2,15 +2,7 @@ import 'package:flutter/material.dart';
 
 class ItemList extends ChangeNotifier {
   final List<List<dynamic>> _items = [
-    [
-      0,
-      "Pulpen",
-      "Boldliner",
-      "",
-      "",
-      1000,
-      "assets/boldliner.jpg",
-    ],
+    [0, "Pulpen", "Boldliner", "", "", 1000, "assets/boldliner.jpg", "Pcs"],
     [
       1,
       "Kertas A4",
@@ -19,6 +11,7 @@ class ItemList extends ChangeNotifier {
       "",
       1000,
       "assets/bola_dunia.jpg",
+      "Rim"
     ],
     [
       2,
@@ -28,16 +21,9 @@ class ItemList extends ChangeNotifier {
       "",
       1000,
       "assets/bola_dunia2.jpg",
+      "Rim"
     ],
-    [
-      3,
-      "Kertas B4",
-      "Bola Dunia",
-      "",
-      "",
-      250,
-      "assets/logo.jpg",
-    ]
+    [3, "Kertas B4", "Bola Dunia", "", "", 250, "assets/logo.jpg", "Rim"]
   ];
 
   List get items => _items;
@@ -73,6 +59,7 @@ class ItemList extends ChangeNotifier {
     required String itemDesc,
     required int itemQty,
     required dynamic itemImg,
+    required String itemUnit,
   }) async {
     List<dynamic> newItem = [
       id,
@@ -82,6 +69,7 @@ class ItemList extends ChangeNotifier {
       itemDesc,
       itemQty,
       itemImg,
+      itemUnit
     ];
     try {
       int existingIndex = isItemList(newItem);

@@ -2,7 +2,6 @@ import 'package:atk/providers/itemlist.dart';
 import 'package:atk/providers/userorder.dart';
 import 'package:atk/utils/itemtile.dart';
 import 'package:atk/utils/mybutton.dart';
-import 'package:atk/utils/mysnackbar.dart';
 import 'package:atk/utils/ordertile.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -47,10 +46,7 @@ class _ItemRetrieveAdminState extends State<ItemRetrieveAdmin> {
         .toList();
     return Scaffold(
       appBar: AppBar(
-        title: Text(
-          "Retrieve Item - Admin",
-          style: GoogleFonts.poppins(fontWeight: FontWeight.bold, fontSize: 18),
-        ),
+        title: const Text("Retrieve Item - Admin"),
       ),
       body: Padding(
           padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 25.0),
@@ -59,8 +55,6 @@ class _ItemRetrieveAdminState extends State<ItemRetrieveAdmin> {
               ? ListView.builder(
                   itemCount: acceptOrder.length,
                   itemBuilder: (context, index) {
-                    debugPrint(acceptOrder[index].toString());
-
                     // Using Gesture Detector to make each created container clickable to display purchase order details
                     return GestureDetector(
                       onTap: () {
@@ -205,39 +199,16 @@ class _ItemRetrieveAdminState extends State<ItemRetrieveAdmin> {
                                                         if (_formKey
                                                             .currentState!
                                                             .validate()) {
-                                                          try {
-                                                            Provider.of<ItemList>(
-                                                                    context,
-                                                                    listen:
-                                                                        false)
-                                                                .retrieveQty(
-                                                                    item: acceptOrder[index]
-                                                                            [
-                                                                            "order"]
-                                                                        [
-                                                                        "items"]);
-                                                            Provider.of<UserOrder>(
-                                                                    context,
-                                                                    listen:
-                                                                        false)
-                                                                .changeRetrieveStatus(
-                                                                    index: acceptOrder[index]
-                                                                            [
-                                                                            "order"]
-                                                                        ["id"]);
-                                                            Navigator.pop(
-                                                                context);
-                                                          } catch (e) {
-                                                            String
-                                                                errorMessage = e
-                                                                    .toString()
-                                                                    .split(':')
-                                                                    .last
-                                                                    .trim();
-                                                            showTopSnackBar(
-                                                                context,
-                                                                errorMessage);
-                                                          }
+                                                          Provider.of<UserOrder>(
+                                                                  context,
+                                                                  listen: false)
+                                                              .changeRetrieveStatus(
+                                                                  index: acceptOrder[
+                                                                          index]
+                                                                      [
+                                                                      "order"]["id"]);
+                                                          Navigator.pop(
+                                                              context);
                                                         }
                                                       }),
                                                 ),
