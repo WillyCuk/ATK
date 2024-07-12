@@ -31,4 +31,5 @@ class RouterName {
   static String maintenanceHistory = "maintenance-history";
   static String custServiceFrontPage = "cs-front";
   static String settingsPage = "settings";
+  static String loadingScreen = 'loading-screen';
 }

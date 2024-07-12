@@ -101,42 +101,60 @@ class _LoginPageState extends State<LoginPage> {
             const SizedBox(height: 20),
             MyButton(
                 text: "LOGIN",
-                onPressed: () {
+                onPressed: () async {
                   try {
                     userProvider.login(
                         user: userController.text, pwd: passController.text);
                     if (!csProvider.isMaintenance &&
                         userProvider.isLogin &&
                         userProvider.role == "admin") {
-                      context.goNamed(RouterName.dashboardAdminPage);
+                      context.pushNamed(RouterName.loadingScreen);
+                      await Future.delayed(const Duration(seconds: 2));
+                      if (context.mounted) {
+                        context.goNamed(RouterName.dashboardAdminPage);
+                      }
                     } else if (!csProvider.isMaintenance &&
                         userProvider.isLogin &&
                         userProvider.role == "user") {
-                      context.goNamed(RouterName.dashboardUserPage);
+                      context.pushNamed(RouterName.loadingScreen);
+                      await Future.delayed(const Duration(seconds: 2));
+                      if (context.mounted) {
+                        context.goNamed(RouterName.dashboardUserPage);
+                      }
                     } else if (userProvider.isLogin &&
                         userProvider.role == "cs") {
-                      context.goNamed(RouterName.custServiceFrontPage);
+                      context.pushNamed(RouterName.loadingScreen);
+                      await Future.delayed(const Duration(seconds: 2));
+                      if (context.mounted) {
+                        context.goNamed(RouterName.custServiceFrontPage);
+                      }
                     } else {
-                      context.goNamed(RouterName.maintenancePage);
+                      context.pushNamed(RouterName.loadingScreen);
+                      await Future.delayed(const Duration(seconds: 2));
+                      if (context.mounted) {
+                        context.goNamed(RouterName.maintenancePage);
+                      }
                     }
                   } catch (e) {
                     String errorMessage = e.toString().split(':').last.trim();
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                        margin: const EdgeInsets.fromLTRB(10, 0, 10, 10),
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10)),
-                        backgroundColor:
-                            Theme.of(context).colorScheme.primaryContainer,
-                        content: Text(errorMessage,
-                            style: GoogleFonts.poppins(
-                              fontWeight: FontWeight.w400,
-                              color: Theme.of(context).colorScheme.primary,
-                            )),
-                        duration: const Duration(seconds: 1),
-                        behavior: SnackBarBehavior.floating,
-                      ),
-                    );
+                    if (context.mounted) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          margin: const EdgeInsets.fromLTRB(10, 0, 10, 10),
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10)),
+                          backgroundColor:
+                              Theme.of(context).colorScheme.primaryContainer,
+                          content: Text(errorMessage,
+                              style: GoogleFonts.poppins(
+                                fontWeight: FontWeight.w400,
+                                color: Theme.of(context).colorScheme.primary,
+                              )),
+                          duration: const Duration(seconds: 1),
+                          behavior: SnackBarBehavior.floating,
+                        ),
+                      );
+                    }
                     return;
                   }
                 }),

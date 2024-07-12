@@ -15,6 +15,7 @@ import "package:atk/pages/menu/admin/additem.dart";
 import "package:atk/pages/menu/admin/orderstatus.dart";
 import "package:atk/pages/menu/user/itemrequest.dart";
 import "package:atk/pages/menu/user/stockitem.dart";
+import "package:atk/pages/user_admin/loading.dart";
 import "package:atk/pages/user_admin/profile.dart";
 import "package:atk/router/routernamed.dart";
 import "package:flutter/material.dart";
@@ -213,6 +214,11 @@ class MyRouter {
             pageBuilder: (context, state) {
               return const MaterialPage(child: CsFrontPage());
             }),
+        GoRoute(
+          path: "/loading",
+          name: RouterName.loadingScreen,
+          builder: (context, state) => const LoadingScreen(),
+        ),
       ],
       // redirect: (BuildContext context, GoRouterState state) {
       //   if (Provider.of<User>(context, listen: false).isLogin) {
